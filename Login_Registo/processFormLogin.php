@@ -43,7 +43,7 @@
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         } else {
-            $nextUrl = "pag_1.php";
+            $nextUrl = "../index.php";
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         }

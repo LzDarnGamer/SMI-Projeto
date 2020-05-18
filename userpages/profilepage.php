@@ -27,8 +27,10 @@
     <body>
     	<p><a href="manageArticles.php">Manage Articles</a></p>
         <p><a href="createArticle.php">Create Article</a></p>
+
     	<?php
-    	if(count($articlesUser)<=0){
+        echo $articlesUser;
+    	if($articlesUser <=0 ){
     		echo "<p> No articles to show, it's time to write some </p>";
     	}
     	?>

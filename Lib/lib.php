@@ -218,8 +218,6 @@ function existUserField($field, $value, $authType = "basic") {
 }
 
 function getArticles($idUser){
-    $allarticles = Array();
-
     dbConnect(ConfigFile);
     
     $dataBaseName = $GLOBALS['configDataBase']->db;
@@ -228,15 +226,13 @@ function getArticles($idUser){
 
     $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`articles` WHERE poster_id='$idUser'");
 
-    while ($row_article = mysqli_fetch_assoc($result)) {
-      $allcategories[] = $row_article;
-    }
+    $numRows = mysqli_num_rows($result);
 
     mysqli_free_result($result);
 
     dbDisconnect();
 
-    return $allarticles;
+    return $numRows;
 }
 
 function getCategoryID($name){
