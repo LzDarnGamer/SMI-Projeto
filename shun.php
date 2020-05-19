@@ -2,28 +2,7 @@
 <html>
 
 <style>
-	#map {
-  height: 100%;
-}
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#my-input-searchbox {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  font-size: 15px;
-  border-radius: 3px;
-  border: 0;
-  margin-top: 10px;
-  width: 270px;
-  height: 40px;
-  text-overflow: ellipsis;
-  padding: 0 1em;
-}
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
 <script>

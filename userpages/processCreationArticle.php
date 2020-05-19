@@ -48,12 +48,26 @@
 
     $timestamp = date("d/m/Y");
 
+
+    $Userlat = filter_input( 
+            $_INPUT_METHOD, 
+            'lat', 
+            FILTER_SANITIZE_STRING, 
+            $flags);
+    $Userlng = filter_input( 
+            $_INPUT_METHOD, 
+            'lng', 
+            FILTER_SANITIZE_STRING, 
+            $flags);
+
     if ( $article_title===null || $article_categorie==null || $article_context===null
         ||$article_title==="" || $article_categorie=="" || $article_context==="") {
       echo "Invalid arguments.";
       echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
       exit();
     }
+
+
 
 
     ###########################Media management##########################
@@ -115,12 +129,16 @@
 	$thumbMimeFileName = null;
 	$thumbTypeFileName = null;
 
+	$latitude;
+	$longitude;
 	switch ($mimeFileName) {
 	    case "image":
 	        $exif = @exif_read_data($dst, 'IFD0', true);
 	        
 	        if ($exif === false) {
 	            echo "No exif header data found.<br>\n";
+	            $latitude = $Userlat;
+	            $longitude = $Userlng;
 	        }
 	        else {
 	            //Just for Debug - Begin
@@ -145,6 +163,8 @@
 	                if ( ($latitudeAux!=NULL ) && ( $longitudeAux!=NULL ) ) {
 	                    $lat = getCoordAsString($latitudeAux, $latitudeRef);
 	                    $lon = getCoordAsString($longitudeAux, $longitudeRef);
+						$latitude = addslashes($lat);
+						$longitude = addslashes($lon);
 	                    echo "File latitude: $lat<br>\n";
 	                    echo "File longitued: $lon<br>\n";
 	                }
@@ -155,6 +175,7 @@
 	            else {
 	                echo "File does have GPS coordenates<br>\n";
 	            }
+
 	        }
 
 	        $imageFileNameAux = $dst;
@@ -245,8 +266,7 @@
 
 	mysqli_select_db($linkIdentifier, $dataBaseName);
 
-	$latitude = addslashes($lat);
-	$longitude = addslashes($lon);
+
 
 	$fileName = addslashes($dst);
 	$imageFileName = addslashes($imageFileNameAux);
