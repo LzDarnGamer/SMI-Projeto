@@ -47,7 +47,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                  <a href="../index.php"><img src="assets/img/logo/logo.png" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -55,7 +55,7 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">                                                                                                                                     
-                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="../index.php">Home</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -118,13 +118,13 @@
                                                         name="name" 
                                                         placeholder="Your Name"
                                                         required="true" 
-                                                        onblur="nameCheck(this)"> <br /> <div id="nameCheck"></div> <br />
+                                                        onblur="nameCheck(this)">  <div id="nameCheck"></div> 
 
 									<input class="inpt" type="email" 
                                                         name="email" 
                                                         placeholder="Your e-mail"
                                                         required="true" 
-                                                        onblur="emailCheck(this)"> <div id="emailCheck"></div> <br />
+                                                        onblur="emailCheck(this)">  <div id="emailCheck"></div> 
 									<input class="inpt" type="password" 
                                                         name="password"
                                                         id="password"
@@ -134,8 +134,9 @@
                                                         name="repassword"
                                                         id="repassword"
                                                         required="true" 
-                                                        placeholder="Confirm Password"> <br /> <div id="passwordCheck"></div> <br />
-									<img class="captcha-image" style="border: 1px solid black" src="captcha.php" alt="catcha image"> <br />
+                                                        placeholder="Confirm Password"> <div id="passwordCheck"></div> <br/><br/>
+									<img class="captcha-image" style="border: 1px solid black" src="captcha.php" alt="catcha image"
+                                    width="200" height="50"> <br />
 									<input class="inpt" id="captcha" type="captcha" name="captcha" placeholder="captcha" required="true"> <br />
 									<input class="btn" alt=""type="submit" value="Register">
 									<input class="btn" alt=""type="reset" value="Reset">

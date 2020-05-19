@@ -10,29 +10,27 @@
 
     $_SESSION['captcha'] = $captcha;
 
-    $width = 160;
+    $width = 200;
     $height = 50;
 
-    $image = ImageCreate($width, $height);
+    $image = imagecreatefromjpeg( "images/captchabackimg.jpg" );
 
     $white = imagecolorallocate($image, 255, 255, 255);
     $black = imagecolorallocate($image, 0, 0, 0);
     $green = imagecolorallocate($image, 0, 255, 0);
     $red = imagecolorallocate($image, 255, 0, 0);
-    $orange = imagecolorallocate($image, 204, 204, 204);
+    $blue = imagecolorallocate($image, 0, 0, 255);
 
 
     $colors = array (
-        $black, $green, $red, $orange
+        $black, $red, $blue
     );
     $rand_keys = rand(0, count($colors)-1);
-
-    imagefill($image, 0, 0, $white);
 
 
 
     $font = 'C:\xampp\htdocs\smi\07-Auth\Unipix.ttf';
-    imagettftext($image, rand(15,20), rand(-20,20), rand(0,90), 30, $colors[$rand_keys], $font, $captcha);
+    imagettftext($image, rand(20,25), rand(-15,15), rand(30,100), 30, $colors[$rand_keys], $font, $captcha);
 
 
     imagejpeg($image);
