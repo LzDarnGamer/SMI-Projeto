@@ -42,7 +42,7 @@
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         } else {
-            $nextUrl = "index.php";
+            $nextUrl = "../userpages/index.php";
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         }
