@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="Css/index.css" />
+</head>
+
+<body>
+    <header>
+        <img
+            id="headerImage"
+            loading="lazy"
+            src="Resources/Images/background_island1.jpeg"
+            data-lazy-src="Resources/Images/background_island1.jpeg"
+            class="lazyloaded"
+            data-was-processed="true">
+
+        <div class="topnav">
+            <a class="active" href="#home">Home</a>
+            <div class="left">
+                <a href="#news">Login</a>
+                <a href="#contact">Register</a>
+                <a href="#about">About</a>
+            </div>
+        </div>
+    </header>
+    
+</body>
+</html>
