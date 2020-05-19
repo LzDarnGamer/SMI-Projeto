@@ -36,14 +36,13 @@
         session_start();
         $_SESSION['id'] = $userId;
         $_SESSION['username'] = $username;
-
         if (isset($_SESSION['locationAfterAuth'])) {
             $baseNextUrl = $baseUrl;
             $nextUrl = $_SESSION['locationAfterAuth'];
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         } else {
-            $nextUrl = "../index.php";
+            $nextUrl = "index.php";
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         }

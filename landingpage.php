@@ -5,7 +5,6 @@
 	require_once("Lib/db.php");
 	$categories = getcategories();
 	$baseUrl = url();
-	header( "Location: " . $baseUrl . "landingpage.php" );
 ?>
 
 <html class="no-js" lang="zxx">
@@ -82,7 +81,7 @@
                                         <ul id="navigation">                                                                                                                                     
                                             <li><a href="index.html">Home</a></li>
                                             <li><a href="about.html">About</a></li>
-                                            <li class="add-list"><a href="listing_details.html"><i class="ti-plus"></i> add Listing</a></li>
+                                            <li class="add-list"><a href="userpages/createArticle.php"><i class="ti-plus"></i> add Listing</a></li>
                                             <li class="login"><a href="Login_Registo/formLogin.php">
                                                 <i class="ti-user"></i> Sign </a>
                                             </li>

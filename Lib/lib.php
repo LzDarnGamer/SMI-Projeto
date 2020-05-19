@@ -123,7 +123,7 @@ function ensureAuth($redirectPage) {
     prepareHeaders();
 
     if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
-        header("Location: $redirectPage");
+        header("locationafLocation: $redirectPage");
         exit;
     }
 }
