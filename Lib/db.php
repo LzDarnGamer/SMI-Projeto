@@ -4,7 +4,7 @@ define(
         "ConfigFile",
 		$_SERVER["CONTEXT_DOCUMENT_ROOT"] . DIRECTORY_SEPARATOR . 
         "smi" . DIRECTORY_SEPARATOR . 
-        "SMI-Projeto" . DIRECTORY_SEPARATOR . 
+        "g37" . DIRECTORY_SEPARATOR . 
         "Config" . DIRECTORY_SEPARATOR . 
 		".htconfig.xml");
 
