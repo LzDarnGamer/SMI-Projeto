@@ -1,6 +1,4 @@
 <?php
-function one(){ return 1;}
-one();
 	require_once("../Lib/db.php" );
 
 	$field = $_POST['field'];
@@ -31,5 +29,4 @@ one();
 	dbDisconnect();
 
 	echo $exists;
-
 ?>

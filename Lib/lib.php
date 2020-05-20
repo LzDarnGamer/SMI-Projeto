@@ -217,7 +217,7 @@ function existUserField($field, $value, $authType = "basic") {
     return $exists;
 }
 
-function getArticles($idUser){
+function getnumArticles($idUser){
     dbConnect(ConfigFile);
     
     $dataBaseName = $GLOBALS['configDataBase']->db;
@@ -233,6 +233,44 @@ function getArticles($idUser){
     dbDisconnect();
 
     return $numRows;
+}
+
+function getArticles($idUser){
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`articles` WHERE poster_id='$idUser' ORDER BY article_timestamp");
+
+    $rows = [];
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+
+    }
+
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $rows;
+}
+
+function getImageForArticle($imgID){
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT thumbFileName FROM `$dataBaseName`.`images-details` WHERE id=$imgID ");
+
+    $row = mysqli_fetch_array($result);
+
+    mysqli_free_result($result);
+
+    return $row['thumbFileName'];
 }
 
 function getCategoryID($name){
