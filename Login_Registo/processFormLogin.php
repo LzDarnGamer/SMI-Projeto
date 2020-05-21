@@ -36,6 +36,7 @@
         session_start();
         $_SESSION['id'] = $userId;
         $_SESSION['username'] = $username;
+
         if (isset($_SESSION['locationAfterAuth'])) {
             $baseNextUrl = $baseUrl;
             $nextUrl = $_SESSION['locationAfterAuth'];
