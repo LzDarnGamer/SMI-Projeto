@@ -39,7 +39,7 @@
 
         if (isset($_SESSION['locationAfterAuth'])) {
             $baseNextUrl = $baseUrl;
-            $nextUrl = $_SESSION['locationAfterAuth'];
+            $nextUrl = "../userpages/profilepageOLD.php";#$_SESSION['locationAfterAuth'];
             header( "Location: " . $baseNextUrl . $nextUrl );
             exit();
         } else {
