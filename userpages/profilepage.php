@@ -70,13 +70,17 @@ echo var_dump($articlesArray);
                     <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-cat text-center mb-50">
                     <div class="cat-icon">
-                    <img style="border-radius: 50%" width="80" height="80" src="showFileThumb.php?id={$articlesArray[$i]['article_image']}" alt="Minha Figura">
+                    <img style="border-radius: 50%" width="80" height="80" src="showFileThumb.php?id={$articlesArray[$i]['article_image']}&size=thumb" alt="Minha Figura">
                     </div>
                     <br>
                     <div class="cat-cap">
-                    <h5><a href="file:///C:/xampp/htdocs/smi/g37/Testes%20Design/catagori.html">{$articlesArray[$i]['article_title']}</a></h5>
+                    <h5><a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">{$articlesArray[$i]['article_title']}</a></h5>
                     <p>{$articlesArray[$i]['article_context']}</p>
-                    <a href="file:///C:/xampp/htdocs/smi/g37/Testes%20Design/catagori.html">View Details</a>
+                    <a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">View article</a>
+                    <br>
+                    <a href="article.php?type=edit&id={$articlesArray[$i]['article_id']}">Edit article</a>
+                    <br>
+                    <a href="article.php?type=eliminate&id={$articlesArray[$i]['article_id']}">Eliminate article</a>
                     </div>
                     </div>
                     </div>

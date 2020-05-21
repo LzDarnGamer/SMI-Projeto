@@ -217,6 +217,28 @@ function existUserField($field, $value, $authType = "basic") {
     return $exists;
 }
 
+function getPosterID($articleID){
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT poster_id FROM `$dataBaseName`.`articles` WHERE article_id='$articleID'");
+
+    if(mysqli_num_rows($result)>0){
+      $row = mysqli_fetch_array($result);
+
+      mysqli_free_result($result);
+
+      dbDisconnect();
+
+      return $row['poster_id'];
+    }
+    return NULL;
+
+}
+
 function getnumArticles($idUser){
     dbConnect(ConfigFile);
     
@@ -234,6 +256,24 @@ function getnumArticles($idUser){
 
     return $numRows;
 }
+function getArticle($idArticle) {
+  dbConnect(ConfigFile);
+    
+  $dataBaseName = $GLOBALS['configDataBase']->db;
+
+  mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+    
+  $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`articles` WHERE article_id='$idArticle'");
+  
+  $articleArray = mysqli_fetch_array($result);
+  
+  mysqli_free_result($result);
+  
+  dbDisconnect();
+
+  return $articleArray;
+}
+
 
 function getArticles($idUser){
     dbConnect(ConfigFile);
@@ -432,6 +472,7 @@ function getFileDetails($ids) {
         return $fileData;
     }
 }
+
 
 
 
