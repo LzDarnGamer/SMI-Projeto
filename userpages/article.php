@@ -157,10 +157,10 @@ $fileDetails = getFileDetails($article['article_image']);
         <div class="container">
 
             <div class="row justify-content-center">
-                <img style="margin-bottom: 20px" width="400" height="300" class="img-fluid" 
+                <img style="margin-bottom: 20px" width="auto" height="auto" class="img-fluid" 
                 src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
                 alt="Your article image">
-                <div class="col-lg-8">
+                <div class="col-lg-8" style="text-align: center;">
                     <h3 class="mb-20">Article Context</h3>
                     <p class="mb-30"><?php echo $article['article_context'] ?>
                 </p>
