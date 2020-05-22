@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                              <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                              <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-8">
@@ -118,14 +118,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">                                                                                                                                     
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="catagori.html">Catagories</a></li>
-                                        <li><a href="listing.html">Listing</a></li>
-                                        
-                                        
-                                        
-                                        
+                                            <li><a href="../landingpage.php">Home</a></li>
+                                            <li><a href="../about.php">About</a></li>
+                                            <li class="login"><a href="userpages/profilepage.php">
+                                                <i class="ti-user"></i> Me</a>
+                                            </li>
+                                            <li class="login"><a href="#">
+                                                <i class="ti-user"></i> Sign out</a>
+                                            </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -187,8 +187,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     <div class="hero-cap text-center pt-50 pb-20">
                         <h2>Our Listing</h2>
                     </div>
-                    
-                    	
                 </div>
             </div>
         </div>
@@ -224,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                             </div>
                             <!-- Select job items start -->
                             <div class="input-form">
-                                <select class="input-form" name="article_categorie" required="true" form="articleForm">
+                                <select class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;">
                                     <option value="">Choose Category</option>
                                     <option value="Monuments">Monuments</option>
                                     <option value="Countries">Countries</option>

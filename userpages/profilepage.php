@@ -11,8 +11,6 @@ $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $numarticlesUser = getnumArticles($userId);
 $articlesArray = getArticles($userId);
-
-echo var_dump($articlesArray);
 ?>
 
 <html class="no-js" lang="zxx">
@@ -80,7 +78,7 @@ echo var_dump($articlesArray);
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                  <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -88,7 +86,11 @@ echo var_dump($articlesArray);
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">                                                                                                                                     
-                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="../landingpage.php">Home</a></li>
+                                            <li><a href="../about.php">About</a></li>
+                                            <li class="login"><a href="userpages/profilepage.php">
+                                                <i class="ti-user"></i> Me</a>
+                                            </li>
                                             <li class="login"><a href="#">
                                                 <i class="ti-user"></i> Sign out</a>
                                             </li>
@@ -196,6 +198,7 @@ echo var_dump($articlesArray);
 
     </main>
     <footer>
+        <?php echo var_dump($articlesArray); ?>
         <!-- Footer Start-->
         <div class="footer-area">
             <div class="container">

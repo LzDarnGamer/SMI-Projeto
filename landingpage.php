@@ -71,7 +71,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                  <a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -79,11 +79,14 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">                                                                                                                                     
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">About</a></li>
+                                            <li><a href="landingpage.php">Home</a></li>
+                                            <li><a href="about.php">About</a></li>
                                             <li class="add-list"><a href="userpages/createArticle.php"><i class="ti-plus"></i> add Listing</a></li>
+                                            <li class="login"><a href="userpages/profilepage.php">
+                                                <i class="ti-user"></i> Me</a>
+                                            </li>
                                             <li class="login"><a href="Login_Registo/formLogin.php">
-                                                <i class="ti-user"></i> Sign </a>
+                                                <i class="ti-user"></i> Sign in</a>
                                             </li>
 											<li class="login"><a href="Login_Registo/formRegister.php">
                                                 <i class="ti-user"></i> Register</a>
@@ -118,12 +121,10 @@
                             </div>
                             <!--Hero form -->
                             <form action="#" class="search-box">
-                                <!--<div class="input-form">
-                                    <input type="text" placeholder="What are you looking for?">
-                                </div>-->
                                 <div class="select-form">
                                     <div class="select-itms">
                                         <select name="select" id="select1">
+                                            <!
                                             <option value="">All Catagories</option>
                                             <option value="Monuments">Monuments</option>
                                             <option value="Countries">Countries</option>
