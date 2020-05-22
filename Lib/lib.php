@@ -473,7 +473,20 @@ function getFileDetails($ids) {
     }
 }
 
+function deleteArticle ($articleID, $postID) {
+    dbConnect(ConfigFile);
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
 
+    $query = "DELETE FROM '$dataBaseName'.'articles' WHERE ";
+
+    $result = mysqli_query($GLOBALS['ligacao'], $query);
+    $configuration = mysqli_fetch_array($result);
+    mysqli_free_result($result);
+    dbDisconnect();
+
+    return $configuration;
+}
 
 
 function getConfiguration() {

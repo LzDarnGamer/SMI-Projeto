@@ -81,7 +81,6 @@
                                         <ul id="navigation">                                                                                                                                     
                                             <li><a href="landingpage.php">Home</a></li>
                                             <li><a href="about.php">About</a></li>
-                                            <li class="add-list"><a href="userpages/createArticle.php"><i class="ti-plus"></i> add Listing</a></li>
                                             <li class="login"><a href="userpages/profilepage.php">
                                                 <i class="ti-user"></i> Me</a>
                                             </li>
