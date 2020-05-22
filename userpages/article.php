@@ -11,14 +11,14 @@ $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 
 $type = $_GET['type'];
-$Articleid = $_GET['id'];
+$articleid = $_GET['id'];
 if($type != "view" && $type != "eliminate" && $type != "edit"){
     echo "Invalid request found";
     exit();
 }
 
-if($type == "edit"){
-    if(getPosterID($Articleid) != $userId){
+if($type == "edit") {
+    if(getPosterID($articleid) != $userId){
         echo "You can only edit your articles";
         exit();
     }
@@ -26,6 +26,12 @@ if($type == "edit"){
 
 $article = getArticle($articleid);
 $fileDetails = getFileDetails($article['article_image']);
+
+if($type == "eliminate") {
+    echo deleteArticle($articleid, getPosterID($articleid));
+    exit();
+}
+
 ?>
 <html class="no-js" lang="zxx">
 <head>

@@ -478,14 +478,12 @@ function deleteArticle ($articleID, $postID) {
     $dataBaseName = $GLOBALS['configDataBase']->db;
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
 
-    $query = "DELETE FROM '$dataBaseName'.'articles' WHERE ";
+    $query = "DELETE FROM `$dataBaseName`.`articles` WHERE article_id='$articleID' and poster_id='$postID'";
 
     $result = mysqli_query($GLOBALS['ligacao'], $query);
-    $configuration = mysqli_fetch_array($result);
-    mysqli_free_result($result);
+
     dbDisconnect();
 
-    return $configuration;
 }
 
 
