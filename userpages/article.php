@@ -11,7 +11,7 @@ $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 
 $type = $_GET['type'];
-$articleid = $_GET['id'];
+$Articleid = $_GET['id'];
 if($type != "view" && $type != "eliminate" && $type != "edit"){
     echo "Invalid request found";
     exit();
