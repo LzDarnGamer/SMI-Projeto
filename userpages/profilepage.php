@@ -11,16 +11,11 @@ $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $role = getRoleFromUser($userId);
 switch ($role) {
-    case 'value':
-        # code...
-        break;
-    
-    default:
-        # code...
+    case 'manager':
+        $numarticlesUser = getnumArticles($userId);
+        $articlesArray = getArticles($userId);
         break;
 }
-$numarticlesUser = getnumArticles($userId);
-$articlesArray = getArticles($userId);
 
 ?>
 
@@ -142,22 +137,24 @@ $articlesArray = getArticles($userId);
         <!--Hero Area End-->
         <!-- Popular Locations Start -->
         <?php
-        if($numarticlesUser <=0 ){
-            ?>
-            <div class="popular-location section-padding30">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <!-- Section Tittle -->
-                            <div class="section-tittle text-center mb-80">
-                                <span>No articles to show, it's time to write some</span>
+        if(isset($numarticlesUser) && isset($articlesArray)){
+            if($numarticlesUser <=0 ){
+                ?>
+                <div class="popular-location section-padding30">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Section Tittle -->
+                                <div class="section-tittle text-center mb-80">
+                                    <span>No articles to show, it's time to write some</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <?php
-        } else {
+                <?php
+        }else {
+        
         ?>
 
         <div class="categories-area section-padding30">
@@ -198,14 +195,15 @@ $articlesArray = getArticles($userId);
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <?php }}  ?>
        
 
     </main>
     <footer>
 
         <?php 
-        echo var_dump($articlesArray); 
+        if(isset($articlesArray))
+            echo var_dump($articlesArray); 
         ?>
         <!-- Footer Start-->
         <div class="footer-area">
