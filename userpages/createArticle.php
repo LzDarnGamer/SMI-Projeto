@@ -1,39 +1,53 @@
-<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Directory HTML-5 Template </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+<!DOCTYPE html>
+<?php
+if (!isset($_SESSION) ) {
+  session_start();
+}
 
-    <!-- CSS here -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/flaticon.css">
-        <link rel="stylesheet" href="assets/css/price_rangs.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+require_once("../Lib/lib.php");
+require_once("../Lib/db.php");
+include( "../ensureAuth.php" );
+
+$categories = getcategories();
+
+?>
+<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Directory HTML-5 Template </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/slicknav.css">
+  <link rel="stylesheet" href="assets/css/flaticon.css">
+  <link rel="stylesheet" href="assets/css/price_rangs.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/css/themify-icons.css">
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <link rel="stylesheet" href="assets/css/nice-select.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
 <script>
 	var lat = null;
 	var lng = null;
-        function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {
-      lat: 48,
-      lng: 4
-    },
-    zoom: 4,
-    disableDefaultUI: true
-  });
+  function initAutocomplete() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: 48,
+        lng: 4
+      },
+      zoom: 4,
+      disableDefaultUI: true
+    });
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('my-input-searchbox');
@@ -75,260 +89,295 @@ document.addEventListener("DOMContentLoaded", function(event) {
   initAutocomplete();
 });
 
-	function FormLoginValidator(form){
-		if(lat==null || lng == null){
-			document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
-			document.getElementById("mapsinfo").style.color = 'red';
-			return false;
-		}else{
-			form.lat.value = lat;
-			form.lng.value = lng;
-		}
-	}
+function FormLoginValidator(form){
+  if(lat==null || lng == null){
+   document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
+   document.getElementById("mapsinfo").style.color = 'red';
+   return false;
+ }else{
+   form.lat.value = lat;
+   form.lng.value = lng;
+ }
+}
+
+function generateMoreSelector(){
+  var value = document.getElementById("article_categorie").value;
+  var select = document.getElementById("article_subcategorie");
+  if(value!=""){
+    select.value = "";
+    $(select).find('option').not(':first').remove();
+
+    $.ajax({
+      url: 'getSubcategories.php',
+      type: 'POST',
+      data : {name: value},
+      success: function(data) {
+        console.log(data);
+        if(data != null){
+          var arr = JSON.parse(data);
+          for(var i = 0; i < arr.length; i++) {
+            var obj = arr[i];
+            var opt = document.createElement('option');
+            opt.value = obj['subcategorie_title'];
+            opt.innerHTML = obj['subcategorie_title'];
+            select.appendChild(opt);
+          }
+        }
+      }
+    })
+  }
+};
 
 </script>
 <body style="overflow: visible;">
-<!-- Preloader Start -->
-<div id="preloader-active" style="display: none;">
+  <!-- Preloader Start -->
+  <div id="preloader-active" style="display: none;">
     <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-                <img src="assets/img/logo/loder.jpg" alt="">
-            </div>
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="assets/img/logo/loder.jpg" alt="">
         </div>
+      </div>
     </div>
-</div>
-<!-- Preloader Start -->
-<header>
+  </div>
+  <!-- Preloader Start -->
+  <header>
     <!-- Header Start -->
-   <div class="header-area header-transparent">
-        <div class="main-header">
-           <div class="header-bottom  header-sticky sticky-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <!-- Logo -->
-                        <div class="col-xl-2 col-lg-2 col-md-1">
-                            <div class="logo">
-                              <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-10 col-lg-10 col-md-8">
-                            <!-- Main-menu -->
-                            <div class="main-menu f-right d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">                                                                                                                                     
-                                            <li><a href="../landingpage.php">Home</a></li>
-                                            <li><a href="../about.php">About</a></li>
-                                            <li class="login"><a href="userpages/profilepage.php">
-                                                <i class="ti-user"></i> Me</a>
-                                            </li>
-                                            <li class="login"><a href="#">
-                                                <i class="ti-user"></i> Sign out</a>
-                                            </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <!-- Mobile Menu -->
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
-                                        <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
-                                        <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
-                                        <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
-                                        <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
-                                        <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"><a href="#" tabindex="-1">Page</a>
-                                            <span class="slicknav_arrow">+</span></a><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
-                                                <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
-                                                <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
-                                                <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
-                                                <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
-                                        <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
-                                        <li class="login"><a href="#" role="menuitem" tabindex="-1">
-                                            <i class="ti-user"></i> Sign in or Register</a>
-                                        </li>
-                                    </ul></div><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
-                                        <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
-                                        <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
-                                        <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
-                                        <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
-                                        <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"></a><a href="#" tabindex="-1">Page</a>
-                                            <span class="slicknav_arrow">+</span><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
-                                                <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
-                                                <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
-                                                <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
-                                                <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
-                                        <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
-                                        <li class="login"><a href="#" role="menuitem" tabindex="-1">
-                                            <i class="ti-user"></i> Sign in or Register</a>
-                                        </li>
-                                    </ul></div></div>
-                        </div>
-                    </div>
-                </div>
-           </div>
+    <div class="header-area header-transparent">
+      <div class="main-header">
+       <div class="header-bottom  header-sticky sticky-bar">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <!-- Logo -->
+            <div class="col-xl-2 col-lg-2 col-md-1">
+              <div class="logo">
+                <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
+              </div>
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8">
+              <!-- Main-menu -->
+              <div class="main-menu f-right d-none d-lg-block">
+                <nav>
+                  <ul id="navigation">                                                                                                                                     
+                    <li><a href="../landingpage.php">Home</a></li>
+                    <li><a href="../about.php">About</a></li>
+                    <li class="login"><a href="userpages/profilepage.php">
+                      <i class="ti-user"></i> Me</a>
+                    </li>
+                    <li class="login"><a href="#">
+                      <i class="ti-user"></i> Sign out</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="col-12">
+              <div class="mobile_menu d-block d-lg-none"><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
+                <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
+                <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
+                <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
+                <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
+                <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"><a href="#" tabindex="-1">Page</a>
+                  <span class="slicknav_arrow">+</span></a><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
+                    <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
+                    <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
+                    <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
+                    <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
+                  </ul>
+                </li>
+                <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
+                <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
+                <li class="login"><a href="#" role="menuitem" tabindex="-1">
+                  <i class="ti-user"></i> Sign in or Register</a>
+                </li>
+              </ul></div><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
+                <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
+                <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
+                <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
+                <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
+                <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"></a><a href="#" tabindex="-1">Page</a>
+                  <span class="slicknav_arrow">+</span><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
+                    <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
+                    <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
+                    <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
+                    <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
+                  </ul>
+                </li>
+                <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
+                <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
+                <li class="login"><a href="#" role="menuitem" tabindex="-1">
+                  <i class="ti-user"></i> Sign in or Register</a>
+                </li>
+              </ul></div></div>
+            </div>
+          </div>
         </div>
-   </div>
-    <!-- Header End -->
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
 </header>
 <main>
 
-    <!-- Hero Start-->
-    <div class="hero-area3 hero-overly2 d-flex align-items-center ">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-9">
-                    <div class="hero-cap text-center pt-50 pb-20">
-                        <h2>Our Listing</h2>
-                    </div>
-                </div>
-            </div>
+  <!-- Hero Start-->
+  <div class="hero-area3 hero-overly2 d-flex align-items-center ">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-9">
+          <div class="hero-cap text-center pt-50 pb-20">
+            <h2>Our Listing</h2>
+          </div>
         </div>
+      </div>
     </div>
-    <!--Hero End -->
-    <!-- listing Area Start -->
-     <form 
-      id="articleForm"
-      action="processCreationArticle.php"
-      onsubmit="return FormLoginValidator(this)"
-      name="FormArticle"
-      enctype="multipart/form-data"
-      method="post" >
-    <div class="listing-area pt-120 pb-120">
-        <div class="container">
-            <div class="row">
-                <!-- Left content -->
-                <div class="col-xl-4 col-lg-4 col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                                <div class="small-section-tittle2 mb-45">
-                                <h4>Details</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Job Category Listing start -->
-                    <div class="category-listing mb-50">
-                        <!-- single one -->
-                        <div class="single-listing">
-                            <!-- input -->
-                            <div class="input-form">
-                                <input type="text" placeholder="Article title" name="article_title" required="true">
-                            </div>
-                            <!-- Select job items start -->
-                            <div class="input-form">
-                                <select class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;">
-                                    <option value="">Choose Category</option>
-                                    <option value="Monuments">Monuments</option>
-                                    <option value="Countries">Countries</option>
-                                    <option value="Cities">Cities</option>
-                                </select>
-                            </div>
-                            <!--  Select job items End-->
-                            <!-- Select job items start -->
-                            <div class="select-job-items2">
-                                <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
-                            </div>
-                            
-                            <!--  Select job items End-->
-                        </div>
-
-                        <div class="single-listing">
-                             <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
-                             <input type="submit" class="btn list-btn mt-20" value="submit">
-                        </div>
-                    </div>
-                    <!-- Job Category Listing End -->
-                </div>
-                <!-- Right content -->
-                <div class="col-xl-8 col-lg-8 col-md-6">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="count mb-35">
-                                <span>Google Maps</span>
-                                <br>
-                                <span id="mapsinfo"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <style>
-                        #map {
-                      height: 100%;
-                    }
-
-                    html,
-                    body {
-                      height: 100%; 
-                      margin: 0;
-                      padding: 0;
-                    }
-
-                    #my-input-searchbox {
-                      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-                      font-size: 15px;
-                      border-radius: 3px;
-                      border: 0;
-                      margin-top: 10px;
-                      width: 270px;
-                      height: 40px;
-                      text-overflow: ellipsis;
-                      padding: 0 1em;
-                    }
-                        input{
-                            color: #fff;
-                            border: none;
-                            font-size: 16px;
-                            font-weight: 500;
-                            width: 100%;
-                            height: 38px;
-                            background: #ff3d1c;
-                            border-radius: 30px;
-                            text-align: center;
-                            line-height: 35px;
-                            cursor: pointer;
-                        }
-                    </style>
-                    <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
-                    <div id="map"></div>
-                    <input type="hidden" name="lat" value="">
-                    <input type="hidden" name="lng" value="">
+  </div>
+  <!--Hero End -->
+  <!-- listing Area Start -->
+  <form 
+  id="articleForm"
+  action="processCreationArticle.php"
+  onsubmit="return FormLoginValidator(this)"
+  name="FormArticle"
+  enctype="multipart/form-data"
+  method="post" >
+  <div class="listing-area pt-120 pb-120">
+    <div class="container">
+      <div class="row">
+        <!-- Left content -->
+        <div class="col-xl-4 col-lg-4 col-md-6">
+          <div class="row">
+            <div class="col-12">
+              <div class="small-section-tittle2 mb-45">
+                <h4>Details</h4>
+              </div>
             </div>
+          </div>
+          <!-- Job Category Listing start -->
+          <div class="category-listing mb-50">
+            <!-- single one -->
+            <div class="single-listing">
+              <!-- input -->
+              <div class="input-form">
+                <input type="text" placeholder="Article title" name="article_title" required="true">
+              </div>
+              <!-- Select job items start -->
+              <div class="input-form">
+                <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                  <option value="">Choose Category</option>
+                  <?php
+                  foreach($categories as $array){
+                    echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                  }
+                  ?>
+                </select>
+
+                <select id="article_subcategorie" class="nice-select" name="article_subcategorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;">
+                  <option value="">Choose Subcategory</option>
+
+                </select>
+              </div>
+              <!--  Select job items End-->
+              <!-- Select job items start -->
+              <div class="select-job-items2">
+                <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
+              </div>
+
+              <!--  Select job items End-->
+            </div>
+
+            <div class="single-listing">
+             <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
+             <input type="submit" class="btn list-btn mt-20" value="submit">
+           </div>
+         </div>
+         <!-- Job Category Listing End -->
+       </div>
+       <!-- Right content -->
+       <div class="col-xl-8 col-lg-8 col-md-6">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="count mb-35">
+              <span>Google Maps</span>
+              <br>
+              <span id="mapsinfo"></span>
+            </div>
+          </div>
         </div>
+        <style>
+          #map {
+            height: 100%;
+          }
+
+          html,
+          body {
+            height: 100%; 
+            margin: 0;
+            padding: 0;
+          }
+
+          #my-input-searchbox {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+            font-size: 15px;
+            border-radius: 3px;
+            border: 0;
+            margin-top: 10px;
+            width: 270px;
+            height: 40px;
+            text-overflow: ellipsis;
+            padding: 0 1em;
+          }
+          input{
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            height: 38px;
+            background: #ff3d1c;
+            border-radius: 30px;
+            text-align: center;
+            line-height: 35px;
+            cursor: pointer;
+          }
+        </style>
+        <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
+        <div id="map"></div>
+        <input type="hidden" name="lat" value="">
+        <input type="hidden" name="lng" value="">
+      </div>
     </div>
-	</form>
-    <!-- listing-area Area End -->
+  </div>
+</form>
+<!-- listing-area Area End -->
 
 </main>
 <footer>
-    <!-- Footer Start-->
-    <div class="footer-area">
-        <div class="container">
-            <div class="footer-bottom">
-                <div class="row d-flex justify-content-between align-items-center">
-                    <div class="col-xl-9 col-lg-8">
-                        <div class="footer-copy-right">
-                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                        </div>
-                    </div>
-                </div>
-           </div>
+  <!-- Footer Start-->
+  <div class="footer-area">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="row d-flex justify-content-between align-items-center">
+          <div class="col-xl-9 col-lg-8">
+            <div class="footer-copy-right">
+              <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <!-- Footer End-->
-</footer>
-<!-- Scroll Up -->
-<div id="back-top" style="display: block;">
+  </footer>
+  <!-- Scroll Up -->
+  <div id="back-top" style="display: block;">
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
+  </div>
 
-    
+
 
 </body>
 

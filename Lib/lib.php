@@ -357,6 +357,38 @@ function getcategories(){
 
 }
 
+function getRoleFromUser($userID) {
+  dbConnect(ConfigFile);
+    
+  $dataBaseName = $GLOBALS['configDataBase']->db;
+
+  mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+  $query = "SELECT `friendlyName` " .
+          "FROM `$dataBaseName`.`auth-basic` u " .
+          "JOIN `$dataBaseName`.`auth-permissions` p ON u.`id`=p.`id` " .
+          "JOIN `$dataBaseName`.`auth-roles` r on p.`role`=r.`role` WHERE u.`valid`=1 AND u.`id`='$userID'";
+
+  $result = mysqli_query($GLOBALS['ligacao'], $query);
+
+  
+  $isFirst = true;
+  
+  $userRoles = "";
+  while ($userData = mysqli_fetch_array($result)) {
+      if ($isFirst == true) {
+          $isFirst = false;
+      }
+      $userRoles .= $userData['friendlyName'];
+  }
+
+  mysqli_free_result($result);
+
+  dbDisconnect();
+
+  return $userRoles;
+}
+
 function getRole($userId) {
     $userRoles = "";
 

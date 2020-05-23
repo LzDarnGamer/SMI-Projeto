@@ -5,6 +5,10 @@
 	require_once("Lib/db.php");
 	$categories = getcategories();
 	$baseUrl = url();
+    if (!isset($_SESSION) ) {
+      session_start();
+    }
+
 ?>
 
 <html class="no-js" lang="zxx">
@@ -81,15 +85,23 @@
                                         <ul id="navigation">                                                                                                                                     
                                             <li><a href="landingpage.php">Home</a></li>
                                             <li><a href="about.php">About</a></li>
-                                            <li class="login"><a href="userpages/profilepage.php">
-                                                <i class="ti-user"></i> Me</a>
-                                            </li>
-                                            <li class="login"><a href="Login_Registo/formLogin.php">
-                                                <i class="ti-user"></i> Sign in</a>
-                                            </li>
-											<li class="login"><a href="Login_Registo/formRegister.php">
-                                                <i class="ti-user"></i> Register</a>
-                                            </li>
+
+                                            <?php 
+                                                if(!isset($_SESSION['id'])){ ?>
+                                                    <li id="signin" class="login"><a href="Login_Registo/formLogin.php">
+                                                        <i class="ti-user"></i> Sign in</a>
+                                                    </li>
+                                                    <li class="login"><a href="Login_Registo/formRegister.php">
+                                                        <i class="ti-user"></i> Register</a>
+                                                    </li>
+                                                <?php  }else{ ?>
+                                                    <li class="login"><a href="userpages/profilepage.php">
+                                                        <i class="ti-user"></i> Me</a>
+                                                    </li>
+                                                    <li class="login"><a href="logout.php">
+                                                        <i class="ti-user"></i> Log Out</a>
+                                                    </li>
+                                           <?php } ?>
                                         </ul>
                                     </nav>
                                 </div>

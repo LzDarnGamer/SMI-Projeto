@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <?php
 if (!isset($_SESSION) ) {
   session_start();
@@ -9,15 +9,26 @@ require_once("../Lib/db.php");
 include( "../ensureAuth.php" );
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
+$role = getRoleFromUser($userId);
+switch ($role) {
+    case 'value':
+        # code...
+        break;
+    
+    default:
+        # code...
+        break;
+}
 $numarticlesUser = getnumArticles($userId);
 $articlesArray = getArticles($userId);
+
 ?>
 
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Directory HTML-5 Template </title>
+        <title><?php echo $username?>'s Profile</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
@@ -91,7 +102,7 @@ $articlesArray = getArticles($userId);
                                             <li class="login"><a href="profilepage.php">
                                                 <i class="ti-user"></i> Me</a>
                                             </li>
-                                            <li class="login"><a href="#">
+                                            <li class="login"><a href="../logout.php">
                                                 <i class="ti-user"></i> Sign out</a>
                                             </li>
                                         </ul>
@@ -118,14 +129,10 @@ $articlesArray = getArticles($userId);
                     <div class="hero__caption">
                         <span style="color: orangered">Welcome back, <?php echo $username ?><span>
                             <script>
-                            function manageArticles () {
-                                window.location = "manageArticles.php";
-                            }
                             function createArticles () {
                                 window.location = "createArticle.php";
                             }
                             </script>
-                            <input class="btn" type="button" value="Manage Articles" onclick="manageArticles()"> <br />
                             <input class="btn" type="button" value="Create Articles" onclick="createArticles()">
                     </div>
                 </div>
@@ -135,7 +142,6 @@ $articlesArray = getArticles($userId);
         <!--Hero Area End-->
         <!-- Popular Locations Start -->
         <?php
-        echo $numarticlesUser;
         if($numarticlesUser <=0 ){
             ?>
             <div class="popular-location section-padding30">
@@ -193,12 +199,14 @@ $articlesArray = getArticles($userId);
             </div>
         </div>
         <?php } ?>
-        <!-- Popular Locations End -->
        
 
     </main>
     <footer>
-        <?php echo var_dump($articlesArray); ?>
+
+        <?php 
+        echo var_dump($articlesArray); 
+        ?>
         <!-- Footer Start-->
         <div class="footer-area">
             <div class="container">
