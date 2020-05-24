@@ -131,24 +131,14 @@ switch ($role) {
                 <div class="container" style="width: 100%; height: 500px;">
                     <div class="hero__caption">
                         <span style="color: orangered">Welcome back, <?php if (!$isAdmin) { echo $username; } else { echo "Master"; } ?><span>
+                            
+                            <?php 
+                            $users = getAllUsers();
+                            for ($i = 0; $i < count($users); $i ++) { ?>
+                                <input id="btn" type="button" value="<?php $users[$i]; ?>">
                             <?php
-                                if(!$isAdmin && isset($numarticlesUser) && isset($articlesArray)) {
-                            ?>
-                            <script>
-                            function createArticles () { window.location = "createArticle.php"; }
-                            function createSubcategory () { window.location = "createArticle.php"; }
-                            </script>
-                            <input class="btn" type="button" value="Create Articles" onclick="createArticles()">
-                            <input class="btn" type="button" value="Create Subcategories" onclick="createSubcategory()">
-                        <?php } else if ($isAdmin) { ?>
-                            <script>
-                                function manageUsers () { window.location = "../admin/manageusers.php"; }
-                            </script>
-                            <input class="btn" style="width: 350px;" type="button" value="Configure Database">      <br />
-                            <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
-                            <input class="btn" style="width: 350px;" type="button" value="Manage Categories">       <br />
-                            <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
-                        <?php }?>
+                            } ?>
+                            <input id="btn" type="button" value="User 1">
                     </div>
                 </div>
 
@@ -157,7 +147,8 @@ switch ($role) {
         <!--Hero Area End-->
         <!-- Popular Locations Start -->
         <?php
-        if(isset($numarticlesUser) && isset($articlesArray)){
+        $a = false;
+        if($a) {
             if($numarticlesUser <=0 ){
                 ?>
                 <div class="popular-location section-padding30">
@@ -188,37 +179,12 @@ switch ($role) {
                     </div>
                 </div>
                 <div class="row">
-                <?php
-                for ($i=0; $i < count($articlesArray); $i++) {
-                    echo <<< EOT
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                    <div class="cat-icon">
-                    <img style="border-radius: 50%" width="80" height="80" src="showFileImage.php?id={$articlesArray[$i]['article_image']}&size=thumb" alt="Minha Figura">
-                    </div>
-                    <br>
-                    <div class="cat-cap">
-                    <h5><a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">{$articlesArray[$i]['article_title']}</a></h5>
-                    <p>{$articlesArray[$i]['article_context']}</p>
-                    <a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">View article</a>
-                    <br>
-                    <a href="article.php?type=edit&id={$articlesArray[$i]['article_id']}">Edit article</a>
-                    <br>
-                    <a href="article.php?type=eliminate&id={$articlesArray[$i]['article_id']}">Eliminate article</a>
-                    </div>
-                    </div>
-                    </div>
-                    EOT;
-                }
-                ?>
                     
                 </div>
             </div>
         </div>
         <?php }
-        }else{
-
-        }  ?>
+        }?>
        
 
     </main>

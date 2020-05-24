@@ -297,6 +297,28 @@ function getArticles($idUser){
     return $rows;
 }
 
+function getAllUsers () {
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT name FROM `$dataBaseName`.`auth-basic` ORDER BY id");
+
+    $rows = [];
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+
+    }
+
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $rows;
+}
+
 function getImageForArticle($imgID){
     dbConnect(ConfigFile);
     
