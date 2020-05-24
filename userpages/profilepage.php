@@ -123,12 +123,20 @@ switch ($role) {
                 <div class="container" style="width: 100%; height: 500px;">
                     <div class="hero__caption">
                         <span style="color: orangered">Welcome back, <?php echo $username ?><span>
+                            <?php
+                                if(isset($numarticlesUser) && isset($articlesArray)){
+                            ?>
                             <script>
                             function createArticles () {
                                 window.location = "createArticle.php";
                             }
+                            function createSubcategory () {
+                                window.location = "createArticle.php";
+                            }
                             </script>
                             <input class="btn" type="button" value="Create Articles" onclick="createArticles()">
+                            <input class="btn" type="button" value="Create Subcategories" onclick="createSubcategory()">
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -195,7 +203,10 @@ switch ($role) {
                 </div>
             </div>
         </div>
-        <?php }}  ?>
+        <?php }
+        }else{
+
+        }  ?>
        
 
     </main>
