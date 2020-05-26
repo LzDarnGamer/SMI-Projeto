@@ -7,6 +7,14 @@ if (!isset($_SESSION) ) {
 require_once("../Lib/lib.php");
 require_once("../Lib/db.php");
 include( "../ensureAuth.php" );
+$userId = $_SESSION['id'];
+$username = $_SESSION['username'];
+$role = getRoleFromUser($userId);
+
+if($role != "manager" && $role != "administrator"){
+  header("Location: ../noPrivelege.php");
+  exit();
+}
 
 $categories = getcategories();
 
@@ -227,7 +235,7 @@ function generateMoreSelector(){
       <div class="row justify-content-center">
         <div class="col-xl-8 col-lg-9">
           <div class="hero-cap text-center pt-50 pb-20">
-            <h2>Our Listing</h2>
+            <h2>Your article</h2>
           </div>
         </div>
       </div>

@@ -1,32 +1,21 @@
-<!DOCTYPE html>
-<?php
-  if (!isset($_SESSION) ) {
-  session_start();
-  }
-
-  require_once("../Lib/lib.php");
-  require_once("../Lib/db.php");
-  include( "../ensureAuth.php" );
-  $userId = $_SESSION['id'];
-  $username = $_SESSION['username'];
-  $role = getRoleFromUser($userId);
-  if($role != "manager" && $role != "administrator"){
-    header("Location: ../noPrivilege.php");
-    exit();
-  }
-
-  $categories = getcategories();
-
+<?php 
+  if(isset($_GET["title"]) && isset($_GET["info"])) {
+      $icon = "assets/img/favicon.ico";
+   }else {
+      $title = "Invalid request";
+      $info = "Invalid request found please retry";
+      $icon = "assets/img/error.ico";
+   }
 ?>
-
+<!DOCTYPE html>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Create Subcategories</title>
+  <title><?php echo $title ?></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo $icon ?>">
 
   <!-- CSS here -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -42,7 +31,6 @@
   <link rel="stylesheet" href="assets/css/nice-select.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body style="overflow: visible;">
   <!-- Preloader Start -->
   <div id="preloader-active" style="display: none;">
@@ -141,73 +129,17 @@
       <div class="row justify-content-center">
         <div class="col-xl-8 col-lg-9">
           <div class="hero-cap text-center pt-50 pb-20">
-            <h2>New subcategory</h2>
+            <h2><?php echo $info ?></h2>
+
+          <script>
+            function goback () { window.location = "landingpage.php"; }
+          </script>
+          <input class="btn" type="button" value="Go to main page" onclick="goback()"><br>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!--Hero End -->
-  <!-- listing Area Start -->
-  <form
-  action="process~SubcategoriesCreation.php"
-  name="FormArticle"
-  method="post" >
-  <div class="listing-area pt-120 pb-120">
-    <div class="container">
-      <div class="row">
-        <!-- Left content -->
-        <div class="col-xl-4 col-lg-4 col-md-6">
-          <div class="row">
-            <div class="col-12">
-              <div class="small-section-tittle2 mb-45">
-                <h4>Details</h4>
-              </div>
-            </div>
-          </div>
-          <!-- Job Category Listing start -->
-          <div class="category-listing mb-50">
-            <!-- single one -->
-            <div class="single-listing">
-              <div class="input-form">
-                <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
-                  <option value="">Choose Category</option>
-                  <?php
-                  foreach($categories as $array){
-                  echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-                }
-                ?>
-              </select>
-
-              <div class="input-form">
-                <input type="text" placeholder="New subcategory title" name="subcategory_title" pattern="[A-Za-z]+" required="true">
-
-              </div>            
-
-            </div>
-
-            <div class="single-listing">
-              <input type="submit" class="btn list-btn mt-20" value="submit">
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="col-xl-8 col-lg-8 col-md-6">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="count mb-35">
-              <img style="width: 100%"  src="assets/img/hero/h1_hero.jpg" alt="A image"/>  
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-<!-- listing-area Area End -->
-
 </main>
 <footer>
   <!-- Footer Start-->
@@ -217,7 +149,7 @@
         <div class="row d-flex justify-content-between align-items-center">
           <div class="col-xl-9 col-lg-8">
             <div class="footer-copy-right">
-              <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              <p ><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
               </div>
@@ -228,11 +160,6 @@
     </div>
     <!-- Footer End-->
   </footer>
-  <!-- Scroll Up -->
-  <div id="back-top" style="display: block;">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-  </div>
-
 
 
 </body>

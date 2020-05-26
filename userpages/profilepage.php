@@ -13,8 +13,7 @@ $isAdmin = false;
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $role = getRoleFromUser($userId);
-$role = "administrator";
-
+$role = "manager";
 switch ($role) {
     case 'manager':
         $numarticlesUser = getnumArticles($userId);
@@ -23,7 +22,11 @@ switch ($role) {
     case 'administrator':
         $isAdmin = true;
         break;
-
+    case 'user':
+        break;
+    default:
+        header("Location: ../noPrivelege.php");
+        break;
 }
 ?>
 
@@ -132,15 +135,15 @@ switch ($role) {
                     <div class="hero__caption">
                         <span style="color: orangered">Welcome back, <?php if (!$isAdmin) { echo $username; } else { echo "Master"; } ?><span>
                             <?php
-                                if(!$isAdmin && isset($numarticlesUser) && isset($articlesArray)) {
+                                if($role == "manager") {
                             ?>
                             <script>
                             function createArticles () { window.location = "createArticle.php"; }
-                            function createSubcategory () { window.location = "createArticle.php"; }
+                            function createSubcategory () { window.location = "createSubcategories.php"; }
                             </script>
-                            <input class="btn" type="button" value="Create Articles" onclick="createArticles()">
+                            <input class="btn" type="button" value="Create Articles" onclick="createArticles()"><br>
                             <input class="btn" type="button" value="Create Subcategories" onclick="createSubcategory()">
-                        <?php } else if ($isAdmin) { ?>
+                        <?php } else if ($role == "administrator") { ?>
                             <script>
                                 function manageUsers () { window.location = "../admin/manageusers.php"; }
                             </script>
@@ -148,7 +151,9 @@ switch ($role) {
                             <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
                             <input class="btn" style="width: 350px;" type="button" value="Manage Categories">       <br />
                             <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
-                        <?php }?>
+                        <?php } else if ($role == "user"){ ?>
+
+                        <?php } ?>
                     </div>
                 </div>
 
