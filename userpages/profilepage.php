@@ -29,8 +29,16 @@ switch ($role) {
         break;
 }
 ?>
-
+<script>
+    function createArticles () { window.location = "createArticle.php"; }
+    function createSubcategory () { window.location = "createSubcategories.php"; }
+    function manageUsers () { window.location = "../admin/manageusers.php"; }
+    function confirmBox(){
+        return confirm("Are you sure you want to delete");
+    }
+</script>
 <html class="no-js" lang="zxx">
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -137,16 +145,9 @@ switch ($role) {
                             <?php
                                 if($role == "manager") {
                             ?>
-                            <script>
-                            function createArticles () { window.location = "createArticle.php"; }
-                            function createSubcategory () { window.location = "createSubcategories.php"; }
-                            </script>
                             <input class="btn" type="button" value="Create Articles" onclick="createArticles()"><br>
                             <input class="btn" type="button" value="Create Subcategories" onclick="createSubcategory()">
                         <?php } else if ($role == "administrator") { ?>
-                            <script>
-                                function manageUsers () { window.location = "../admin/manageusers.php"; }
-                            </script>
                             <input class="btn" style="width: 350px;" type="button" value="Configure Database">      <br />
                             <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
                             <input class="btn" style="width: 350px;" type="button" value="Manage Categories">       <br />
@@ -209,7 +210,7 @@ switch ($role) {
                     <br>
                     <a href="article.php?type=edit&id={$articlesArray[$i]['article_id']}">Edit article</a>
                     <br>
-                    <a href="article.php?type=eliminate&id={$articlesArray[$i]['article_id']}">Eliminate article</a>
+                    <a onclick="return confirmBox();" href="article.php?type=eliminate&id={$articlesArray[$i]['article_id']}">Eliminate article</a>
                     </div>
                     </div>
                     </div>

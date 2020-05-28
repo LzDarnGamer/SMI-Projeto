@@ -529,12 +529,47 @@ function getFileDetails($ids) {
 
 function deleteArticle ($articleID, $postID) {
     dbConnect(ConfigFile);
+
     $dataBaseName = $GLOBALS['configDataBase']->db;
-    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
 
-    $query = "DELETE FROM `$dataBaseName`.`articles` WHERE article_id='$articleID' and poster_id='$postID'";
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);
 
-    $result = mysqli_query($GLOBALS['ligacao'], $query);
+    $info = $GLOBALS['ligacao'] -> query("SELECT imageFileName, thumbFileName, id " .
+                                  "FROM `$dataBaseName`.`articles` a " .
+                                  "JOIN `$dataBaseName`.`images-details` d ON a.article_image = d.id" );
+    if(!$info){
+      return false;
+    }
+
+    $results =  mysqli_fetch_array($info);
+
+    $id = $results['id'];
+    $imageFileName = $results['imageFileName'];
+    $thumbFileName = $results['thumbFileName'];
+    
+    
+    $GLOBALS['ligacao']->begin_transaction();
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`images-details` WHERE id='$id'");
+    $res2 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`articles` WHERE article_id='$articleID' and poster_id='$postID'");
+    
+    $GLOBALS['ligacao']->commit();
+
+    if($res1 && $res2){
+      unlink($imageFileName);
+      unlink($thumbFileName);
+      return "true";
+    }else{
+      $GLOBALS['ligacao']->rollback();
+      return "false";
+    }
+    //$res = mysqli_query($GLOBALS['ligacao'], $q);
+
+    //$info = mysqli_fetch_array($res);
+
+    //$id = $info['id'];
+    //$imageFileName = $info['imageFileName'];
+    //$thumbFileName = $info['thumbFileName'];
+
 
     dbDisconnect();
 

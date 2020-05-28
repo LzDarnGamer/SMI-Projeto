@@ -13,24 +13,45 @@ $username = $_SESSION['username'];
 $type = $_GET['type'];
 $articleid = $_GET['id'];
 if($type != "view" && $type != "eliminate" && $type != "edit"){
-    echo "Invalid request found";
+    $title = "Invalid Arguments";
+    $info = "Invalid arguments found";
+    header("Location: ../responsePage.php?title=$title&info=$info");
     exit();
 }
 
 if($type == "edit") {
     if(getPosterID($articleid) != $userId){
-        echo "You can only edit your articles";
+        $title = "Invalid Permission";
+        $info = "You can only edit your articles";
+        header("Location: ../responsePage.php?title=$title&info=$info");
         exit();
     }
+}
+
+
+
+
+if($type == "eliminate") {
+    if(getPosterID($articleid) != $userId){
+        $title = "Invalid Permission";
+        $info = "You can only delete your articles";
+        header("Location: ../responsePage.php?title=$title&info=$info");
+        exit();
+    }
+    $result = deleteArticle($articleid, getPosterID($articleid));
+    if($result){
+        header("Location: profilepage.php");
+   }else{
+        $title = "Invalid Arguments";
+        $info = "Some errors found while processing your request";
+        header("Location: ../responsePage.php?title=$title&info=$info");
+   }
+    exit();
 }
 
 $article = getArticle($articleid);
 $fileDetails = getFileDetails($article['article_image']);
 
-if($type == "eliminate") {
-    echo deleteArticle($articleid, getPosterID($articleid));
-    exit();
-}
 
 ?>
 <html class="no-js" lang="zxx">
@@ -66,14 +87,14 @@ if($type == "eliminate") {
         };
 
         var map = new google.maps.Map(document.getElementById("map"), myOptions);
-      new google.maps.Marker({
-        position: myLatLon,
-        map: map,
-        title: "Location"
-    });
+        new google.maps.Marker({
+            position: myLatLon,
+            map: map,
+            title: "Location"
+        });
 
-  }
-  document.addEventListener("DOMContentLoaded", function(event) {
+    }
+    document.addEventListener("DOMContentLoaded", function(event) {
       initAutocomplete();
   });
 </script>
@@ -108,17 +129,17 @@ if($type == "eliminate") {
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">                                                                                                                                     
-                                            <li><a href="landingpage.php">Home</a></li>
-                                            <li><a href="../about.php">About</a></li>
-                                            <li class="login"><a href="profilepage.php">
-                                                <i class="ti-user"></i> Me</a>
-                                            </li>
-                                            <li class="login"><a href="../Login_Registo/formLogin.php">
-                                                <i class="ti-user"></i> Sign in</a>
-                                            </li>
-											<li class="login"><a href="../Login_Registo/formRegister.php">
-                                                <i class="ti-user"></i> Register</a>
-                                            </li>
+                                    <li><a href="landingpage.php">Home</a></li>
+                                    <li><a href="../about.php">About</a></li>
+                                    <li class="login"><a href="profilepage.php">
+                                        <i class="ti-user"></i> Me</a>
+                                    </li>
+                                    <li class="login"><a href="../Login_Registo/formLogin.php">
+                                        <i class="ti-user"></i> Sign in</a>
+                                    </li>
+                                    <li class="login"><a href="../Login_Registo/formRegister.php">
+                                        <i class="ti-user"></i> Register</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>

@@ -27,8 +27,8 @@
 
     if ( $subcategory_title===null || $subcategory_title=="" || $article_categorie===null || $article_categorie=="") {
       $title = "Invalid arguments";
-      $info = "Invalid subcategory or category title"
-      header("Location: responsePage.php?title=$title&info=$info")
+      $info = "Invalid subcategory or category title";
+      header("Location: responsePage.php?title=$title&info=$info");
       exit();
     }
     

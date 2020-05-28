@@ -1,10 +1,10 @@
 <?php 
   if(isset($_GET["title"]) && isset($_GET["info"])) {
-      $icon = "assets/img/favicon.ico";
+      $title = $_GET["title"];
+      $info = $_GET["info"];
    }else {
       $title = "Invalid request";
       $info = "Invalid request found please retry";
-      $icon = "assets/img/error.ico";
    }
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" type="image/x-icon" href="<?php echo $icon ?>">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/error.ico">
 
   <!-- CSS here -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
