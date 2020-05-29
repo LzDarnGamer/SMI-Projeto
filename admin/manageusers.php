@@ -49,6 +49,7 @@ switch ($role) {
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
+
         <style>
             .btn {
                 background-color: #f7a784;
@@ -59,6 +60,7 @@ switch ($role) {
                 display: inline-block;
                 font-size: 16px;
                 cursor: pointer;
+                margin-right: 15px;
             }   
 
         </style>
@@ -146,27 +148,45 @@ switch ($role) {
                                 for ($i = 0; $i < count($users); $i ++) {
                                     $_role = getRoleFromUser($ids[$i]);?>
                             
-                            <form method="POST">
+                            <form method="POST" action="loadUpdate.php" onsubmit="clicked<?php echo $i; ?>()">
                                 <div class="table-row">
                                     <div class="serial"><?php echo $ids[$i]; ?></div>
                                     <div class="country"><?php echo $users[$i]; ?></div>
                                     <div class="visit">
-                                        <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                                        <select id="a<?php echo $i; ?>" class="nice-select" name="deleteFlag" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
                                             <option value="no">No</option>
                                             <option value="yes">Yes</option>
                                         </select>
                                     </div>
 
                                     <div class="percentage">
-                                        <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
-                                            <option value=""><?php  echo $_role; ?></option>
+                                        <select id="b<?php echo $i; ?>" class="nice-select" name="roleName" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                                            <option value="<?php echo $_role; ?>"><?php echo $_role; ?></option>
                                         </select>
                                     </div>
-                                    <div class="visit"><input type="button" class="btn" value="Update User"></div>
+
+                                    <input type="hidden" name="id" value="<?php echo $ids[$i]; ?>">
+                                    <input type="hidden" id="delete<?php echo $i; ?>"   name="delete"  value="">
+                                    <input type="hidden" id="role<?php echo $i; ?>"     name="role"    value="">
+                                    
+                                    <script>
+                                        function clicked<?php echo $i; ?>() {
+                                            let del = document.getElementById("a<?php echo $i; ?>");
+                                            let strDel = del.options[del.selectedIndex].value;
+                                            let rol = document.getElementById("b<?php echo $i; ?>");
+                                            let strRol = rol.options[rol.selectedIndex].value;
+                                            
+                                            document.getElementById("delete<?php echo $i; ?>").value = strDel;
+                                            document.getElementById("role<?php echo $i; ?>").value = strRol;
+                                        }
+                                    </script>
+
+                                    <div class="visit"><input type="submit" class="btn" value="Update User"></div>
                                 </div>
                             </form>
 
-                            <?php } ?>
+                            <?php }
+                            ?>
 						</div>
 					</div>
 				</div>
