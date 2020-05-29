@@ -136,22 +136,23 @@ switch ($role) {
 					<h3 class="mb-30">Table</h3>
 					<div class="progress-table-wrap">
 						<div class="progress-table">
-							<div class="table-head">
-								<div class="serial">Name</div>
-								<div class="country">Delete</div>
-								<div class="visit">Role</div>
-                            </div>
+                            <div class="table-head">
+								<div class="serial">#</div>
+								<div class="country">Name</div>
+								<div class="visit">Delete</div>
+								<div class="percentage">Roles</div>
+							</div>
                             <form method="POST">
                                 <div class="table-row">
-                                    <div class="country"> <img src="assets/img/elements/f1.jpg" alt="flag">Canada</div>
-                                    <div class="visit">645032</div>
+                                    <div class="serial">01</div> 
+                                    <div class="country">Shun Wang</div>
+                                    <div class="visit">input here</div>
                                     <div class="percentage">
-                                    <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
-                                        <option value="">Choose </option>
-                                        <option value="">Choose </option>
-                                        <option value="">Choose </option>
-                                        
-                                    </select>
+                                        <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                                            <option value="">Administrator</option>
+                                            <option value="">Manager</option>
+                                            <option value="">User</option>
+                                        </select>
                                     </div>
                                 </div>
                             </form>
