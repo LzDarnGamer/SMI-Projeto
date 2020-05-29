@@ -56,6 +56,7 @@ if($role != "manager" && $role != "administrator"){
 }
 
 $categories = getcategories();
+$subcategories = getSubcategories();
 
 ?>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
@@ -80,7 +81,11 @@ $categories = getcategories();
   <link rel="stylesheet" href="assets/css/slick.css">
   <link rel="stylesheet" href="assets/css/nice-select.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
 <script>
@@ -324,6 +329,20 @@ function generateMoreSelector(){
                   <option value="">Choose Subcategory</option>
 
                 </select>
+                <select id="tags" 
+                        class="nice-select" name="tags" required="true" form="articleForm" multiple class="chosen-select" style="width: 100%; margin-bottom: 20px;">
+                  <option value="">Tags</option>
+                  <?php
+                  foreach($categories as $array){
+                    echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                  }
+
+                  foreach($subcategories as $array){
+                    echo "<option value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
+                  }
+                  ?>
+
+                </select>
               </div>
               <!--  Select job items End-->
               <!-- Select job items start -->
@@ -331,30 +350,18 @@ function generateMoreSelector(){
                 <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
               </div>
 
-              <!--  Select job items End-->
             </div>
 
             <div class="single-listing">
              <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
              <input type="submit" class="btn list-btn mt-20" value="submit">
            </div>
-           <select id="tags" class="nice-select" name="tags" required="true" form="articleForm" multiple="true" style="width: 100%; margin-bottom: 20px;">
-            <option value="">Tags</option>
-            <?php
-              foreach($categories as $array){
-                echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-              }
-              foreach($categories as $array){
-                echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-              }
-            ?>
 
-          </select>
-        </div>
-        <!-- Job Category Listing End -->
-      </div>
-      <!-- Right content -->
-      <div class="col-xl-8 col-lg-8 col-md-6">
+         </div>
+         <!-- Job Category Listing End -->
+       </div>
+       <!-- Right content -->
+       <div class="col-xl-8 col-lg-8 col-md-6">
         <div class="row">
           <div class="col-lg-12">
             <div class="count mb-35">

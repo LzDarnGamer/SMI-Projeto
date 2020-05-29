@@ -378,6 +378,30 @@ function getcategories(){
 
 }
 
+
+function getSubcategories(){
+    $allSubcategories = Array();
+
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT subcategorie_title FROM `$dataBaseName`.`subcategories`");
+
+    while ($row = mysqli_fetch_assoc($result)) {
+      $allSubcategories[$row["subcategorie_title"]] = $row;
+    }
+
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $allSubcategories;
+
+}
+
 function getRoleFromUser($userID) {
   dbConnect(ConfigFile);
     
