@@ -13,7 +13,8 @@ $isAdmin = false;
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $role = getRoleFromUser($userId);
-$role = "manager";
+
+
 switch ($role) {
     case 'manager':
         $numarticlesUser = getnumArticles($userId);
@@ -152,6 +153,8 @@ switch ($role) {
                             <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
                             <input class="btn" style="width: 350px;" type="button" value="Manage Categories">       <br />
                             <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
+                            <input class="btn" style="width: 350px;" type="button" value="Create Articles" onclick="createArticles()"><br>
+                            <input class="btn" style="width: 350px;" type="button" value="Create Subcategories" onclick="createSubcategory()">
                         <?php } else if ($role == "user"){ ?>
 
                         <?php } ?>

@@ -128,18 +128,42 @@ switch ($role) {
         <!-- Hero Area Start-->
         <div class="slider-area hero-overly">
             <div class="single-slider hero-overly  slider-height d-flex align-items-center">
-                <div class="container" style="width: 100%; height: 500px;">
+                <div class="container" style="width: 100%; height: 500px; text-align: center;">
                     <div class="hero__caption">
                         <span style="color: orangered">Welcome back, <?php if (!$isAdmin) { echo $username; } else { echo "Master"; } ?><span>
-                            
-                            <?php 
-                            $users = getAllUsers();
-                            for ($i = 0; $i < count($users); $i ++) { ?>
-                                <input id="btn" type="button" value="<?php $users[$i]; ?>">
-                            <?php
-                            } ?>
-                            <input id="btn" type="button" value="User 1">
                     </div>
+                    <div class="section-top-border">
+					<h3 class="mb-30">Table</h3>
+					<div class="progress-table-wrap">
+						<div class="progress-table">
+							<div class="table-head">
+								<div class="serial">Name</div>
+								<div class="country">Delete</div>
+								<div class="visit">Role</div>
+                            </div>
+                            <form method="POST">
+                                <div class="table-row">
+                                    <div class="country"> <img src="assets/img/elements/f1.jpg" alt="flag">Canada</div>
+                                    <div class="visit">645032</div>
+                                    <div class="percentage">
+                                    <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                                        <option value="">Choose </option>
+                                        <option value="">Choose </option>
+                                        <option value="">Choose </option>
+                                        
+                                    </select>
+                                    </div>
+                                </div>
+                            </form>
+						</div>
+					</div>
+				</div>
+
+                    <?php
+                        $users = getAllUsers();
+                        for ($i = 0; $i < count($users); $i ++) { ?>
+                            <input id="btn" class="btn" type="button" value="<?php echo $users[$i];?>">
+                        <?php } ?>
                 </div>
 
             </div>
@@ -194,23 +218,6 @@ switch ($role) {
         if(isset($articlesArray))
             echo var_dump($articlesArray); 
         ?>
-        <!-- Footer Start-->
-        <div class="footer-area">
-            <div class="container">
-                <div class="footer-bottom">
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col-xl-9 col-lg-8">
-                            <div class="footer-copy-right">
-                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
-        </div>
-        <!-- Footer End-->
     </footer>
     <!-- Scroll Up -->
     <div id="back-top" >

@@ -304,12 +304,11 @@ function getAllUsers () {
 
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
 
-    $result = $GLOBALS['ligacao']->query("SELECT name FROM `$dataBaseName`.`auth-basic` ORDER BY id");
+    $result = $GLOBALS['ligacao']->query("SELECT `name` FROM `$dataBaseName`.`auth-basic`");
 
     $rows = [];
     while($row = mysqli_fetch_array($result)) {
-        $rows[] = $row;
-
+        $rows[] = $row['name'];
     }
 
     mysqli_free_result($result);
