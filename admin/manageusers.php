@@ -141,21 +141,27 @@ switch ($role) {
 								<div class="country">Name</div>
 								<div class="visit">Delete</div>
 								<div class="percentage">Roles</div>
-							</div>
+                            </div>
+                            <?php
+                                $users = getAllUsers();
+                                $ids = getAllIds();
+                                for ($i = 0; $i < count($users); $i ++) {
+                                    $_role = getRoleFromUser($ids[$i]);?>
+                            
                             <form method="POST">
                                 <div class="table-row">
-                                    <div class="serial">01</div> 
-                                    <div class="country">Shun Wang</div>
+                                    <div class="serial"><?php echo $ids[$i]; ?></div>
+                                    <div class="country"><?php echo $users[$i]; ?></div>
                                     <div class="visit">input here</div>
                                     <div class="percentage">
                                         <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
-                                            <option value="">Administrator</option>
-                                            <option value="">Manager</option>
-                                            <option value="">User</option>
+                                            <option value=""><?php  echo $_role; ?></option>
                                         </select>
                                     </div>
                                 </div>
                             </form>
+
+                            <?php } ?>
 						</div>
 					</div>
 				</div>
