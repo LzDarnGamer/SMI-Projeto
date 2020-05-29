@@ -51,16 +51,13 @@ switch ($role) {
             <link rel="stylesheet" href="assets/css/style.css">
         <style>
             .btn {
-                background-color: #ff3d1c;
+                background-color: #f7a784;
                 border: none;
-                height: 50px;
                 color: white;
-                padding: 15px 32px;
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
                 font-size: 16px;
-                margin-top: 30px;
                 cursor: pointer;
             }   
 
@@ -140,7 +137,8 @@ switch ($role) {
 								<div class="serial">#</div>
 								<div class="country">Name</div>
 								<div class="visit">Delete</div>
-								<div class="percentage">Roles</div>
+                                <div class="percentage">Roles</div>
+                                <div class="percentage">Roles</div>
                             </div>
                             <?php
                                 $users = getAllUsers();
@@ -152,12 +150,19 @@ switch ($role) {
                                 <div class="table-row">
                                     <div class="serial"><?php echo $ids[$i]; ?></div>
                                     <div class="country"><?php echo $users[$i]; ?></div>
-                                    <div class="visit">input here</div>
+                                    <div class="visit">
+                                        <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                        </select>
+                                    </div>
+
                                     <div class="percentage">
                                         <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
                                             <option value=""><?php  echo $_role; ?></option>
                                         </select>
                                     </div>
+                                    <div class="visit"><input type="button" class="btn" value="Update User"></div>
                                 </div>
                             </form>
 
@@ -165,12 +170,6 @@ switch ($role) {
 						</div>
 					</div>
 				</div>
-
-                    <?php
-                        $users = getAllUsers();
-                        for ($i = 0; $i < count($users); $i ++) { ?>
-                            <input id="btn" class="btn" type="button" value="<?php echo $users[$i];?>">
-                        <?php } ?>
                 </div>
 
             </div>
@@ -180,7 +179,7 @@ switch ($role) {
         <?php
         $a = false;
         if($a) {
-            if($numarticlesUser <=0 ){
+            if($numarticlesUser <=0) {
                 ?>
                 <div class="popular-location section-padding30">
                     <div class="container">

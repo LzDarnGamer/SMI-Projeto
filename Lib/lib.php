@@ -329,7 +329,7 @@ function getAllIds () {
 
     $rows = [];
     while($row = mysqli_fetch_array($result)) {
-        $rows[] = $row['name'];
+        $rows[] = $row['id'];
     }
 
     mysqli_free_result($result);
