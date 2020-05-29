@@ -151,7 +151,7 @@ function FormLoginValidator(form){
    form.lng.value = lng;
 
    var multipleSelection = document.getElementById('chosen-choices').getElementsByTagName('span');
-   if(multipleSelection.length < 2){
+   if(multipleSelection.length < 1){
       document.getElementById("tagsInfo").innerHTML = "Please select at least one tag";
       document.getElementById("tagsInfo").style.color = 'red';
       return false;

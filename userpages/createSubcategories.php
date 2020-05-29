@@ -76,7 +76,7 @@
                   <ul id="navigation">                                                                                                                                     
                     <li><a href="../landingpage.php">Home</a></li>
                     <li><a href="../about.php">About</a></li>
-                    <li class="login"><a href="userpages/profilepage.php">
+                    <li class="login"><a href="../userpages/profilepage.php">
                       <i class="ti-user"></i> Me</a>
                     </li>
                     <li class="login"><a href="#">
@@ -150,7 +150,7 @@
   <!--Hero End -->
   <!-- listing Area Start -->
   <form
-  action="process~SubcategoriesCreation.php"
+  action="processSubcategoriesCreation.php"
   name="FormArticle"
   method="post" >
   <div class="listing-area pt-120 pb-120">
@@ -170,21 +170,21 @@
             <!-- single one -->
             <div class="single-listing">
               <div class="input-form">
-                <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                <select id="article_categorie" class="nice-select" name="article_categorie" required="true" style="width: 100%; margin-bottom: 20px;">
                   <option value="">Choose Category</option>
                   <?php
                   foreach($categories as $array){
-                  echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-                }
-                ?>
-              </select>
-
+                    echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                  }
+                  ?>
+                </select>
+            </div>
               <div class="input-form">
                 <input type="text" placeholder="New subcategory title" name="subcategory_title" pattern="[A-Za-z]+" required="true">
 
               </div>            
 
-            </div>
+
 
             <div class="single-listing">
               <input type="submit" class="btn list-btn mt-20" value="submit">
