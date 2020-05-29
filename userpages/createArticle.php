@@ -236,7 +236,7 @@ $(function(){
                   <ul id="navigation">                                                                                                                                     
                     <li><a href="../landingpage.php">Home</a></li>
                     <li><a href="../about.php">About</a></li>
-                    <li class="login"><a href="userpages/profilepage.php">
+                    <li class="login"><a href="profilepage.php">
                       <i class="ti-user"></i> Me</a>
                     </li>
                     <li class="login"><a href="#">
@@ -359,21 +359,21 @@ $(function(){
                   style="width: 100%;"
                   data-placeholder="Tags" >
                   <?php
-                  foreach($categories as $array){
-                    echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-                  }
 
-                  foreach($subcategories as $array){
-                    echo "<option value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
-                  }
+                    foreach($categories as $array){
+                      echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                    }
+
+                    foreach($subcategories as $array){
+                      echo "<option value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
+                    }
                   ?>
 
                 </select>
                 <span id="tagsInfo"></span>
               </div>
             </div>
-            <!--  Select job items End-->
-            <!-- Select job items start -->
+            
             <div class="select-job-items2">
               <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
             </div>
