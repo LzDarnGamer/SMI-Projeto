@@ -39,33 +39,35 @@
 
 
 <?php
-  if (!isset($_SESSION) ) {
-    session_start();
-  }
+if (!isset($_SESSION) ) {
+  session_start();
+}
 
-  require_once("../Lib/lib.php");
-  require_once("../Lib/db.php");
-  include( "../ensureAuth.php" );
-  $userId = $_SESSION['id'];
-  $username = $_SESSION['username'];
-  $role = getRoleFromUser($userId);
+require_once("../Lib/lib.php");
+require_once("../Lib/db.php");
+include( "../ensureAuth.php" );
+$userId = $_SESSION['id'];
+$username = $_SESSION['username'];
+$role = getRoleFromUser($userId);
 
-  if($role != "manager" && $role != "administrator"){
-    header("Location: ../noPrivilege.php");
-    exit();
-  }
+if($role != "manager" && $role != "administrator"){
+  header("Location: ../noPrivilege.php");
+  exit();
+}
 
-  $articleid = $_GET['id'];
-  if($articleid == "" && $articleid == null){
-      $title = "Invalid Arguments";
-      $info = "Invalid arguments found";
-      header("Location: ../responsePage.php?title=$title&info=$info");
-      exit();
-  }
-  $article = getArticle($articleid);
-  $categorieID = getcategoryName($article['article_categorie_id']);
-  $subcategorieID = getsubcategoryName($article['article_subcategorie_id']);
-  $fileDetails = getFileDetails($article['article_image']);
+$articleid = $_GET['id'];
+if($articleid == "" && $articleid == null){
+  $title = "Invalid Arguments";
+  $info = "Invalid arguments found";
+  header("Location: ../responsePage.php?title=$title&info=$info");
+  exit();
+}
+$article = getArticle($articleid);
+$categorieID = getcategoryName($article['article_categorie_id']);
+$subcategorieID = getsubcategoryName($article['article_subcategorie_id']);
+$fileDetails = getFileDetails($article['article_image']);
+$categories = getcategories();
+$subcategories = getSubcategories();
 ?>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
   <meta charset="utf-8">
@@ -89,13 +91,15 @@
   <link rel="stylesheet" href="assets/css/slick.css">
   <link rel="stylesheet" href="assets/css/nice-select.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
 <script>
   var myLatLon = new google.maps.LatLng(<?php echo $fileDetails['latitude']; ?>, <?php echo $fileDetails['longitude']; ?>);
-	var lat = myLatLon.latitude;
-	var lng = myLatLon.longitude;
+  var lat = myLatLon.latitude;
+  var lng = myLatLon.longitude;
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLon,
@@ -155,7 +159,10 @@ function FormLoginValidator(form){
    form.lng.value = lng;
  }
 }
-
+$(function(){
+  $(".chosen-select").chosen();
+  $(".chosen-choices").attr('id', 'chosen-choices');;
+});
 </script>
 <body style="overflow: visible;">
   <!-- Preloader Start -->
@@ -300,39 +307,69 @@ function FormLoginValidator(form){
                   <option value=""><?php echo $subcategorieID ?></option>
 
                 </select>
+
+
+                <div class="select-job-items2">
+                  <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"><?php echo $article['article_context'] ?></textarea>
+                </div>
+
+                <div class="select-job-items2">
+                  <div style="margin-bottom: 20px;">
+                    <select id="tags"
+                    name="tags"
+                    multiple class="chosen-select" 
+                    style="width: 100%;"
+                    data-placeholder="Tags" >
+                    <?php
+                    $tags = $article['tags'];
+                    $tagsArray = explode(",",$tags);
+
+                    foreach($categories as $array){
+                      if(in_array($array['categorie_title']  , $tagsArray)){
+                        echo "<option selected value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                      }else{
+                        echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                      }
+                    }
+                    foreach($subcategories as $array){
+                      if(in_array($array['subcategorie_title']  , $tagsArray)){
+                        echo "<option selected value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
+                       }else{
+                        echo "<option value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
+                      }
+                    }
+                    ?>
+
+                  </select>
+                </div>
               </div>
-
-              <div class="select-job-items2">
-                <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"><?php echo $article['article_context'] ?></textarea>
-              </div>
-
-
-            </div>
-
-            <div class="single-listing">
-             <input type="submit" class="btn list-btn mt-20" value="submit">
-           </div>
-         </div>
-         <!-- Job Category Listing End -->
-       </div>
-       <!-- Right content -->
-       <div class="col-xl-8 col-lg-8 col-md-6">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="count mb-35">
-              <span>Google Maps</span>
-              <br>
-              <span id="mapsinfo"></span>
             </div>
           </div>
+
+          <div class="single-listing">
+           <input type="submit" class="btn list-btn mt-20" value="submit">
+         </div>
+       </div>
+       <!-- Job Category Listing End -->
+     </div>
+     <!-- Right content -->
+     <div class="col-xl-8 col-lg-8 col-md-6">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="count mb-35">
+            <span>Google Maps</span>
+            <br>
+            <span id="mapsinfo"></span>
+          </div>
         </div>
-        <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
-        <div id="map"></div>
-        <input type="hidden" name="lat" value="">
-        <input type="hidden" name="lng" value="">
       </div>
+      <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
+      <div id="map"></div>
+      <input type="hidden" name="lat" value="">
+      <input type="hidden" name="lng" value="">
     </div>
   </div>
+</div>
 </form>
 <!-- listing-area Area End -->
 
