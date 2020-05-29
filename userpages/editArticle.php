@@ -1,8 +1,74 @@
 <!DOCTYPE html>
+<style>
+  #map {
+    height: 100%;
+  }
+
+  html,
+  body {
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+  }
+
+  #my-input-searchbox {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    font-size: 15px;
+    border-radius: 3px;
+    border: 0;
+    margin-top: 10px;
+    width: 270px;
+    height: 40px;
+    text-overflow: ellipsis;
+    padding: 0 1em;
+  }
+  input{
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    height: 38px;
+    background: #ff3d1c;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+  }
+</style>
+
+
+<?php
+  if (!isset($_SESSION) ) {
+    session_start();
+  }
+
+  require_once("../Lib/lib.php");
+  require_once("../Lib/db.php");
+  include( "../ensureAuth.php" );
+  $userId = $_SESSION['id'];
+  $username = $_SESSION['username'];
+  $role = getRoleFromUser($userId);
+
+  if($role != "manager" && $role != "administrator"){
+    header("Location: ../noPrivilege.php");
+    exit();
+  }
+
+  $articleid = $_GET['id'];
+  if($articleid == "" && $articleid == null){
+      $title = "Invalid Arguments";
+      $info = "Invalid arguments found";
+      header("Location: ../responsePage.php?title=$title&info=$info");
+      exit();
+  }
+  $article = getArticle($articleid);
+  $fileDetails = getFileDetails($article['article_image']);
+?>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Directory HTML-5 Template </title>
+  <title>Edit Article</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="site.webmanifest">
@@ -22,6 +88,101 @@
   <link rel="stylesheet" href="assets/css/nice-select.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
+<script>
+  var myLatLon = new google.maps.LatLng(<?php echo $fileDetails['latitude']; ?>, <?php echo $fileDetails['longitude']; ?>);
+	var lat = myLatLon.latitude;
+	var lng = myLatLon.longitude;
+  function initAutocomplete() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLon
+      zoom: 16,
+      disableDefaultUI: true
+    });
+
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('my-input-searchbox');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+  var marker = new google.maps.Marker({
+    position: myLatLon,
+    map: map,
+    title : "Location"
+  });
+
+  // Bias the SearchBox results towards current map's viewport.
+  autocomplete.bindTo('bounds', map);
+  // Set the data fields to return when the user selects a place.
+  autocomplete.setFields(
+    ['address_components', 'geometry', 'name']);
+
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      console.log("Returned place contains no geometry");
+      return;
+    }
+    var bounds = new google.maps.LatLngBounds();
+    marker.setPosition(place.geometry.location);
+
+    if (place.geometry.viewport) {
+      // Only geocodes have viewport.
+      bounds.union(place.geometry.viewport);
+    } else {
+      bounds.extend(place.geometry.location);
+    }
+    map.fitBounds(bounds);
+    lat = marker.getPosition().lat();
+    lng = marker.getPosition().lng();
+  });
+}
+document.addEventListener("DOMContentLoaded", function(event) {
+  initAutocomplete();
+});
+
+function FormLoginValidator(form){
+  if(lat==null || lng == null){
+   document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
+   document.getElementById("mapsinfo").style.color = 'red';
+   return false;
+ }else{
+   form.lat.value = lat;
+   form.lng.value = lng;
+ }
+}
+
+function generateMoreSelector(){
+  var value = document.getElementById("article_categorie").value;
+  var select = document.getElementById("article_subcategorie");
+  if(value!=""){
+    select.value = "";
+    $(select).find('option').not(':first').remove();
+
+    $.ajax({
+      url: 'getSubcategories.php',
+      type: 'POST',
+      data : {name: value},
+      success: function(data) {
+        console.log(data);
+        if(data != null){
+          var arr = JSON.parse(data);
+          for(var i = 0; i < arr.length; i++) {
+            var obj = arr[i];
+            var opt = document.createElement('option');
+            opt.value = obj['subcategorie_title'];
+            opt.innerHTML = obj['subcategorie_title'];
+            select.appendChild(opt);
+          }
+        }
+      }
+    })
+  }
+};
+
+</script>
 <body style="overflow: visible;">
   <!-- Preloader Start -->
   <div id="preloader-active" style="display: none;">
@@ -53,7 +214,7 @@
               <div class="main-menu f-right d-none d-lg-block">
                 <nav>
                   <ul id="navigation">                                                                                                                                     
-                    <li><a href="landingpage.php">Home</a></li>
+                    <li><a href="../landingpage.php">Home</a></li>
                     <li><a href="../about.php">About</a></li>
                     <li class="login"><a href="userpages/profilepage.php">
                       <i class="ti-user"></i> Me</a>
@@ -120,17 +281,93 @@
       <div class="row justify-content-center">
         <div class="col-xl-8 col-lg-9">
           <div class="hero-cap text-center pt-50 pb-20">
-            <h2>Not enough permissions to enter this page</h2>
-
-          <script>
-            function goback () { window.location = "landingpage.php"; }
-          </script>
-          <input class="btn" type="button" value="Go to main page" onclick="goback()"><br>
+            <h2>Edit article</h2>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!--Hero End -->
+  <!-- listing Area Start -->
+  <form 
+  id="articleForm"
+  action="processCreationArticle.php"
+  onsubmit="return FormLoginValidator(this)"
+  name="FormArticle"
+  enctype="multipart/form-data"
+  method="post" >
+  <div class="listing-area pt-120 pb-120">
+    <div class="container">
+      <div class="row">
+        <!-- Left content -->
+        <div class="col-xl-4 col-lg-4 col-md-6">
+          <div class="row">
+            <div class="col-12">
+              <div class="small-section-tittle2 mb-45">
+                <h4>Details</h4>
+              </div>
+            </div>
+          </div>
+          <!-- Job Category Listing start -->
+          <div class="category-listing mb-50">
+            <!-- single one -->
+            <div class="single-listing">
+              <!-- input -->
+              <div class="input-form">
+                <input type="text" placeholder="Article title" name="article_title" required="true" value="<?php echo $article['article_title'] ?>">
+              </div>
+              <!-- Select job items start -->
+              <div class="input-form">
+                <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                  <option value="">Choose Category</option>
+                  <?php
+                  foreach($categories as $array){
+                    echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+                  }
+                  ?>
+                </select>
+
+                <select id="article_subcategorie" class="nice-select" name="article_subcategorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;">
+                  <option value="">Choose Subcategory</option>
+
+                </select>
+              </div>
+
+              <div class="select-job-items2">
+                <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"><?php echo $article['article_context'] ?></textarea>
+              </div>
+
+
+            </div>
+
+            <div class="single-listing">
+             <input style="right: 7px;" type="file" name="article_img" accept="image/*"> 
+             <input type="submit" class="btn list-btn mt-20" value="submit">
+           </div>
+         </div>
+         <!-- Job Category Listing End -->
+       </div>
+       <!-- Right content -->
+       <div class="col-xl-8 col-lg-8 col-md-6">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="count mb-35">
+              <span>Google Maps</span>
+              <br>
+              <span id="mapsinfo"></span>
+            </div>
+          </div>
+        </div>
+        <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
+        <div id="map"></div>
+        <input type="hidden" name="lat" value="">
+        <input type="hidden" name="lng" value="">
+      </div>
+    </div>
+  </div>
+</form>
+<!-- listing-area Area End -->
+
 </main>
 <footer>
   <!-- Footer Start-->
@@ -140,7 +377,7 @@
         <div class="row d-flex justify-content-between align-items-center">
           <div class="col-xl-9 col-lg-8">
             <div class="footer-copy-right">
-              <p ><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
               </div>
@@ -151,6 +388,11 @@
     </div>
     <!-- Footer End-->
   </footer>
+  <!-- Scroll Up -->
+  <div id="back-top" style="display: block;">
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+  </div>
+
 
 
 </body>

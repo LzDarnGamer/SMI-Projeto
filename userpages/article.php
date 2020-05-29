@@ -26,6 +26,7 @@ if($type == "edit") {
         header("Location: ../responsePage.php?title=$title&info=$info");
         exit();
     }
+    header("Location: ../editPage.php?id=$articleid");
 }
 
 

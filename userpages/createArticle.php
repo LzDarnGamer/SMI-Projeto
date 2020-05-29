@@ -1,4 +1,43 @@
 <!DOCTYPE html>
+<style>
+  #map {
+    height: 100%;
+  }
+
+  html,
+  body {
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+  }
+
+  #my-input-searchbox {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    font-size: 15px;
+    border-radius: 3px;
+    border: 0;
+    margin-top: 10px;
+    width: 270px;
+    height: 40px;
+    text-overflow: ellipsis;
+    padding: 0 1em;
+  }
+  input{
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    height: 38px;
+    background: #ff3d1c;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+  }
+</style>
+
+
 <?php
 if (!isset($_SESSION) ) {
   session_start();
@@ -299,11 +338,23 @@ function generateMoreSelector(){
              <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
              <input type="submit" class="btn list-btn mt-20" value="submit">
            </div>
-         </div>
-         <!-- Job Category Listing End -->
-       </div>
-       <!-- Right content -->
-       <div class="col-xl-8 col-lg-8 col-md-6">
+           <select id="tags" class="nice-select" name="tags" required="true" form="articleForm" multiple="true" style="width: 100%; margin-bottom: 20px;">
+            <option value="">Tags</option>
+            <?php
+              foreach($categories as $array){
+                echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+              }
+              foreach($categories as $array){
+                echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
+              }
+            ?>
+
+          </select>
+        </div>
+        <!-- Job Category Listing End -->
+      </div>
+      <!-- Right content -->
+      <div class="col-xl-8 col-lg-8 col-md-6">
         <div class="row">
           <div class="col-lg-12">
             <div class="count mb-35">
@@ -313,43 +364,6 @@ function generateMoreSelector(){
             </div>
           </div>
         </div>
-        <style>
-          #map {
-            height: 100%;
-          }
-
-          html,
-          body {
-            height: 100%; 
-            margin: 0;
-            padding: 0;
-          }
-
-          #my-input-searchbox {
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-            font-size: 15px;
-            border-radius: 3px;
-            border: 0;
-            margin-top: 10px;
-            width: 270px;
-            height: 40px;
-            text-overflow: ellipsis;
-            padding: 0 1em;
-          }
-          input{
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            font-weight: 500;
-            width: 100%;
-            height: 38px;
-            background: #ff3d1c;
-            border-radius: 30px;
-            text-align: center;
-            line-height: 35px;
-            cursor: pointer;
-          }
-        </style>
         <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
         <div id="map"></div>
         <input type="hidden" name="lat" value="">
