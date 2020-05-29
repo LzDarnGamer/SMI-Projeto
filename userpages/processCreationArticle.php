@@ -76,8 +76,9 @@
 
     if ( $article_title===null || $article_categorie==null || $article_context===null || $article_subcategorie === null || $tags === null
         ||$article_title==="" || $article_categorie=="" || $article_context==="" || $article_subcategorie === "" || $tags === "") {
-      echo "Invalid arguments.";
-      echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
+      $title = "Invalid arguments";
+      $info = "Invalid subcategory or category title";
+      header("Location: ../responsePage.php?title=$title&info=$info");
       exit();
     }
 
@@ -107,8 +108,10 @@
 	$copyResult = copy($src, $dst);
 
 	if ( $copyResult === false ) {
-	    echo "Could not write \"$src\" to \"$dst\".\n<br>";
-	    exit();
+		$title = "Error writing file";
+      	$info = "Could not write \"$src\" to \"$dst\".\n<br>";
+      	header("Location: ../responsePage.php?title=$title&info=$info");
+      	exit();
 	}
 
 	unlink($src);
@@ -286,53 +289,58 @@
 	$imageFileName = addslashes($imageFileNameAux);
 	$thumbFileName = addslashes($thumbFileNameAux);
 
-	$query = "INSERT INTO `images-details`" .
+	$imgQuery = "INSERT INTO `images-details`" .
 	"(`fileName`, `mimeFileName`, `typeFileName`, `imageFileName`, `imageMimeFileName`, `imageTypeFileName`, `thumbFileName`, `thumbMimeFileName`, `thumbTypeFileName`, `latitude`, `longitude`) values " .
 	"('$fileName', '$mimeFileName', '$typeFileName', '$imageFileName', '$imageMimeFileName', '$imageTypeFileName', '$thumbFileName', '$thumbMimeFileName', '$thumbTypeFileName', '$latitude', '$longitude')";
 
-	mysqli_query($linkIdentifier, $query);
-
-	$recordsInserted = mysqli_affected_rows($linkIdentifier);
-
-	if ($recordsInserted == -1) {
-	    echo "Information about file could not be insert into the data base.\n<br>";
-	} else {
-	    echo "Information about file was insert into data base.\n<br>";
-	}
-
     ###########################Media management##########################
 	
-	
+	##############################Transaction#############################
+    mysqli_query( $linkIdentifier, $imgQuery ); 
+	$recordsInserted = mysqli_affected_rows( $linkIdentifier );
+
+
+	if($recordsInserted == -1){
+	    $title = "Processing Error";
+	    $info = "There where some errors processing your request please try again";
+      	header("Location: ../responsePage.php?title=$title&info=$info");
+      	exit();
+    }
+
+	##############################Transaction#############################
+
     ###########################Article management##########################
 	$article_imgID=mysqli_insert_id($linkIdentifier);
 
 
-    $categorieID = getCategoryID($article_categorie);
-	$subcategorieID = getCategoryID($article_subcategorie);
-    $query = 
+    $categorieID = getCategoryID($article_categorie, false);
+	$subcategorieID = getSubCategoryID($article_subcategorie, false);
+    $articleQuery = 
             "INSERT INTO `$dataBaseName`.`articles` " .
             "(`article_categorie_id`, `article_subcategorie_id` ,`poster_id`, `article_title`, `article_context`, `article_image`, `article_timestamp`, `tags` ) values " .
-            "('$categorieID', '$subcategorieID','$userId', '$article_title', '$article_context', '$article_imgID', STR_TO_DATE('$timestamp','%d/%m/%y'), $tags)";
+            "('$categorieID', '$subcategorieID','$userId', '$article_title', '$article_context', '$article_imgID', STR_TO_DATE('$timestamp','%d/%m/%y'), '$tags')";
     
     
+	###########################Article management##########################
 
-    $GLOBALS['ligacao']->begin_transaction();
-    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`images-details` WHERE id='$id'");
-    $res2 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`articles` WHERE article_id='$articleID' and poster_id='$postID'");
-    
-    $GLOBALS['ligacao']->commit();
-    mysqli_query( $linkIdentifier, $query );
+	###########################Transaction##########################
 
-    echo $linkIdentifier -> error;
+    mysqli_query( $linkIdentifier, $articleQuery ); 
+	$recordsInserted = mysqli_affected_rows( $linkIdentifier );
 
-    $recordsInserted = mysqli_affected_rows( $linkIdentifier );
+
+	if($recordsInserted!=-1){
+		dbDisconnect();
+      	header("Location: profilepage.php");
+    }else{
+    	deleteImage($article_imgID);
+		dbDisconnect();
+	    $title = "Processing Error";
+	    $info = "There where some errors processing your request please try again";
+      	header("Location: ../responsePage.php?title=$title&info=$info");
+      	exit();
+    }
+
+	###########################Transaction##########################
   
-    if ( $recordsInserted==-1 ) {
-        echo "There where some errors processing your request please try again";
-        echo "<br><hr><a href=\"profilepage.php\">Back</a>";
-    }
-    else {
-        echo "Article posted sucessfully";
-        echo "<br><hr><a href=\"profilepage.php\">Back</a>";
-    }
-?>
+

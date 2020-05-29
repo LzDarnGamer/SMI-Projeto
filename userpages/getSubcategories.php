@@ -3,7 +3,7 @@ require_once("../Lib/db.php" );
 require_once("../Lib/lib.php" );
 
 $value = $_POST['name'];
-$id = getCategoryID($value);
+$id = getCategoryID($value, true);
 if($id==null){
 	exit();
 }

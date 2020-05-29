@@ -63,6 +63,8 @@
       exit();
   }
   $article = getArticle($articleid);
+  $categorieID = getcategoryName($article['article_categorie_id']);
+  $subcategorieID = getsubcategoryName($article['article_subcategorie_id']);
   $fileDetails = getFileDetails($article['article_image']);
 ?>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
@@ -96,7 +98,7 @@
 	var lng = myLatLon.longitude;
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: myLatLon
+      center: myLatLon,
       zoom: 16,
       disableDefaultUI: true
     });
@@ -153,34 +155,6 @@ function FormLoginValidator(form){
    form.lng.value = lng;
  }
 }
-
-function generateMoreSelector(){
-  var value = document.getElementById("article_categorie").value;
-  var select = document.getElementById("article_subcategorie");
-  if(value!=""){
-    select.value = "";
-    $(select).find('option').not(':first').remove();
-
-    $.ajax({
-      url: 'getSubcategories.php',
-      type: 'POST',
-      data : {name: value},
-      success: function(data) {
-        console.log(data);
-        if(data != null){
-          var arr = JSON.parse(data);
-          for(var i = 0; i < arr.length; i++) {
-            var obj = arr[i];
-            var opt = document.createElement('option');
-            opt.value = obj['subcategorie_title'];
-            opt.innerHTML = obj['subcategorie_title'];
-            select.appendChild(opt);
-          }
-        }
-      }
-    })
-  }
-};
 
 </script>
 <body style="overflow: visible;">
@@ -318,17 +292,12 @@ function generateMoreSelector(){
               </div>
               <!-- Select job items start -->
               <div class="input-form">
-                <select id="article_categorie" class="nice-select" name="article_categorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
-                  <option value="">Choose Category</option>
-                  <?php
-                  foreach($categories as $array){
-                    echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-                  }
-                  ?>
+                <select id="article_categorie" class="nice-select" name="article_categorie" disabled="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
+                  <option value=""><?php echo $categorieID ?></option>
                 </select>
 
-                <select id="article_subcategorie" class="nice-select" name="article_subcategorie" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;">
-                  <option value="">Choose Subcategory</option>
+                <select id="article_subcategorie" class="nice-select" name="article_subcategorie" disabled="true" form="articleForm" style="width: 100%; margin-bottom: 20px;">
+                  <option value=""><?php echo $subcategorieID ?></option>
 
                 </select>
               </div>
@@ -341,7 +310,6 @@ function generateMoreSelector(){
             </div>
 
             <div class="single-listing">
-             <input style="right: 7px;" type="file" name="article_img" accept="image/*"> 
              <input type="submit" class="btn list-btn mt-20" value="submit">
            </div>
          </div>
