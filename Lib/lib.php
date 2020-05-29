@@ -375,6 +375,27 @@ function getCategoryID($name){
   return $catID['categorie_id'];
 }
 
+function getSubCategoryID($name){
+  dbConnect(ConfigFile);
+    
+  $dataBaseName = $GLOBALS['configDataBase']->db;
+
+  mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+    
+  $query = "SELECT subcategorie_id FROM `$dataBaseName`.`subcategories` WHERE subcategorie_title='$name'";
+  
+  $result = mysqli_query($GLOBALS['ligacao'], $query);
+  
+  $catID = mysqli_fetch_array($result);
+    
+  mysqli_free_result($result);
+  
+  dbDisconnect();
+
+  return $catID['subcategorie_id'];
+}
+
+
 
 function getcategories(){
     $allcategories = Array();
@@ -394,7 +415,6 @@ function getcategories(){
     mysqli_free_result($result);
 
     dbDisconnect();
-
     return $allcategories;
 
 }
@@ -585,7 +605,7 @@ function deleteArticle ($articleID, $postID) {
       return false;
     }
 
-    $results =  mysqli_fetch_array($info);
+    $results = mysqli_fetch_array($info);
 
     $id = $results['id'];
     $imageFileName = $results['imageFileName'];

@@ -140,31 +140,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
   initAutocomplete();
 });
 
-  //action="processCreationArticle.php"
-  function FormLoginValidator(form){
-    if(lat == null || lng == null){
-     document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
-     document.getElementById("mapsinfo").style.color = 'red';
-     return false;
-   } else {
-     form.lat.value = lat;
-     form.lng.value = lng;
-     if(document.getElementById('chosen-choices').getElementsByTagName('li').length < 2){
-      document.getElementById("tags").innerHTML = "Please select at least one tag";
-      document.getElementById("tags").style.color = 'red';
+function FormLoginValidator(form){
+  if(lat == null || lng == null){
+   document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
+   document.getElementById("mapsinfo").style.color = 'red';
+   return false;
+ } else {
+   document.getElementById("mapsinfo").innerHTML = "";
+   form.lat.value = lat;
+   form.lng.value = lng;
+
+   var multipleSelection = document.getElementById('chosen-choices').getElementsByTagName('span');
+   if(multipleSelection.length < 2){
+      document.getElementById("tagsInfo").innerHTML = "Please select at least one tag";
+      document.getElementById("tagsInfo").style.color = 'red';
       return false;
+    }else{
+      var tagsText = "";
+      for(var i = 0 ; i < multipleSelection.length; i++){
+        tagsText += multipleSelection[i].innerHTML + ",";
+      }
+      form.articleTags.value = tagsText;
+      return true;
     }
-    return true;
   }
 }
 
-function debug(){
-   if(document.getElementById('chosen-choices').getElementsByTagName('li').length < 2){
-    console.log("HERE")
-    document.getElementById("tagsInfo").innerHTML = "Please select at least one tag";
-    document.getElementById("tagsInfo").style.color = 'red';
-  }
-}
+
 
 function generateMoreSelector(){
   var value = document.getElementById("article_categorie").value;
@@ -309,6 +311,7 @@ $(function(){
   <!-- listing Area Start -->
   <form 
   id="articleForm"
+  action="processCreationArticle.php"
   onsubmit="return FormLoginValidator(this)"
   name="FormArticle"
   enctype="multipart/form-data"
@@ -398,7 +401,7 @@ $(function(){
       </div>
       <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
       <div id="map"></div>
-      <button onclick="debug();"></button>
+      <input type="hidden" name="articleTags" value="">
       <input type="hidden" name="lat" value="">
       <input type="hidden" name="lng" value="">
     </div>

@@ -38,6 +38,12 @@
         FILTER_SANITIZE_STRING, 
         $flags);
 
+    $article_subcategorie = filter_input( 
+        $_INPUT_METHOD, 
+        'article_subcategorie', 
+        FILTER_SANITIZE_STRING, 
+        $flags);
+
 
     $article_context = filter_input( 
             $_INPUT_METHOD, 
@@ -60,8 +66,16 @@
             FILTER_SANITIZE_STRING, 
             $flags);
 
-    if ( $article_title===null || $article_categorie==null || $article_context===null
-        ||$article_title==="" || $article_categorie=="" || $article_context==="") {
+
+    $tags = filter_input( 
+            $_INPUT_METHOD, 
+            'articleTags', 
+            FILTER_SANITIZE_STRING, 
+            $flags);
+
+
+    if ( $article_title===null || $article_categorie==null || $article_context===null || $article_subcategorie === null || $tags === null
+        ||$article_title==="" || $article_categorie=="" || $article_context==="" || $article_subcategorie === "" || $tags === "") {
       echo "Invalid arguments.";
       echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
       exit();
@@ -294,13 +308,19 @@
 
 
     $categorieID = getCategoryID($article_categorie);
-	
+	$subcategorieID = getCategoryID($article_subcategorie);
     $query = 
             "INSERT INTO `$dataBaseName`.`articles` " .
-            "(`article_categorie_id`, `poster_id`, `article_title`, `article_context`, `article_image`, `article_timestamp` ) values " .
-            "('$categorieID', '$userId', '$article_title', '$article_context', '$article_imgID', STR_TO_DATE('$timestamp','%d/%m/%y'))";
+            "(`article_categorie_id`, `article_subcategorie_id` ,`poster_id`, `article_title`, `article_context`, `article_image`, `article_timestamp`, `tags` ) values " .
+            "('$categorieID', '$subcategorieID','$userId', '$article_title', '$article_context', '$article_imgID', STR_TO_DATE('$timestamp','%d/%m/%y'), $tags)";
     
     
+
+    $GLOBALS['ligacao']->begin_transaction();
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`images-details` WHERE id='$id'");
+    $res2 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`articles` WHERE article_id='$articleID' and poster_id='$postID'");
+    
+    $GLOBALS['ligacao']->commit();
     mysqli_query( $linkIdentifier, $query );
 
     echo $linkIdentifier -> error;
