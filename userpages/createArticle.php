@@ -84,9 +84,8 @@ $subcategories = getSubcategories();
   <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
 <script>
 	var lat = null;
@@ -141,15 +140,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
   initAutocomplete();
 });
 
-function FormLoginValidator(form){
-  if(lat==null || lng == null){
-   document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
-   document.getElementById("mapsinfo").style.color = 'red';
-   return false;
- }else{
-   form.lat.value = lat;
-   form.lng.value = lng;
- }
+  //action="processCreationArticle.php"
+  function FormLoginValidator(form){
+    if(lat == null || lng == null){
+     document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
+     document.getElementById("mapsinfo").style.color = 'red';
+     return false;
+   } else {
+     form.lat.value = lat;
+     form.lng.value = lng;
+     if(document.getElementById('chosen-choices').getElementsByTagName('li').length < 2){
+      document.getElementById("tags").innerHTML = "Please select at least one tag";
+      document.getElementById("tags").style.color = 'red';
+      return false;
+    }
+    return true;
+  }
+}
+
+function debug(){
+   if(document.getElementById('chosen-choices').getElementsByTagName('li').length < 2){
+    console.log("HERE")
+    document.getElementById("tagsInfo").innerHTML = "Please select at least one tag";
+    document.getElementById("tagsInfo").style.color = 'red';
+  }
 }
 
 function generateMoreSelector(){
@@ -179,6 +193,12 @@ function generateMoreSelector(){
     })
   }
 };
+
+$(function(){
+  $(".chosen-select").chosen();
+  $(".chosen-choices").attr('id', 'chosen-choices');;
+});
+
 
 </script>
 <body style="overflow: visible;">
@@ -289,7 +309,6 @@ function generateMoreSelector(){
   <!-- listing Area Start -->
   <form 
   id="articleForm"
-  action="processCreationArticle.php"
   onsubmit="return FormLoginValidator(this)"
   name="FormArticle"
   enctype="multipart/form-data"
@@ -329,9 +348,13 @@ function generateMoreSelector(){
                   <option value="">Choose Subcategory</option>
 
                 </select>
-                <select id="tags" 
-                        class="nice-select" name="tags" required="true" form="articleForm" multiple class="chosen-select" style="width: 100%; margin-bottom: 20px;">
-                  <option value="">Tags</option>
+                <div style="width: 100%; margin-bottom: 20px;">
+                  <select id="tags"
+                  name="tags"
+                  form="articleForm" 
+                  multiple class="chosen-select" 
+                  style="width: 100%;"
+                  data-placeholder="Tags" >
                   <?php
                   foreach($categories as $array){
                     echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
@@ -343,41 +366,44 @@ function generateMoreSelector(){
                   ?>
 
                 </select>
+                <span id="tagsInfo"></span>
               </div>
-              <!--  Select job items End-->
-              <!-- Select job items start -->
-              <div class="select-job-items2">
-                <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
-              </div>
-
+            </div>
+            <!--  Select job items End-->
+            <!-- Select job items start -->
+            <div class="select-job-items2">
+              <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
             </div>
 
-            <div class="single-listing">
-             <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
-             <input type="submit" class="btn list-btn mt-20" value="submit">
-           </div>
+          </div>
 
+          <div class="single-listing">
+           <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
+           <input type="submit" class="btn list-btn mt-20" value="submit">
          </div>
-         <!-- Job Category Listing End -->
+
        </div>
-       <!-- Right content -->
-       <div class="col-xl-8 col-lg-8 col-md-6">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="count mb-35">
-              <span>Google Maps</span>
-              <br>
-              <span id="mapsinfo"></span>
-            </div>
+       <!-- Job Category Listing End -->
+     </div>
+     <!-- Right content -->
+     <div class="col-xl-8 col-lg-8 col-md-6">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="count mb-35">
+            <span>Google Maps</span>
+            <br>
+            <span id="mapsinfo"></span>
           </div>
         </div>
-        <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
-        <div id="map"></div>
-        <input type="hidden" name="lat" value="">
-        <input type="hidden" name="lng" value="">
       </div>
+      <input style="background: #fff; color: #000" id="my-input-searchbox" type="text" placeholder="Search Location">
+      <div id="map"></div>
+      <button onclick="debug();"></button>
+      <input type="hidden" name="lat" value="">
+      <input type="hidden" name="lng" value="">
     </div>
   </div>
+</div>
 </form>
 <!-- listing-area Area End -->
 
