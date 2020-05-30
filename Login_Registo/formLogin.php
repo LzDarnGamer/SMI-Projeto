@@ -13,6 +13,9 @@
 
     $nextUrl = "https://" . $serverName . ":" . $serverPortSSL . $name . "processFormLogin.php";
     #$nextUrl = "http://" . $serverName . ":" . $serverPort . $name . "processFormLogin.php";
+
+
+
 ?>
 
 <html class="no-js" lang="zxx">
@@ -129,9 +132,9 @@
                                     method="POST">
 
                                 <div style="text-align: center">
-									<input class="inpt" type="text" name="username" placeholder="Type your name"> <br />
-									<input class="inpt" type="password" name="password" placeholder="Type your password"> <br />
-                                
+									<input class="inpt" type="text" name="username" placeholder="Type your name" required> <br />
+									<input class="inpt" type="password" name="password" placeholder="Type your password" required> <br />
+                                    <div style="background-color: red; font-size: 12px; display: inline-block;color: white"><?php if(isset($_GET['returning'])) echo $_GET['returning']; ?></div><br />
                                     <input class="btn" alt=""type="submit" value="Log in"> <br />
                                     <input class="btn" alt=""type="reset" value="Clear"> <br />
                                 </div>	

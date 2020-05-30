@@ -28,9 +28,10 @@
 
     if ($userId > 0) {
         if ( $IsUserVerified=="0") {
-          echo "Please confirm your email first";
-          echo "<br><hr><a href=\"../index.php\">Back</a>";
-          exit();
+            $title = "Account not active";
+            $info = "Please confirm your email first";
+            header("Location: ../responsePage.php?title=$title&info=$info");
+            exit();
         }
 
         session_start();
@@ -49,8 +50,8 @@
         }
 
     }else {
-        echo "Please confirm if your credentials are correct";
-        echo "<br><hr><a href=\"../index.php\">Back</a>";
+        $info = "Please confirm if your credentials are correct";
+        header("Location: formLogin.php?returning=$info");
         exit();
     }
 
