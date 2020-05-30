@@ -6,8 +6,9 @@ if (!isset($_SESSION)) {
 if ( !isset($_SESSION['username']) ) {
     $_SESSION['locationAfterAuth'] = $_SERVER['REQUEST_URI'];
 
-    echo "STOP! This content is only for users, please login or create account";
-    echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
-    exit;
+	$title = "Not logged in";
+  	$info = "Please login first before accessing this page";
+  	header("Location: ../responsePage.php?title=$title&info=$info");
+  	exit();
 }
 ?>

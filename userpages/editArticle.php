@@ -68,6 +68,8 @@ $subcategorieID = getsubcategoryName($article['article_subcategorie_id']);
 $fileDetails = getFileDetails($article['article_image']);
 $categories = getcategories();
 $subcategories = getSubcategories();
+
+$_SESSION['article'] = $article;
 ?>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
   <meta charset="utf-8">
@@ -98,8 +100,8 @@ $subcategories = getSubcategories();
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHfVOvuyvRGhi41p2KHLbSEbUHPg1buKk&libraries=places"></script>
 <script>
   var myLatLon = new google.maps.LatLng(<?php echo $fileDetails['latitude']; ?>, <?php echo $fileDetails['longitude']; ?>);
-  var lat = myLatLon.latitude;
-  var lng = myLatLon.longitude;
+  var lat = <?php echo $fileDetails['latitude']; ?>;
+  var lng = <?php echo $fileDetails['longitude']; ?>;
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLon,
@@ -150,15 +152,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function FormLoginValidator(form){
-  if(lat==null || lng == null){
+  if(lat == null || lng == null){
    document.getElementById("mapsinfo").innerHTML = "Please select a area in the map";
    document.getElementById("mapsinfo").style.color = 'red';
    return false;
- }else{
+ } else {
+   document.getElementById("mapsinfo").innerHTML = "";
    form.lat.value = lat;
    form.lng.value = lng;
- }
+
+   var multipleSelection = document.getElementById('chosen-choices').getElementsByTagName('span');
+   if(multipleSelection.length < 1){
+    document.getElementById("tagsInfo").innerHTML = "Please select at least one tag";
+    document.getElementById("tagsInfo").style.color = 'red';
+    return false;
+  }else{
+    var tagsText = "";
+    for(var i = 0 ; i < multipleSelection.length; i++){
+      tagsText += multipleSelection[i].innerHTML + ",";
+    }
+    form.articleTags.value = tagsText;
+    return true;
+  }
 }
+}
+
 $(function(){
   $(".chosen-select").chosen();
   $(".chosen-choices").attr('id', 'chosen-choices');;
@@ -272,7 +290,7 @@ $(function(){
   <!-- listing Area Start -->
   <form 
   id="articleForm"
-  action="processCreationArticle.php"
+  action="processEditArticle.php" 
   onsubmit="return FormLoginValidator(this)"
   name="FormArticle"
   enctype="multipart/form-data"
@@ -334,13 +352,14 @@ $(function(){
                     foreach($subcategories as $array){
                       if(in_array($array['subcategorie_title']  , $tagsArray)){
                         echo "<option selected value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
-                       }else{
+                      }else{
                         echo "<option value=".$array['subcategorie_title'].">".$array['subcategorie_title']."</option>";
                       }
                     }
                     ?>
 
                   </select>
+                  <span id="tagsInfo"></span>
                 </div>
               </div>
             </div>
@@ -367,6 +386,7 @@ $(function(){
       <div id="map"></div>
       <input type="hidden" name="lat" value="">
       <input type="hidden" name="lng" value="">
+      <input type="hidden" name="articleTags" value="">
     </div>
   </div>
 </div>
