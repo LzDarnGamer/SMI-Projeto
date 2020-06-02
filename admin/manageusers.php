@@ -13,7 +13,6 @@ $isAdmin = false;
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $role = getRoleFromUser($userId);
-$role = "administrator";
 
 switch ($role) {
     case 'manager':
@@ -146,6 +145,7 @@ switch ($role) {
                                 $users = getAllUsers();
                                 $ids = getAllIds();
                                 for ($i = 0; $i < count($users); $i ++) {
+                                    if ($ids[$i] != $userId) {
                                     $_role = getRoleFromUser($ids[$i]);?>
                             
                             <form method="POST" action="loadUpdate.php" onsubmit="clicked<?php echo $i; ?>()">
@@ -161,7 +161,19 @@ switch ($role) {
 
                                     <div class="percentage">
                                         <select id="b<?php echo $i; ?>" class="nice-select" name="roleName" required="true" form="articleForm" style="width: 100%; margin-bottom: 20px;" onchange="generateMoreSelector()">
-                                            <option value="<?php echo $_role; ?>"><?php echo $_role; ?></option>
+                                            <?php
+                                            
+                                            $roles = array("administrator", "manager", "user", "guest");
+
+                                            for ($j = 0; $j < count($roles); $j ++) {
+                                                if ($roles[$j] != $_role) { ?>
+                                                    <option value="<?php echo $roles[$j]; ?>"><?php echo $roles[$j]; ?></option>
+                                                    <?php
+                                                }
+                                            }
+
+                                            ?>
+                                            
                                         </select>
                                     </div>
 
@@ -186,6 +198,7 @@ switch ($role) {
                             </form>
 
                             <?php }
+                            }
                             ?>
 						</div>
 					</div>
