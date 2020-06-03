@@ -40,13 +40,15 @@ if($type == "eliminate") {
         exit();
     }
     $result = deleteArticle($articleid, getPosterID($articleid));
+
     if($result){
         header("Location: profilepage.php");
-   }else{
+    }else{
         $title = "Invalid Arguments";
         $info = "Some errors found while processing your request";
         header("Location: ../responsePage.php?title=$title&info=$info");
-   }
+        
+    }
     exit();
 }
 
@@ -83,7 +85,7 @@ $fileDetails = getFileDetails($article['article_image']);
     var myLatLon = new google.maps.LatLng(<?php echo $fileDetails['latitude']; ?>, <?php echo $fileDetails['longitude']; ?>);
     function initAutocomplete() {
         var myOptions = {
-            zoom: 16,
+            zoom: 4,
             center: myLatLon,
         };
 
@@ -116,7 +118,7 @@ $fileDetails = getFileDetails($article['article_image']);
         <!-- Header Start -->
         <div class="header-area header-transparent">
             <div class="main-header">
-               <div class="header-bottom  header-sticky">
+             <div class="header-bottom  header-sticky">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <!-- Logo -->
@@ -131,16 +133,24 @@ $fileDetails = getFileDetails($article['article_image']);
                             <nav>
                                 <ul id="navigation">                                                                                                                                     
                                     <li><a href="landingpage.php">Home</a></li>
-                                    <li><a href="../about.php">About</a></li>
-                                    <li class="login"><a href="profilepage.php">
-                                        <i class="ti-user"></i> Me</a>
-                                    </li>
-                                    <li class="login"><a href="../Login_Registo/formLogin.php">
-                                        <i class="ti-user"></i> Sign in</a>
-                                    </li>
-                                    <li class="login"><a href="../Login_Registo/formRegister.php">
-                                        <i class="ti-user"></i> Register</a>
-                                    </li>
+                                    <li><a href="about.php">About</a></li>
+
+                                    <?php 
+                                    if(!isset($_SESSION['id'])){ ?>
+                                        <li id="signin" class="login"><a href="../Login_Registo/formLogin.php">
+                                            <i class="ti-user"></i> Sign in</a>
+                                        </li>
+                                        <li class="login"><a href="../Login_Registo/formRegister.php">
+                                            <i class="ti-user"></i> Register</a>
+                                        </li>
+                                    <?php  }else{ ?>
+                                        <li class="login"><a href="profilepage.php">
+                                            <i class="ti-user"></i> Me</a>
+                                        </li>
+                                        <li class="login"><a href="../logout.php">
+                                            <i class="ti-user"></i> Log Out</a>
+                                        </li>
+                                    <?php } ?>
                                 </ul>
                             </nav>
                         </div>
@@ -179,10 +189,10 @@ $fileDetails = getFileDetails($article['article_image']);
         <div class="container">
 
             <div class="row justify-content-center">
-                <img style="margin-bottom: 20px" width="auto" height="auto" class="img-fluid" 
+                <img style="margin-bottom: 20px" width="800px" height="800px" class="img-fluid" 
                 src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
                 alt="Your article image">
-                <div class="col-lg-8" style="text-align: center;">
+                <div class="col-lg-8" style="text-align: center;"><br>
                     <h3 class="mb-20">Article Context</h3>
                     <p class="mb-30"><?php echo $article['article_context'] ?>
                 </p>

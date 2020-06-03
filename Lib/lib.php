@@ -641,8 +641,8 @@ function deleteArticle ($articleID, $posterID) {
 
     $info = $GLOBALS['ligacao'] -> query("SELECT imageFileName, thumbFileName, id " .
                                   "FROM `$dataBaseName`.`articles` a " .
-                                  "JOIN `$dataBaseName`.`images-details` d ON a.article_image = d.id" .
-                                  "WHERE a.article_id='$articleID' and a.poster_id='$posterID'" );
+                                  "JOIN `$dataBaseName`.`images-details` d ON a.article_image=d.id " .
+                                  "WHERE a.article_id=$articleID and a.poster_id=$posterID" );
     if(!$info){
       return false;
     }
@@ -655,21 +655,23 @@ function deleteArticle ($articleID, $posterID) {
     
     
     $GLOBALS['ligacao']->begin_transaction();
-    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`images-details` WHERE id='$id'");
-    $res2 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`articles` WHERE article_id='$articleID' and poster_id='$posterID'");
-    $GLOBALS['ligacao']->commit();
+    $res2 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`articles` WHERE article_id=$articleID and poster_id=$posterID");
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`images-details` WHERE id=$id");
+
 
     if($res1 && $res2){
-      unlink($imageFileName);
-      unlink($thumbFileName);
-      return "true";
+        $GLOBALS['ligacao']->commit();
+        unlink($imageFileName);
+        unlink($thumbFileName);
+        dbDisconnect();
+        return true;
     }else{
-      $GLOBALS['ligacao']->rollback();
-      return "false";
+        $GLOBALS['ligacao']->rollback();
+        dbDisconnect();
+        return false;
     }
-
-
-    dbDisconnect();
+    
+    
 
 }
 
@@ -709,6 +711,57 @@ function deleteImage($imgID){
 
 }
 
+function getSubsciptions($userID){
+    $userSubscriptionsIDS = Array();
+
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $query = "SELECT `subscription_category_id` FROM `$dataBaseName`.`subscriptions` WHERE `subcriber_id`='$userId'";
+
+    $result = mysqli_query($GLOBALS['ligacao'], $query);
+
+    $numRows = mysqli_num_rows($result);
+
+    if ($numRows > 0) {
+        $ids = mysqli_fetch_array($result);
+        $userSubscriptionsIDS = $ids['subscription_category_id'];
+    }
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $userSubscriptionsIDS;
+}
+
+function getArticlesOrderLikes($amount){
+    $articles = Array();
+
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $query = "SELECT * FROM `$dataBaseName`.`articles` ORDER BY `likes` DESC LIMIT `$amount`";
+
+    $result = mysqli_query($GLOBALS['ligacao'], $query);
+
+    $numRows = mysqli_num_rows($result);
+
+    if ($numRows > 0) {
+        $ids = mysqli_fetch_array($result);
+        $userSubscriptionsIDS = $ids['subscription_category_id'];
+    }
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $articles;
+}
 
 function getConfiguration() {
   dbConnect(ConfigFile);

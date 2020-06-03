@@ -375,7 +375,7 @@ $(function(){
             </div>
             
             <div class="select-job-items2">
-              <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
+              <textarea style="min-height: 200px" class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"></textarea>
             </div>
 
           </div>

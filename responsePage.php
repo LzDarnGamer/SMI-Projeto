@@ -1,11 +1,15 @@
 <?php 
-  if(isset($_GET["title"]) && isset($_GET["info"])) {
-      $title = $_GET["title"];
-      $info = $_GET["info"];
-   }else {
-      $title = "Invalid request";
-      $info = "Invalid request found please retry";
-   }
+if ( !isset($_SESSION) ) {
+  session_start();
+}
+
+if(isset($_GET["title"]) && isset($_GET["info"])) {
+  $title = $_GET["title"];
+  $info = $_GET["info"];
+}else {
+  $title = "Invalid request";
+  $info = "Invalid request found please retry";
+}
 ?>
 <!DOCTYPE html>
 <html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers" lang="zxx"><head>
@@ -54,7 +58,7 @@
             <!-- Logo -->
             <div class="col-xl-2 col-lg-2 col-md-1">
               <div class="logo">
-                <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
+                <a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
               </div>
             </div>
             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -62,14 +66,25 @@
               <div class="main-menu f-right d-none d-lg-block">
                 <nav>
                   <ul id="navigation">                                                                                                                                     
-                    <li><a href="../landingpage.php">Home</a></li>
-                    <li><a href="../about.php">About</a></li>
-                    <li class="login"><a href="userpages/profilepage.php">
-                      <i class="ti-user"></i> Me</a>
-                    </li>
-                    <li class="login"><a href="#">
-                      <i class="ti-user"></i> Sign out</a>
-                    </li>
+                    <li><a href="landingpage.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
+
+                    <?php 
+                    if(!isset($_SESSION['id'])){ ?>
+                      <li id="signin" class="login"><a href="Login_Registo/formLogin.php">
+                        <i class="ti-user"></i> Sign in</a>
+                      </li>
+                      <li class="login"><a href="Login_Registo/formRegister.php">
+                        <i class="ti-user"></i> Register</a>
+                      </li>
+                    <?php  }else{ ?>
+                      <li class="login"><a href="userpages/profilepage.php">
+                        <i class="ti-user"></i> Me</a>
+                      </li>
+                      <li class="login"><a href="logout.php">
+                        <i class="ti-user"></i> Log Out</a>
+                      </li>
+                    <?php } ?>
                   </ul>
                 </nav>
               </div>
@@ -131,10 +146,10 @@
           <div class="hero-cap text-center pt-50 pb-20">
             <h2><?php echo $info ?></h2>
 
-          <script>
-            function goback () { window.location = "landingpage.php"; }
-          </script>
-          <input class="btn" type="button" value="Go to main page" onclick="goback()"><br>
+            <script>
+              function goback () { window.location = "landingpage.php"; }
+            </script>
+            <input class="btn" type="button" value="Go to main page" onclick="goback()"><br>
           </div>
         </div>
       </div>

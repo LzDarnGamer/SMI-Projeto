@@ -215,7 +215,7 @@ $(function(){
                   <ul id="navigation">                                                                                                                                     
                     <li><a href="../landingpage.php">Home</a></li>
                     <li><a href="../about.php">About</a></li>
-                    <li class="login"><a href="userpages/profilepage.php">
+                    <li class="login"><a href="profilepage.php">
                       <i class="ti-user"></i> Me</a>
                     </li>
                     <li class="login"><a href="#">
@@ -328,7 +328,7 @@ $(function(){
 
 
                 <div class="select-job-items2">
-                  <textarea class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"><?php echo $article['article_context'] ?></textarea>
+                  <textarea style="min-height: 200px" class="nice-select" name="article_context" cols="40" rows="5" placeholder="Article Context" required="true"><?php echo $article['article_context'] ?></textarea>
                 </div>
 
                 <div class="select-job-items2">

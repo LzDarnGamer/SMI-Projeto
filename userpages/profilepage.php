@@ -24,6 +24,7 @@ switch ($role) {
         $isAdmin = true;
         break;
     case 'user':
+        $userSubscriptionsIDS = getSubsciptions($userId);
         break;
     default:
         header("Location: ../noPrivelege.php");
@@ -155,7 +156,28 @@ switch ($role) {
                             <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
                             <input class="btn" style="width: 350px;" type="button" value="Create Articles" onclick="createArticles()"><br>
                             <input class="btn" style="width: 350px;" type="button" value="Create Subcategories" onclick="createSubcategory()">
-                        <?php } else if ($role == "user"){ ?>
+                        <?php } else if ($role == "user"){ 
+                                if(count($userSubscriptionsIDS)==0){
+                                    $NonCatarticles = getArticlesOrderLikes(10);
+                                    for ($i=0; $i < count($NonCatarticles); $i++) {
+                                        echo <<< EOT
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
+                                        <div class="single-cat text-center mb-50">
+                                        <div class="cat-icon">
+                                        <img style="border-radius: 50%" width="80" height="80" src="showFileImage.php?id={$articlesArray[$i]['article_image']}&size=thumb" alt="Figura">
+                                        </div>
+                                        <br>
+                                        <div class="cat-cap">
+                                        <h5><a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">{$articlesArray[$i]['article_title']}</a></h5>
+                                        <p>{$articlesArray[$i]['article_context']}</p>
+                                        <a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">View article</a>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        EOT;
+                                    }
+                                }
+                            ?>
 
                         <?php } ?>
                     </div>
@@ -199,6 +221,7 @@ switch ($role) {
                 <div class="row">
                 <?php
                 for ($i=0; $i < count($articlesArray); $i++) {
+                    $truncated = (mb_strlen($articlesArray[$i]['article_context'], 'UTF-8') > 80) ? mb_substr($articlesArray[$i]['article_context'], 0, 80, 'UTF-8') . '...' : $articlesArray[$i]['article_context'];
                     echo <<< EOT
                     <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-cat text-center mb-50">
@@ -208,7 +231,7 @@ switch ($role) {
                     <br>
                     <div class="cat-cap">
                     <h5><a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">{$articlesArray[$i]['article_title']}</a></h5>
-                    <p>{$articlesArray[$i]['article_context']}</p>
+                    <p>{$truncated}</p>
                     <a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">View article</a>
                     <br>
                     <a href="article.php?type=edit&id={$articlesArray[$i]['article_id']}">Edit article</a>
