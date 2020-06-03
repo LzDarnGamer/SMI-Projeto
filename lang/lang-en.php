@@ -8,6 +8,7 @@ $language['register'] = 'Register';
 $language['language'] = "Language";
 $language['about'] = "About";
 $language['clear'] = "Clear";
+$language['articles'] = "Articles";
  
 $language['log_title'] = "Sign In";
 $language['log_name'] = "Type your name";

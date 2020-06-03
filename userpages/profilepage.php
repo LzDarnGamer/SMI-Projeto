@@ -47,7 +47,7 @@ switch ($role) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><?php echo $username?>'s <?php echo $languange['profilepg_title'] ?></title>
+    <title><?php echo $username?>'s <?php echo $language['profilepg_title'] ?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -141,6 +141,7 @@ switch ($role) {
             <!--Hero Area End-->
             <!-- Popular Locations Start -->
             <?php
+            echo $numarticlesUser;
             if(isset($numarticlesUser) && isset($articlesArray)){
                 if($numarticlesUser <=0 ){
                     ?>

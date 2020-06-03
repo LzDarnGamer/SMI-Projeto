@@ -62,7 +62,7 @@ $fileDetails = getFileDetails($article['article_image']);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> <?php echo $username ?>'s Article </title>
+    <title> <?php echo $username ?>'s <?php echo $language['articles']; ?> </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -132,7 +132,7 @@ $fileDetails = getFileDetails($article['article_image']);
                 src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
                 alt="Your article image">
                 <div class="col-lg-8" style="text-align: center;"><br>
-                    <h3 class="mb-20">Article Context</h3>
+                    <h3 class="mb-20"><?php echo $language['createArt_artCont'] ?></h3>
                     <p class="mb-30"><?php echo $article['article_context'] ?>
                 </p>
             </div>
@@ -140,7 +140,7 @@ $fileDetails = getFileDetails($article['article_image']);
         <!-- Map -->
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-30">Location</h3>
+                <h3 class="mb-30">Google Maps</h3>
                 <div id="map" style="height: 480px; position: relative; overflow: hidden;"></div>
             </div>
         </div>

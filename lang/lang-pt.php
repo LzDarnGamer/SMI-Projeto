@@ -8,6 +8,7 @@ $language['register'] = 'Registar';
 $language['language'] = "Língua";
 $language['about'] = "Sobre";
 $language['clear'] = "Limpar";
+$language['articles'] = "Artigos";
 
 $language['log_title'] = "Iniciar Sessão";
 $language['log_name'] = "Seu nome";
