@@ -675,6 +675,51 @@ function deleteArticle ($articleID, $posterID) {
 
 }
 
+function deleteUser ($userID) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);    
+    
+    $GLOBALS['ligacao']->begin_transaction();
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`auth-basic` WHERE id='$userID'");
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`auth-challenge` WHERE id='$userID'");
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`auth-permissions` WHERE id='$userID'");
+    $GLOBALS['ligacao']->commit();
+
+    if($res1){
+      return "true";
+    }else{
+      return "false";
+    }
+
+
+    dbDisconnect();
+
+}
+
+function updateRole ($userID, $roleChosen) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);    
+    
+    $GLOBALS['ligacao']->begin_transaction();
+    $res1 = $GLOBALS['ligacao'] -> query("UPDATE `$dataBaseName`.`auth-permissions` SET `role`='$roleChosen' WHERE id='$userID'");
+    $GLOBALS['ligacao']->commit();
+
+    if($res1){
+      return "true";
+    }else{
+      return "false";
+    }
+
+
+    dbDisconnect();
+}
+
 function deleteImage($imgID){
     dbConnect(ConfigFile);
     $dataBaseName = $GLOBALS['configDataBase']->db;

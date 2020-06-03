@@ -22,14 +22,25 @@
 
 <?php
 
-
-
-if (strcmp($delete, "yes")) {
-    echo "Delete";
+if ($delete == "Yes") {
+    deleteUser($id);
+    echo "Delete user";
 } else {
     if (trim($role) === trim(getRoleFromUser($id))) {
         echo "Do nothing";
     } else {
+        $roleid = 0;
+        switch ($role) {
+            case "administrator" : $roleid = 1;
+                break;
+            case "manager": $roleid = 2;
+                break;
+            case "user": $roleid = 3;
+                break;
+            case "guest": $roleid = 4;
+                break;
+        }
+        updateRole($id, $roleid);
         echo "Change Role";
     }
 }
