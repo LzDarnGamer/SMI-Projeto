@@ -124,10 +124,10 @@
 		    data : {field:"name", value: e.value},
 			success: function(data) {
 		    	if(data === "true"){
-		    		document.getElementById("nameCheck").innerHTML = "Utilizador disponível";
+		    		document.getElementById("nameCheck").innerHTML = "User available";
 		    		document.getElementById("nameCheck").style.color = 'lime';
 		    	}else{
-		   			document.getElementById("nameCheck").innerHTML = "Utilizador não disponível";
+		   			document.getElementById("nameCheck").innerHTML = "User not available";
 		    		document.getElementById("nameCheck").style.color = 'red';
 		    	}
 	        }
@@ -148,10 +148,10 @@
 		    data : {field:"email", value: e.value},
 			success: function(data) {
 	        	if(data === "true"){
-	        		document.getElementById("emailCheck").innerHTML = "Email disponível";
+	        		document.getElementById("emailCheck").innerHTML = "Email available";
 	        		document.getElementById("emailCheck").style.color = 'lime';
 	        	}else{
-	       			document.getElementById("emailCheck").innerHTML = "Email não disponível";
+	       			document.getElementById("emailCheck").innerHTML = "Email not available";
 	        		document.getElementById("emailCheck").style.color = 'red';
 	        	}
 	        }

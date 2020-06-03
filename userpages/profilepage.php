@@ -31,6 +31,7 @@ switch ($role) {
     break;
 }
 ?>
+
 <script>
     function createArticles () { window.location = "createArticle.php"; }
     function createSubcategory () { window.location = "createSubcategories.php"; }
@@ -41,6 +42,31 @@ switch ($role) {
     }
     function changeLanguage(type){
         window.location.href = "profilePage.php?lang=" + type;
+    }
+
+    function changeVisibility(div, id){
+        if(div.getElementsByTagName("i")[0].className === "fa fa-eye-slash"){
+
+            $.ajax({
+                url: 'changeVisibility.php',
+                type: 'POST',
+                data : {postID: id, value: 1},
+                success: function(data) {
+                    console.log(data);
+                    div.getElementsByTagName("i")[0].className = "fa fa-eye";
+                }
+            })
+        }else{
+            $.ajax({
+                url: 'changeVisibility.php',
+                type: 'POST',
+                data : {postID: id, value: 0},
+                success: function(data) {
+                    div.getElementsByTagName("i")[0].className = "fa fa-eye-slash";
+                }
+            })
+        }
+        
     }
 </script>
 <html class="no-js" lang="zxx">
@@ -55,6 +81,7 @@ switch ($role) {
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
     <!-- CSS here -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/slicknav.css">
@@ -125,6 +152,7 @@ switch ($role) {
                                         <h5><a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">{$articlesArray[$i]['article_title']}</a></h5>
                                         <p>{$articlesArray[$i]['article_context']}</p>
                                         <a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">View article</a>
+                                        <i class="fa fa-eye"></i>
                                         </div>
                                         </div>
                                         </div>
@@ -176,6 +204,13 @@ switch ($role) {
                             <div class="row">
                                 <?php
                                 for ($i=0; $i < count($articlesArray); $i++) {
+                                    if($articlesArray[$i]['visible']==0){
+                                        $icon = "fa fa-eye-slash";
+                                        $visible = "Invisible to guests";
+                                    }else{
+                                        $icon = "fa fa-eye";
+                                        $visible = "Visible to guests";
+                                    }
                                     $truncated = (mb_strlen($articlesArray[$i]['article_context'], 'UTF-8') > 80) ? mb_substr($articlesArray[$i]['article_context'], 0, 80, 'UTF-8') . '...' : $articlesArray[$i]['article_context'];
                                     echo <<< EOT
                                     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -192,6 +227,8 @@ switch ($role) {
                                     <a href="article.php?type=edit&id={$articlesArray[$i]['article_id']}">Edit article</a>
                                     <br>
                                     <a onclick="return confirmBox();" href="article.php?type=eliminate&id={$articlesArray[$i]['article_id']}">Eliminate article</a>
+                                    <br><br>
+                                    <a style="cursor: pointer;" onclick="changeVisibility(this, {$articlesArray[$i]['article_id']} );" title="{$visible}"><i class="{$icon}"></i></a>
                                     </div>
                                     </div>
                                     </div>
