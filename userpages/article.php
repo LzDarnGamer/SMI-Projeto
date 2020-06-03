@@ -7,6 +7,7 @@ if ( !isset($_SESSION) ) {
 require_once("../Lib/lib.php");
 require_once("../Lib/db.php");
 include( "../ensureAuth.php" );
+require_once("../languageAddon.php");
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 
@@ -102,72 +103,10 @@ $fileDetails = getFileDetails($article['article_image']);
   });
 </script>
 <body>
-    <!-- Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-        <div class="header-area header-transparent">
-            <div class="main-header">
-             <div class="header-bottom  header-sticky">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <!-- Logo -->
-                        <div class="col-xl-2 col-lg-2 col-md-1">
-                            <div class="logo">
-                              <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
-                          </div>
-                      </div>
-                      <div class="col-xl-10 col-lg-10 col-md-8">
-                        <!-- Main-menu -->
-                        <div class="main-menu f-right d-none d-lg-block">
-                            <nav>
-                                <ul id="navigation">                                                                                                                                     
-                                    <li><a href="landingpage.php">Home</a></li>
-                                    <li><a href="about.php">About</a></li>
-
-                                    <?php 
-                                    if(!isset($_SESSION['id'])){ ?>
-                                        <li id="signin" class="login"><a href="../Login_Registo/formLogin.php">
-                                            <i class="ti-user"></i> Sign in</a>
-                                        </li>
-                                        <li class="login"><a href="../Login_Registo/formRegister.php">
-                                            <i class="ti-user"></i> Register</a>
-                                        </li>
-                                    <?php  }else{ ?>
-                                        <li class="login"><a href="profilepage.php">
-                                            <i class="ti-user"></i> Me</a>
-                                        </li>
-                                        <li class="login"><a href="../logout.php">
-                                            <i class="ti-user"></i> Log Out</a>
-                                        </li>
-                                    <?php } ?>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <!-- Mobile Menu -->
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Header End -->
-</header>
-<main>
-
+  <?php include_once("../Page_Elements/preloader.php") ?>
+  
+  <main>
+    <?php include_once("../Page_Elements/header.php") ?>
     <!-- Hero Start-->
     <div class="hero-area2  slider-height2 hero-overly2 d-flex align-items-center ">
         <div class="container">
@@ -212,40 +151,8 @@ $fileDetails = getFileDetails($article['article_image']);
 </div>
 
 </main>
-<footer>
-    <!-- Footer Start-->
-    <div class="footer-area">
-        <div class="container">
-
-            <div class="footer-bottom">
-                <div class="row d-flex justify-content-between align-items-center">
-                    <div class="col-xl-9 col-lg-8">
-                        <div class="footer-copy-right">
-                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-                              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                          </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-4">
-                        <!-- Footer Social -->
-                        <div class="footer-social f-right">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fas fa-globe"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End-->
-</footer>
-<!-- Scroll Up -->
-<div id="back-top" >
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
-
+<?php include_once("../Page_Elements/goup.php") ?>
+<?php include_once("../Page_Elements/footer.php") ?>
 
 <!-- JS here -->
 <!-- All JS Custom Plugins Link Here here -->
@@ -276,7 +183,7 @@ $fileDetails = getFileDetails($article['article_image']);
 <script src="./assets/js/mail-script.js"></script>
 <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
 
-<!-- Jquery Plugins, main Jquery -->	
+<!-- Jquery Plugins, main Jquery -->  
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
 

@@ -58,80 +58,10 @@ if (!isset($_SESSION) ) {
     </head>
 
     <body>
-        <!-- Preloader Start -->
-        <div id="preloader-active">
-            <div class="preloader d-flex align-items-center justify-content-center">
-                <div class="preloader-inner position-relative">
-                    <div class="preloader-circle"></div>
-                    <div class="preloader-img pere-text">
-                        <img src="assets/img/logo/loder.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Preloader Start -->
-        <header>
-            <!-- Header Start -->
-            <div class="header-area header-transparent" style="background-color: #212529">
-                <div class="main-header">
-                    <div class="header-bottom  header-sticky">
-                        <div class="container-fluid">
-                            <div class="row align-items-center">
-                                <!-- Logo -->
-                                <div class="col-xl-2 col-lg-2 col-md-1">
-                                    <div class="logo">
-                                        <a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-10 col-lg-10 col-md-8">
-                                    <!-- Main-menu -->
-                                    <div class="main-menu f-right d-none d-lg-block">
-                                        <nav>
-                                            <ul id="navigation">                                       
-                                                <li><a href="#"><?php echo $language['language'] ?></a>
-                                                    <ul class="submenu">
-                                                        <li><a href="javascript:changeLanguage('pt')">Português</a></li>
-                                                        <li><a href="javascript:changeLanguage('en')">English</a></li>
-                                                        <li><a href="javascript:changeLanguage('fr')">Français</a></li>
-                                                    </ul>
-                                                </li>               
-                                                <li><a href="landingpage.php"><?php echo $language['home'] ?></a></li>
-                                                <li><a href="about.php"><?php echo $language['about'] ?></a></li>
-
-                                                <?php 
-                                                if(!isset($_SESSION['id'])){ ?>
-                                                <li id="signin" class="login"><a href="Login_Registo/formLogin.php">
-                                                    <i class="ti-user"></i><?php echo $language['signin'] ?></a>
-                                                </li>
-                                                <li class="login"><a href="Login_Registo/formRegister.php">
-                                                    <i class="ti-user"></i><?php echo $language['register'] ?></a>
-                                                </li>
-                                                <?php  }else{ ?>
-                                                <li class="login"><a href="userpages/profilepage.php">
-                                                    <i class="ti-user"></i><?php echo $language['me'] ?></a>
-                                                </li>
-                                                <li class="login"><a href="logout.php">
-                                                    <i class="ti-user"></i><?php echo $language['signout'] ?></a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-
-                                <!-- Mobile Menu -->
-                                <div class="col-12">
-                                    <div class="mobile_menu d-block d-lg-none"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Header End -->
-        </header>
+        <?php include_once("Page_Elements/preloader.php") ?>
+        
         <main>
-
+            <?php include_once("Page_Elements/header.php") ?>
             <!-- Hero Area Start-->
             <div class="slider-area hero-overly">
                 <div class="single-slider hero-overly  slider-height d-flex align-items-center">
@@ -513,25 +443,7 @@ if (!isset($_SESSION) ) {
 
 
         </main>
-        <footer>
-            <!-- Footer Start-->
-            <div class="footer-area">
-                <div class="container">
-                    <div class="footer-bottom">
-                        <div class="row d-flex justify-content-between align-items-center">
-                            <div class="col-xl-9 col-lg-8">
-                                <div class="footer-copy-right">
-                                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End-->
-        </footer>
+        <?php include_once("Page_Elements/footer.php") ?>
         <!-- Scroll Up -->
         <div id="back-top" >
             <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>

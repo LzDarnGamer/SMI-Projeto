@@ -7,10 +7,12 @@ $language['me'] = 'Eu';
 $language['register'] = 'Registar';
 $language['language'] = "Língua";
 $language['about'] = "Sobre";
+$language['clear'] = "Limpar";
 
-$language['log_title'] = "Todas Categorias";
-$language['log_name'] = "Procurar";
-$language['log_pass'] = "Procurar";
+$language['log_title'] = "Iniciar Sessão";
+$language['log_name'] = "Seu nome";
+$language['log_pass'] = "Sua password";
+$language['log_goback'] = "Voltar à página inicial";
 
 $language['res_title'] = "Todas Categorias";
 $language['res_name'] = "Procurar";
@@ -19,6 +21,27 @@ $language['res_title'] = "Todas Categorias";
 $language['res_name'] = "Procurar";
 $language['res_pass'] = "Procurar";
 
+
+$language['profilepg_title'] = "Perfil";
+$language['profilepg_welcome'] = "Bem-vindo de volta";
+$language['profilepg_createArt'] = "Criar Artigos";
+$language['profilepg_createSub'] = "Criar Subcategorias";
+$language['profilepg_yourArt'] = "Os seus lindos artigos";
+$language['profilepg_haveArt'] = "Não há artigos para mostrar, hora de escrever alguns";
+
+
+$language['createArt_title'] = "Criar um Artigo";
+$language['createArt_yourArt'] = "Seu Artigo";
+$language['createArt_details'] = "Detalhes";
+$language['createArt_arttitle'] = "Título do Artigo";
+$language['createArt_cat'] = "Escolha uma categoria";
+$language['createArt_subcat'] = "Escolha uma subcategoria";
+$language['createArt_artCont'] = "Texto descritivo sobre o seu artigo";
+$language['createArt_submit'] = "Submeter";
+$language['createArt_search'] = "Procurar uma localização";
+
+$language['createsub_newsub'] = "Nova Subcategoria";
+$language['createsub_newsubtitle'] = "Novo Título Subcategoria";
 
 $language['allcats'] = "Todas Categorias";
 $language['search'] = "Procurar";

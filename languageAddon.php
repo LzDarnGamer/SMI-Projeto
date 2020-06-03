@@ -10,5 +10,6 @@ if(isset($_GET['lang'])){
 	$lang = $_GET['lang'];
 }
 $_SESSION['lang'] = $lang;
-require_once("./lang/lang-".$lang.".php");
+
+require_once(realpath(dirname(__FILE__)) . "./lang/lang-".$lang.".php");
 ?>
