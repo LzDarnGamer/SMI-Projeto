@@ -35,6 +35,7 @@ switch ($role) {
     function createArticles () { window.location = "createArticle.php"; }
     function createSubcategory () { window.location = "createSubcategories.php"; }
     function manageUsers () { window.location = "../admin/manageusers.php"; }
+    function manageCategories () {window.location = "../admin/manageCategories.php"}
     function confirmBox(){
         return confirm("Are you sure you want to delete");
     }
@@ -105,7 +106,7 @@ switch ($role) {
                             <?php } else if ($role == "administrator") { ?>
                                 <input class="btn" style="width: 350px;" type="button" value="Configure Database">      <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
-                                <input class="btn" style="width: 350px;" type="button" value="Manage Categories">       <br />
+                                <input class="btn" style="width: 350px;" type="button" value="Manage Categories" onclick="manageCategories()">       <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Create Articles" onclick="createArticles()"><br>
                                 <input class="btn" style="width: 350px;" type="button" value="Create Subcategories" onclick="createSubcategory()">

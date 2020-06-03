@@ -720,6 +720,27 @@ function updateRole ($userID, $roleChosen) {
     dbDisconnect();
 }
 
+function updateCat ($oldCategory, $cat) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);    
+    
+    $GLOBALS['ligacao']->begin_transaction();
+    $res1 = $GLOBALS['ligacao'] -> query("UPDATE `$dataBaseName`.`categories` SET `categorie_title`='$cat' WHERE categorie_title='$oldCategory'");
+    $GLOBALS['ligacao']->commit();
+
+    if($res1){
+      return "true";
+    }else{
+      return "false";
+    }
+
+
+    dbDisconnect();
+}
+
 function deleteImage($imgID){
     dbConnect(ConfigFile);
     $dataBaseName = $GLOBALS['configDataBase']->db;
