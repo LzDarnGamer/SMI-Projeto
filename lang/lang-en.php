@@ -29,7 +29,7 @@ $language['profilepg_welcome'] = "Welcome Back";
 $language['profilepg_createArt'] = "Create Articles";
 $language['profilepg_createSub'] = "Create Subcategories";
 $language['profilepg_yourArt'] = "Your beautiful articles";
-$language['profilepg_yourArt'] = "No articles to show, it's time to write some";
+$language['profilepg_haveArt'] = "No articles to show, it's time to write some";
 
 
 $language['createArt_title'] = "Create Article";
