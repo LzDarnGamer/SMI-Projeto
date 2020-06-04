@@ -100,7 +100,7 @@ switch ($role) {
                                         <ul id="navigation">                                                                                                                                     
                                             <li><a href="../landingpage.php">Home</a></li>
                                             <li><a href="../about.php">About</a></li>
-                                            <li class="login"><a href="profilepage.php">
+                                            <li class="login"><a href="../userpages/profilepage.php">
                                                 <i class="ti-user"></i> Me</a>
                                             </li>
                                             <li class="login"><a href="../logout.php">

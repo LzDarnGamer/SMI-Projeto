@@ -45,4 +45,7 @@ if ($delete == "Yes") {
     }
 }
 
+header("Location: manageusers.php");
+
+
 ?>
