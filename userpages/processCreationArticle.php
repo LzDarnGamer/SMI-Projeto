@@ -11,6 +11,8 @@
     include( "../ensureAuth.php" );
     header('Content-Type: text/html; charset=utf-8');
 
+    $ffmpegBinary = "C:/xampp/ffmpeg/bin/ffmpeg.exe";
+
 	// Maximum time allowed for the upload
 	set_time_limit( 300 );
 
@@ -144,30 +146,17 @@
 	$thumbMimeFileName = null;
 	$thumbTypeFileName = null;
 
-	$latitude;
-	$longitude;
+
+	$latitude = $Userlat;
+	$longitude = $Userlng;
 	switch ($mimeFileName) {
 	    case "image":
 	        $exif = @exif_read_data($dst, 'IFD0', true);
 	        
 	        if ($exif === false) {
 	            echo "No exif header data found.<br>\n";
-	            $latitude = $Userlat;
-	            $longitude = $Userlng;
 	        }
 	        else {
-	            //Just for Debug - Begin
-	            /*
-	                        echo "<pre>";
-	                        foreach ($exif as $key => $section) {
-	                          foreach ($section as $name => $val) {
-	                            echo "$key.$name: $val<br>\n";
-	                          }
-	                        }
-	                        echo "</pre>";
-	            */
-	            //Just for Debug - End
-
 	            $gps = $exif['GPS'];
 	            if ( $gps!=NULL ) {
 	                $latitudeAux = $gps['GPSLatitude'];
@@ -176,6 +165,7 @@
 	                $longitudeRef = $gps['GPSLongitudeRef'];
 
 	                if ( ($latitudeAux!=NULL ) && ( $longitudeAux!=NULL ) ) {
+	                	//If finds coordinates on FILE overrites
 	                    $lat = getCoordAsString($latitudeAux, $latitudeRef);
 	                    $lon = getCoordAsString($longitudeAux, $longitudeRef);
 						$latitude = addslashes($lat);
@@ -222,7 +212,7 @@
 	        // -vcodec mjpeg -> codec do tipo mjpeg
 	        // -vframes 1 -> obter uma frame
 	        // -s 640x480 -> dimensão do output
-	        $cmdFirstImage = " $ffmpegBinary -itsoffset -1 -i $dst -vcodec mjpeg -vframes 1 -an -f rawvideo -s 640x480 $imageFileNameAux";
+	        $cmdFirstImage = "$ffmpegBinary -itsoffset -1 -i $dst -vcodec mjpeg -vframes 1 -an -f rawvideo -s 640x480 $imageFileNameAux";
 	        
 	        echo "$cmdFirstImage<br>\n";
 	        system($cmdFirstImage, $status);

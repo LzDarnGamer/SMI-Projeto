@@ -297,7 +297,7 @@ function changeLanguage(type){
             </div>
 
             <div class="single-listing">
-             <input style="right: 7px;" type="file" name="article_img" accept="image/*" required="true"> 
+             <input style="right: 7px;" type="file" name="article_img" accept="image/*,video/*" required="true"> 
              <input type="submit" class="btn list-btn mt-20" value="<?php echo $language['createArt_submit'] ?>">
            </div>
 

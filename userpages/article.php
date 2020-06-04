@@ -128,9 +128,22 @@ $fileDetails = getFileDetails($article['article_image']);
         <div class="container">
 
             <div class="row justify-content-center">
-                <img style="margin-bottom: 20px" width="800px" height="800px" class="img-fluid" 
-                src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
-                alt="Your article image">
+                <?php
+                    if ($fileDetails['mimeFileName'] == "image") {
+                ?>
+                        <img style="margin-bottom: 20px; border: 3px solid;" width="800px" height="800px" class="img-fluid" 
+                        src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
+                        alt="Your article image">
+                <?php 
+                    } else if ($fileDetails['mimeFileName'] == "video" || $fileDetails['mimeFileName'] == "audio") {
+                ?>
+                   <video  controls>
+                      <source src="getFileContents.php?id=<?php echo $article['article_image']?>" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video> 
+                <?php } ?> 
+
+
                 <div class="col-lg-8" style="text-align: center;"><br>
                     <h3 class="mb-20"><?php echo $language['createArt_artCont'] ?></h3>
                     <p class="mb-30"><?php echo $article['article_context'] ?>
