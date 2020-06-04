@@ -757,12 +757,14 @@ function updateCat ($oldCategory, $cat) {
     
     $GLOBALS['ligacao']->begin_transaction();
     $res1 = $GLOBALS['ligacao'] -> query("UPDATE `$dataBaseName`.`categories` SET `categorie_title`='$cat' WHERE categorie_title='$oldCategory'");
-    $GLOBALS['ligacao']->commit();
+    
 
     if($res1){
-      return "true";
+    	$GLOBALS['ligacao']->commit();
+      	return "true";
     }else{
-      return "false";
+      	$GLOBALS['ligacao']->rollback();
+      	return "false";
     }
 
 
