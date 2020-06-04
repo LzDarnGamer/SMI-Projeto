@@ -12,5 +12,8 @@
     } else {
         updateCat($oldCategory, $cat);
     }
+    
+    header("Location: manageCategories.php");
+    
     exit();
  ?>
