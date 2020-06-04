@@ -701,6 +701,30 @@ function deleteUser ($userID) {
 
 }
 
+function deleteCategory ($cat) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);    
+    
+    $GLOBALS['ligacao']->begin_transaction();
+    $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`categories` WHERE categorie_title='$cat'");
+    
+
+    if($res1){
+        $GLOBALS['ligacao']->commit();
+        return "true";
+    }else{
+        $GLOBALS['ligacao']->rollback();
+        return "false";
+    }
+
+
+    dbDisconnect();
+
+}
+
 function updateRole ($userID, $roleChosen) {
     dbConnect(ConfigFile);
 
@@ -741,6 +765,26 @@ function updateCat ($oldCategory, $cat) {
       return "false";
     }
 
+
+    dbDisconnect();
+}
+
+function insertCat ($cat) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);    
+
+    $sql = "INSERT INTO `categories`(`categorie_title`) VALUES ('$cat')";
+    mysqli_query($GLOBALS['ligacao'], $sql);
+    $recordsInserted = mysqli_affected_rows( $GLOBALS['ligacao'] );
+    
+    if($recordsInserted != -1){
+      return "true";
+    }else{
+      return "false";
+    }
 
     dbDisconnect();
 }

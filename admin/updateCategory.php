@@ -4,15 +4,13 @@
     require_once("../Lib/db.php");
     include( "../ensureAuth.php" );
 
-    echo var_dump($_POST);
-
     $cat = $_POST["cate"];
     $oldCategory = $_POST["oldcate"];
-    updateCat($oldCategory, $cat);
- ?>
- <html>
-     <body>
 
-        <?php echo $cat." ".$oldCategory; ?>
-     </body>
-     </html>
+    if (isset($_POST["delete"])) {
+        deleteCategory($oldCategory);
+    } else {
+        updateCat($oldCategory, $cat);
+    }
+    exit();
+ ?>
