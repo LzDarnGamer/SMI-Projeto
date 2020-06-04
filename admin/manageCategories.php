@@ -132,7 +132,8 @@ if ($role == "administrator") { $isAdmin = true; }
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Button</th>
+                                <th>Delete</th>
+                                <th>Submit</th>
                             </tr>
                             <?php 
                             $cat_ = getcategories();
@@ -143,12 +144,22 @@ if ($role == "administrator") { $isAdmin = true; }
                                         <td><?php echo $counter; ?></td>
                                         <td><input class="inpt" type="text" name="cate" value="<?php echo $i['categorie_title']; ?>" required></td>
                                         <input type="hidden" name="oldcate" value="<?php echo $i['categorie_title'];?>">
-
-                                        <td><div class="visit"><input type="submit" class="btn" value="Update User" ></div></td>
+                                        <td><input type="checkbox" name="delete" value="yes"></td>
+                                        
+                                        <td><div class="visit"><input type="submit" class="btn" value="Update Category" ></div></td>
                                         <?php $counter ++; ?>
                                     </tr>
                                 </form>
                             <?php } ?>
+                            <form method="POST" action="insertCategory.php">
+                                <tr>
+                                    <td><?php echo $counter; ?></td>
+                                    <td><input class="inpt" type="text" name="newCate" placeholder="Insert New Category Here" required></td>
+                                    <td><p style="text-align: center;">-</p></td>
+                                    <td><div class="visit"><input type="submit" class="btn" value="Insert Category" ></div></td>
+                                </tr>
+                            </form>
+                            
                         </table>
                     <?php } ?>
 						
