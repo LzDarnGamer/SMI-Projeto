@@ -49,6 +49,14 @@ $language['search'] = "Procurar";
 
 $language['m_explore'] = "Explore a cidade";
 $language['m_discover'] = "Descobre Ótimos Lugares";
+$language['m_mostVisited'] = "Lugares Mais Visitados";
+$language['m_popular'] = "Lugares Populares";
+$language['m_easy'] = "Fácil de Explorar";
+$language['m_how'] = "Como funciona";
+$language['m_first'] = "1. Escolha uma categoria";
+$language['m_second'] = "2. Pense o que quer fazer";
+$language['m_third'] = "3. Sair & Explorar";
+
 
 $language['noperm_Title'] = "Permissões Insuficientes";
 $language['noperm_text'] = "Não têm permissões suficientes para entrar nesta página";

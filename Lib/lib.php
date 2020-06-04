@@ -686,12 +686,14 @@ function deleteUser ($userID) {
     $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`auth-basic` WHERE id='$userID'");
     $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`auth-challenge` WHERE id='$userID'");
     $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`auth-permissions` WHERE id='$userID'");
-    $GLOBALS['ligacao']->commit();
+    
 
     if($res1){
-      return "true";
+        $GLOBALS['ligacao']->commit();
+        return "true";
     }else{
-      return "false";
+        $GLOBALS['ligacao']->rollback();
+        return "false";
     }
 
 
@@ -708,12 +710,14 @@ function updateRole ($userID, $roleChosen) {
     
     $GLOBALS['ligacao']->begin_transaction();
     $res1 = $GLOBALS['ligacao'] -> query("UPDATE `$dataBaseName`.`auth-permissions` SET `role`='$roleChosen' WHERE id='$userID'");
-    $GLOBALS['ligacao']->commit();
+    
 
     if($res1){
-      return "true";
+        $GLOBALS['ligacao']->commit();
+        return "true";
     }else{
-      return "false";
+        $GLOBALS['ligacao']->rollback();
+        return "false";
     }
 
 
@@ -762,16 +766,16 @@ function deleteImage($imgID){
     $thumbFileName = $results['thumbFileName'];
     $GLOBALS['ligacao']->begin_transaction();
     $res1 = $GLOBALS['ligacao'] -> query("DELETE FROM `$dataBaseName`.`images-details` WHERE id='$id'");
-    $GLOBALS['ligacao']->commit();
 
-    dbDisconnect();
-    
     if($res1){
+      $GLOBALS['ligacao']->commit();
       unlink($imageFileName);
       unlink($thumbFileName);
+      dbDisconnect();
       return true;
     }else{
       $GLOBALS['ligacao']->rollback();
+      dbDisconnect();
       return false;
     }
 
@@ -847,6 +851,35 @@ function getConfiguration() {
   dbDisconnect();
 
   return $configuration;
+}
+
+function countArticlesPerCategory($visible=null){
+
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+    
+    if($visible == null){
+        $query = "SELECT article_categorie_id as id, COUNT(*) as amount FROM `$dataBaseName`.`articles` 
+        GROUP BY article_categorie_id ORDER BY article_categorie_id ASC";
+    }else{
+        $query = "SELECT article_categorie_id as id, COUNT(*) as amount FROM `$dataBaseName`.`articles` WHERE visible=$visible 
+        GROUP BY article_categorie_id ORDER BY article_categorie_id ASC ";
+    }
+    
+    $results = mysqli_query($GLOBALS['ligacao'], $query);
+
+    while ($result = mysqli_fetch_array($results)) {
+        $counters[] = $result;
+    }
+
+    mysqli_free_result($results);
+  
+    dbDisconnect();
+
+    return $counters;
 }
 
 function getStats() {

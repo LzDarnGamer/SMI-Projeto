@@ -95,8 +95,7 @@
 	    exit($errorCode);
 	}
 
-	$srcName = $_FILES['article_img']['name'];
-
+	$srcName = uniqid()."_".$_FILES['article_img']['name'];
 	// Read configurations from data base
 	$configurations = getConfiguration();
 	$dstDir = $configurations['destination'];
@@ -104,7 +103,6 @@
 	// Destination for the uploaded file
 	$src = $_FILES['article_img']['tmp_name'];
 	$dst = $dstDir . DIRECTORY_SEPARATOR . $srcName;
-
 	$copyResult = copy($src, $dst);
 
 	if ( $copyResult === false ) {
@@ -207,6 +205,8 @@
 	        $resizeObj->resizeImage($width, $height, 'crop');
 	        $resizeObj->saveImage($thumbFileNameAux, $typeFileName, 100);
 	        $resizeObj->close();
+
+
 	    break;
 
 	    case "video":
@@ -288,6 +288,7 @@
 	$fileName = addslashes($dst);
 	$imageFileName = addslashes($imageFileNameAux);
 	$thumbFileName = addslashes($thumbFileNameAux);
+
 
 	$imgQuery = "INSERT INTO `images-details`" .
 	"(`fileName`, `mimeFileName`, `typeFileName`, `imageFileName`, `imageMimeFileName`, `imageTypeFileName`, `thumbFileName`, `thumbMimeFileName`, `thumbTypeFileName`, `latitude`, `longitude`) values " .

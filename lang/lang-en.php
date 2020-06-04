@@ -10,6 +10,11 @@ $language['about'] = "About";
 $language['clear'] = "Clear";
 $language['articles'] = "Articles";
  
+
+
+
+
+
 $language['log_title'] = "Sign In";
 $language['log_name'] = "Type your name";
 $language['log_pass'] = "Type your password";
@@ -52,6 +57,13 @@ $language['search'] = "Search";
 
 $language['m_explore'] = "Explore the city";
 $language['m_discover'] = "Discover Great Places";
+$language['m_mostVisited'] = "Most visited places";
+$language['m_popular'] = "Popular Locations";
+$language['m_easy'] = "Easy to explore";
+$language['m_how'] = "How It Works";
+$language['m_first'] = "1. Choose a Category";
+$language['m_second'] = "2. What you want";
+$language['m_third'] = "3. Go out & Explore";
 
 $language['noperm_Title'] = "Insuficient Permissions";
 $language['noperm_text'] = "Not enough permissions to enter this page";
