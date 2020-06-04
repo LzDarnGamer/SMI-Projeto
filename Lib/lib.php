@@ -790,9 +790,10 @@ function getSubsciptions($userID){
 
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
 
-    $query = "SELECT `subscription_category_id` FROM `$dataBaseName`.`subscriptions` WHERE `subcriber_id`='$userId'";
+    $query = "SELECT `subscription_category_id` FROM `$dataBaseName`.`subscriptions` WHERE `subscriber_id`='$userID'";
 
     $result = mysqli_query($GLOBALS['ligacao'], $query);
+    return $GLOBALS['ligacao'] -> error;
 
     $numRows = mysqli_num_rows($result);
 

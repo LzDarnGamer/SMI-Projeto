@@ -117,6 +117,7 @@ switch ($role) {
     <?php include_once("../Page_Elements/preloader.php") ?>
 
     <main>
+
         <?php include_once("../Page_Elements/header.php") ?>
 
         <!-- Hero Area Start-->
@@ -137,7 +138,8 @@ switch ($role) {
                                 <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Create Articles" onclick="createArticles()"><br>
                                 <input class="btn" style="width: 350px;" type="button" value="Create Subcategories" onclick="createSubcategory()">
-                            <?php } else if ($role == "user"){ 
+                            <?php } else if ($role == "user"){
+                                /*
                                 if(count($userSubscriptionsIDS)==0){
                                     $NonCatarticles = getArticlesOrderLikes(10);
                                     for ($i=0; $i < count($NonCatarticles); $i++) {
@@ -152,13 +154,13 @@ switch ($role) {
                                         <h5><a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">{$articlesArray[$i]['article_title']}</a></h5>
                                         <p>{$articlesArray[$i]['article_context']}</p>
                                         <a href="article.php?type=view&id={$articlesArray[$i]['article_id']}">View article</a>
-                                        <i class="fa fa-eye"></i>
                                         </div>
                                         </div>
                                         </div>
                                         EOT;
                                     }
                                 }
+                                */
                                 ?>
 
                             <?php } ?>
@@ -170,7 +172,6 @@ switch ($role) {
             <!--Hero Area End-->
             <!-- Popular Locations Start -->
             <?php
-            echo $numarticlesUser;
             if(isset($numarticlesUser) && isset($articlesArray)){
                 if($numarticlesUser <=0 ){
                     ?>
