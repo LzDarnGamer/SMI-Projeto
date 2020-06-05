@@ -318,6 +318,7 @@ function getAllUsers () {
     return $rows;
 }
 
+
 function getAllIds () {
     dbConnect(ConfigFile);
     
@@ -515,6 +516,35 @@ function getRoleFromUser($userID) {
 
   return $userRoles;
 }
+
+function getNameFromUser($userID) {
+    dbConnect(ConfigFile);
+      
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+  
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+  
+    $query = "SELECT `name` FROM `$dataBaseName`.`auth-basic` WHERE `id`='$userID'";
+  
+    $result = mysqli_query($GLOBALS['ligacao'], $query);
+  
+    
+    $isFirst = true;
+    
+    $userRoles = "";
+    while ($userData = mysqli_fetch_array($result)) {
+        if ($isFirst == true) {
+            $isFirst = false;
+        }
+        $userRoles .= $userData['name'];
+    }
+  
+    mysqli_free_result($result);
+  
+    dbDisconnect();
+  
+    return $userRoles;
+  }
 
 function getRole($userId) {
     $userRoles = "";
