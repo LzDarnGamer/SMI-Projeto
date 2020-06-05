@@ -318,6 +318,7 @@ function getAllUsers () {
     return $rows;
 }
 
+
 function getAllIds () {
     dbConnect(ConfigFile);
     
