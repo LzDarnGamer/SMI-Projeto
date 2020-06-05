@@ -1,10 +1,15 @@
 <!DOCTYPE html>
+<?php
+require_once("../Lib/lib.php");
+require_once("../Lib/db.php");
+require_once("../languageAddon.php");
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Directory HTML-5 Template </title>
+        <title><?php echo $language['res_title'] ?> </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
@@ -62,7 +67,7 @@
                         <div class="col-xl-8 col-lg-9">
                             <!-- Hero Caption -->
                             <div class="hero__caption">
-                                <span style="color: orangered">Register</span>
+                                <span style="color: orangered"><?php echo $language['res_reg'] ?></span>
                             </div>
                             <!--Hero form -->
                             <form 
@@ -73,13 +78,13 @@
                                 <div style="text-align: center">
 									<input class="inpt" type="text" 
                                                         name="name" 
-                                                        placeholder="Your Name"
+                                                        placeholder="<?php echo $language['res_name'] ?>"
                                                         required="true" 
                                                         onblur="nameCheck(this)">  <div id="nameCheck"></div> 
 
 									<input class="inpt" type="email" 
                                                         name="email" 
-                                                        placeholder="Your e-mail"
+                                                        placeholder="<?php echo $language['res_pass'] ?>"
                                                         required="true" 
                                                         onblur="emailCheck(this)">  <div id="emailCheck"></div> 
 									<input class="inpt" type="password" 
@@ -91,13 +96,13 @@
                                                         name="repassword"
                                                         id="repassword"
                                                         required="true" 
-                                                        placeholder="Confirm Password"> <div id="passwordCheck"></div> <br/><br/>
+                                                        placeholder="<?php echo $language['res_conpass'] ?>"> <div id="passwordCheck"></div> <br/><br/>
 									<img class="captcha-image" style="border: 1px solid black" src="captcha.php" alt="catcha image"
                                     width="200" height="50"> <br />
 									<input class="inpt" id="captcha" type="captcha" name="captcha" placeholder="captcha" required="true"> <br />
-									<input class="btn" alt=""type="submit" value="Register">
+									<input class="btn" alt=""type="submit" value="<?php echo $language['res_reg'] ?>">
 									<input class="btn" alt=""type="reset" value="Reset">
-									<input class="btn refresh-captcha" type="button" value="Refresh">
+									<input class="btn refresh-captcha" type="button" value="<?php echo $language['res_refresh'] ?>">
                                 </div>	
                             </form>	
                         </div>
@@ -170,6 +175,10 @@
 			return false;
 		}
 		return true;
+    }
+    
+    function changeLanguage(type){
+           window.location.href = "formRegister.php?lang=" + type;
     }
 </script>
 

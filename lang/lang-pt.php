@@ -15,12 +15,13 @@ $language['log_name'] = "Seu nome";
 $language['log_pass'] = "Sua password";
 $language['log_goback'] = "Voltar à página inicial";
 
-$language['res_title'] = "Todas Categorias";
-$language['res_name'] = "Procurar";
-$language['res_pass'] = "Procurar";
-$language['res_title'] = "Todas Categorias";
-$language['res_name'] = "Procurar";
-$language['res_pass'] = "Procurar";
+$language['res_title'] = "Página de Registo";
+$language['res_reg'] = "Registo";
+$language['res_name'] = "Seu nome";
+$language['res_email'] = "Seu email";
+$language['res_pass'] = "Password";
+$language['res_conpass'] = "Confirme Password";
+$language['res_refresh'] = "Refrescar Captcha";
 
 
 $language['profilepg_title'] = "Perfil";
@@ -56,6 +57,19 @@ $language['m_how'] = "Como funciona";
 $language['m_first'] = "1. Escolha uma categoria";
 $language['m_second'] = "2. Pense o que quer fazer";
 $language['m_third'] = "3. Sair & Explorar";
+
+$language['m_span1'] = "Temos para lhe oferecer";
+$language['m_h3'] = "Todos os meses milhões de pessoas visisam o site que construímos";
+$language['m_p'] = "Todos os meses, atendemos a milhões de solicitações de nossos visitantes, construindo o maior guia de viagens do mundo.";
+$language['m_h4'] = "Lugares Fantásticos no Mundo";
+$language['m_p1'] = "Com um mundo cheio de destinos fascinantes, escolher o local de férias perfeito pode ser um desafio.";
+$language['m_h4_1'] = "Maior lista de categorias";
+$language['m_p2'] = "Ao contrário do que o nome indica, temos um grande seleção de destinos";
+$language['m_subscribe'] = "Subscrever Newsletter";
+$language['m_subscribe1'] = "Subscrever ao nosso Newsletter";
+$language['m_subscribe2'] = "Escreva o seu email";
+$language['m_subscribe3'] = "Envie agora";
+
 
 
 $language['noperm_Title'] = "Permissões Insuficientes";
