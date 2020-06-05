@@ -146,17 +146,23 @@
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="userpages/showFileImage.php?id=<?php echo $articlesArray[$i]['article_image']; ?>&size=full" alt="">
                                 <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
+                                    <h3><?php 
+                                        $date=date_create($articlesArray[$i]['article_timestamp']);
+                                        echo date_format($date,"d"); ?></h3>
+                                    <p>
+                                        <?php echo date_format($date,"M")." '".date_format($date,"y"); ?>
+                                    </p>
                                 </a>
                             </div>
                             <div class="blog_details">
-                                <a class="d-inline-block" href="blog_details.html">
+                                <a class="d-inline-block" href="<?php echo "userpages/article.php?type=view&id={$articlesArray[$i]['article_id']}"; ?>">
                                     <h2><?php echo $articlesArray[$i]['article_title']; ?></h2>
                                 </a>
                                 <p><?php echo $truncated; ?></p>
                                 <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i><?php
+                                        echo getNameFromUser($articlesArray[$i]['poster_id']);
+                                    ?></a></li>
                                     <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
                                 </ul>
                             </div>
