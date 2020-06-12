@@ -124,7 +124,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="hero-cap text-center pt-50">
-                    <h2>Blog Area</h2>
+                    <h2>Your Feed</h2>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
                     ?>
                         <article class="blog_item">
                             <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="userpages/showFileImage.php?id=<?php echo $articlesArray[$i]['article_image']; ?>&size=full" alt="">
+                                <img class="card-img rounded-0" style="border: 3px solid;" src="userpages/showFileImage.php?id=<?php echo $articlesArray[$i]['article_image']; ?>&size=full" alt="">
                                 <a href="#" class="blog_item_date">
                                     <h3><?php 
                                         $date=date_create($articlesArray[$i]['article_timestamp']);
