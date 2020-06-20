@@ -31,6 +31,7 @@ $language['profilepg_createSub'] = "Criar Subcategorias";
 $language['profilepg_yourArt'] = "Os seus lindos artigos";
 $language['profilepg_haveArt'] = "Não há artigos para mostrar, hora de escrever alguns";
 
+$language['Art_addtocart'] = "Adicionar ao carrinho";
 
 $language['createArt_title'] = "Criar um Artigo";
 $language['createArt_yourArt'] = "Seu Artigo";
@@ -38,7 +39,7 @@ $language['createArt_details'] = "Detalhes";
 $language['createArt_arttitle'] = "Título do Artigo";
 $language['createArt_cat'] = "Escolha uma categoria";
 $language['createArt_subcat'] = "Escolha uma subcategoria";
-$language['createArt_artCont'] = "Texto descritivo sobre o seu artigo";
+$language['createArt_artCont'] = "Descrição do Artigo";
 $language['createArt_submit'] = "Submeter";
 $language['createArt_search'] = "Procurar uma localização";
 

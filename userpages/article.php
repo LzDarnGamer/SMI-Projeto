@@ -99,7 +99,27 @@ $fileDetails = getFileDetails($article['article_image']);
     }
     document.addEventListener("DOMContentLoaded", function(event) {
       initAutocomplete();
-  });
+    });
+    function changeLanguage(type){
+        window.location.href = "article.php?type=view&id=15&lang=" + type;
+    }
+
+    function addToCart(id){
+        $.ajax({
+            url: 'addcart.php',
+            type: 'POST',
+            data : {field:"name", value: e.value},
+            success: function(data) {
+                if(data === "true"){
+                    document.getElementById("nameCheck").innerHTML = "User available";
+                    document.getElementById("nameCheck").style.color = 'lime';
+                }else{
+                    document.getElementById("nameCheck").innerHTML = "User not available";
+                    document.getElementById("nameCheck").style.color = 'red';
+                }
+            }
+            })
+    }
 </script>
 <body>
   <?php include_once("../Page_Elements/preloader.php") ?>
@@ -162,7 +182,7 @@ $fileDetails = getFileDetails($article['article_image']);
         <div class="row justify-content-center">
             <div class="col-lg-8" style="text-align: center;"><br>
                 <a download="<?php echo $article['article_title'] ?>" href="<?php echo $src ?>"><button class="genric-btn danger">Download Photo</button></a>
-                <button class="genric-btn danger">Add to cart</button>              
+                <a><button onclick="addToCart(<?php echo $articleid?>)" class="genric-btn danger"><?php echo $language['Art_addtocart'] ?></button></a>            
             </div>
         </div>
     </div>

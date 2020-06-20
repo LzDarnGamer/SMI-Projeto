@@ -27,7 +27,7 @@ $language['res_conpass'] = "Confirm Password";
 $language['res_refresh'] = "Refresh Catpcha";
 
 
-$language['profilepg_title'] = "Perfile";
+$language['profilepg_title'] = "Profile";
 $language['profilepg_welcome'] = "Welcome Back";
 $language['profilepg_createArt'] = "Create Articles";
 $language['profilepg_createSub'] = "Create Subcategories";
@@ -45,6 +45,8 @@ $language['createArt_artCont'] = "Article description";
 $language['createArt_submit'] = "Submit";
 $language['createArt_search'] = "Search Location";
 $language['createArt_edit'] = "Edit Article";
+
+$language['Art_addtocart'] = "Add to cart";
 
 $language['createsub_newsub'] = "New Subcategory";
 $language['createsub_newsubtitle'] = "New Subcategory Title";
