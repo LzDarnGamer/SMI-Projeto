@@ -56,7 +56,6 @@ if($type == "eliminate") {
 $article = getArticle($articleid);
 $fileDetails = getFileDetails($article['article_image']);
 
-
 ?>
 <html class="no-js" lang="zxx">
 <head>
@@ -129,39 +128,44 @@ $fileDetails = getFileDetails($article['article_image']);
 
             <div class="row justify-content-center">
                 <?php
-                    if ($fileDetails['mimeFileName'] == "image") {
-                ?>
-                        <img style="margin-bottom: 20px; border: 3px solid;" width="800px" height="800px" class="img-fluid" 
-                        src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
-                        alt="Your article image">
-                <?php 
-                    } else if ($fileDetails['mimeFileName'] == "video" || $fileDetails['mimeFileName'] == "audio") {
-                ?>
-                   <video  controls>
+                
+                if ($fileDetails['mimeFileName'] == "image") {
+                    $src = "showFileImage.php?id=".$article['article_image']."&size=full";
+                    ?>
+                    <img style="margin-bottom: 20px; border: 3px solid;" width="800px" height="800px" class="img-fluid" 
+                    src="showFileImage.php?id=<?php echo $article['article_image']?>&size=full" 
+                    alt="Your article image">
+                    <?php 
+                } else if ($fileDetails['mimeFileName'] == "video" || $fileDetails['mimeFileName'] == "audio") {
+                    $src = "getFileContents.php?id=".$article['article_image'];
+                    ?>
+                    <video  controls>
                       <source src="getFileContents.php?id=<?php echo $article['article_image']?>" type="video/mp4">
-                      Your browser does not support the video tag.
-                    </video> 
-                <?php } ?> 
+                          Your browser does not support the video tag.
+                      </video> 
+                  <?php } ?> 
 
 
-                <div class="col-lg-8" style="text-align: center;"><br>
+                  <div class="col-lg-8" style="text-align: center;"><br>
                     <h3 class="mb-20"><?php echo $language['createArt_artCont'] ?></h3>
-                    <p class="mb-30"><?php echo $article['article_context'] ?>
-                </p>
+                    <p class="mb-30"><?php echo $article['article_context'] ?> </p>
+                </div>
+            </div>
+            <!-- Map -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h3 class="mb-30">Google Maps</h3>
+                    <div id="map" style="height: 480px; position: relative; overflow: hidden;"></div>
+                </div>
             </div>
         </div>
-        <!-- Map -->
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <h3 class="mb-30">Google Maps</h3>
-                <div id="map" style="height: 480px; position: relative; overflow: hidden;"></div>
+            <div class="col-lg-8" style="text-align: center;"><br>
+                <a download="<?php echo $article['article_title'] ?>" href="<?php echo $src ?>"><button class="genric-btn danger">Download Photo</button></a>
+                <button class="genric-btn danger">Add to cart</button>              
             </div>
         </div>
     </div>
-
-
-</div>
-</div>
 
 </main>
 <?php include_once("../Page_Elements/goup.php") ?>
