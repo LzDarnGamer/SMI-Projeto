@@ -102,6 +102,13 @@
 	$configurations = getConfiguration();
 	$dstDir = $configurations['destination'];
 
+	//Create Folder if not exists
+	$dstDir = $dstDir . DIRECTORY_SEPARATOR . $userId;
+	if (!file_exists($dstDir)) {
+    	mkdir($dstDir, 0777, true);
+    	mkdir($dstDir. DIRECTORY_SEPARATOR . "thumbs", 0777, true);
+	}
+
 	// Destination for the uploaded file
 	$src = $_FILES['article_img']['tmp_name'];
 	$dst = $dstDir . DIRECTORY_SEPARATOR . $srcName;
@@ -126,6 +133,8 @@
 	$mimeTypeFileUploaded = explode("/", $fileTypeComponents[0]);
 	$mimeFileName = $mimeTypeFileUploaded[0];
 	$typeFileName = $mimeTypeFileUploaded[1];
+
+
 
 	$thumbsDir = $dstDir . DIRECTORY_SEPARATOR . "thumbs";
 	$pathParts = pathinfo($dst);
@@ -264,7 +273,6 @@
 	        $thumbTypeFileName = "jpeg";
 	    break;
 	}
-
 	// Write information about file into the data base
 	dbConnect(ConfigFile);
 
