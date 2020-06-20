@@ -54,7 +54,6 @@ switch ($role) {
                 type: 'POST',
                 data : {postID: id, value: 1},
                 success: function(data) {
-                    console.log(data);
                     div.getElementsByTagName("i")[0].className = "fa fa-eye";
                 }
             })

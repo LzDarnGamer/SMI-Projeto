@@ -149,15 +149,18 @@ $path = substr($_SERVER['PHP_SELF'], 0, 9);
 												<i class="ti-user"></i><?php echo $language['signout'] ?></a>
 											</li>
 											<li>
-												<a style="cursor: pointer;" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span></a>
+												<a style="cursor: pointer;" id="cart">
+													<i class="fa fa-shopping-cart"></i> 
+													<?php echo $language['cart'] ?>
+												 <span class="badge">3</span></a>
 											</li>
 											<div class="container">
 												<div class="shopping-cart" style="display: none;">
 													<div class="shopping-cart-header">
-														<i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+														<span><?php echo $language['totalimages'] ?></span>
+														<i class="fa fa-shopping-cart cart-icon"></i>
 														<div class="shopping-cart-total">
-															<span class="lighter-text">Total of images:</span>
-															<span class="main-color-text">$2,229.97</span>
+															<span class="main-color-text"><span class="badge">3</span></span>
 														</div>
 													</div> <!--end shopping-cart-header -->
 													<ul class="shopping-cart-items">
