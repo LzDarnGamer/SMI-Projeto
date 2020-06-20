@@ -32,7 +32,9 @@
         $articlesArray = getArticles($users[$i]);
     }
 
-        
+    $FilterCategory = isset($_GET['FilterCategory']) ? $_GET['FilterCategory'] : null;
+    $FilterSubCategory = isset($_GET['FilterSubCategory']) ? $_GET['FilterSubCategory'] : null;
+    $FilterUsername = isset($_GET['FilterUsername']) ? $_GET['FilterUsername'] : null;
 ?>
 
 <body style="overflow: visible;">
@@ -50,72 +52,46 @@
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
-        <div class="header-area header-transparent">
+       <div class="header-area header-transparent" style="background-color: #212529">
             <div class="main-header">
-             <div class="header-bottom  header-sticky sticky-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <!-- Logo -->
-                        <div class="col-xl-2 col-lg-2 col-md-1">
-                            <div class="logo">
-                              <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                          </div>
-                      </div>
-                      <div class="col-xl-10 col-lg-10 col-md-8">
-                        <!-- Main-menu -->
-                        <div class="main-menu f-right d-none d-lg-block">
-                            <nav>
-                                <ul id="navigation">                                                                                                                                     
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="catagori.html">Catagories</a></li>
-                                    <li><a href="listing.html">Listing</a></li>
-                                    <li><a href="#">Page</a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog_details.html">Blog Details</a></li>
-                                            <li><a href="elements.html">Element</a></li>
-                                            <li><a href="listing_details.html">Listing details</a></li>
+               <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-1">
+                                <div class="logo">
+                                  <a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-8">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">                                                                                                                                     
+                                            <li><a href="landingpage.php">Home</a></li>
+                                            <li><a href="about.html">About</a></li>
+                                            <li class="add-list"><a href="listing_details.html"><i class="ti-plus"></i> add Listing</a></li>
+                                            <li class="login"><a href="Login_Registo/formLogin.php">
+                                                <i class="ti-user"></i> Sign </a>
+                                            </li>
+											<li class="login"><a href="Login_Registo/formRegister.php">
+                                                <i class="ti-user"></i> Register</a>
+                                            </li>
                                         </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                    <li class="add-list"><a href="listing_details.html"><i class="ti-plus"></i> add Listing</a></li>
-                                    <li class="login"><a href="#">
-                                        <i class="ti-user"></i> Sign in or Register</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Mobile Menu -->
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
-                                    <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
-                                    <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
-                                    <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
-                                    <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
-                                    <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"><a href="#" tabindex="-1">Page</a>
-                                        <span class="slicknav_arrow">+</span></a><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
-                                            <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
-                                            <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
-                                            <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
-                                            <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
-                                    <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
-                                    <li class="login"><a href="#" role="menuitem" tabindex="-1">
-                                        <i class="ti-user"></i> Sign in or Register</a>
-                                    </li>
-                                </ul></div></div>
-                    </div>
-                </div>
+               </div>
             </div>
-        </div>
-    </div>
-</div>
-<!-- Header End -->
-</header>
+       </div>
+        <!-- Header End -->
+    </header>
 <main>
 
 <!-- Hero Start-->
@@ -137,14 +113,37 @@
         <div class="row">
             <div class="col-lg-8 mb-5 mb-lg-0">
                 <div class="blog_left_sidebar">
-                    <?php
+                    <?php  
+
+                    $counter = 0;
+
                     for ($i = 0; $i < sizeof($articlesArray); $i ++) {
+
                         if($articlesArray[$i]['visible'] != 0) {
-                            $truncated = (mb_strlen($articlesArray[$i]['article_context'], 'UTF-8') > 80) ? mb_substr($articlesArray[$i]['article_context'], 0, 80, 'UTF-8') . '...' : $articlesArray[$i]['article_context'];
+                            if (isset($FilterCategory)) {
+                                if (getcategoryName($articlesArray[$i]['article_categorie_id']) != $FilterCategory) {
+                                    $counter ++;
+                                    continue;
+                                }
+                            } else if (isset($FilterSubCategory)) {
+                                if (getsubcategoryName($articlesArray[$i]['article_subcategorie_id']) != $FilterSubCategory) {
+                                    $counter ++;
+                                    continue;
+                                }
+                            } else if (isset($FilterUsername)) {
+                                if (getUser($articlesArray[$i]['poster_id']) != $FilterUsername) {
+                                    $counter ++;
+                                    continue;
+                                }
+                            }
+                            
+
+                            $description = (mb_strlen($articlesArray[$i]['article_context'], 'UTF-8') > 80) ? mb_substr($articlesArray[$i]['article_context'], 0, 80, 'UTF-8') . '...' : $articlesArray[$i]['article_context'];
                     ?>
                         <article class="blog_item">
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" style="border: 3px solid;" src="userpages/showFileImage.php?id=<?php echo $articlesArray[$i]['article_image']; ?>&size=full" alt="">
+                                <!-- Data -->
                                 <a href="#" class="blog_item_date">
                                     <h3><?php 
                                         $date=date_create($articlesArray[$i]['article_timestamp']);
@@ -155,15 +154,19 @@
                                 </a>
                             </div>
                             <div class="blog_details">
+                                <!-- Title -->
                                 <a class="d-inline-block" href="<?php echo "userpages/article.php?type=view&id={$articlesArray[$i]['article_id']}"; ?>">
                                     <h2><?php echo $articlesArray[$i]['article_title']; ?></h2>
                                 </a>
-                                <p><?php echo $truncated; ?></p>
+                                <!-- Descricao -->
+                                <p><?php echo $description; ?></p>
                                 <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i><?php
+                                    <li><a><i class="fa fa-user"></i><?php
                                         echo getNameFromUser($articlesArray[$i]['poster_id']);
                                     ?></a></li>
+                                    <!--
                                     <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                    -->
                                 </ul>
                             </div>
                         </article>
@@ -171,14 +174,6 @@
                         }
                     }
                     ?>
-
-                    
-
-                    
-
-                    
-
-                    
 
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
@@ -205,39 +200,36 @@
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget search_widget">
-                        <form action="#">
+                        <form method="GET">
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Search Keyword" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'" pattern="[A-Za-z]+">
+                                    <input type="text" class="form-control" name="FilterUsername" placeholder="Search By User" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search By User'">
                                     <div class="input-group-append">
-                                        <button class="btns" type="button"><i class="ti-search"></i></button>
+                                        <button class="btns" type="button"><i class="ti-search" style="cursor: help;"></i></button>
                                     </div>
                                 </div>
                             </div>
                             <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Search</button>
                         </form>
                     </aside>
+                    
 
+                    <!-- Category -->
                     <aside class="single_sidebar_widget post_category_widget">
                         <h4 class="widget_title">Category</h4>
                         <ul class="list cat-list">
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Monuments</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Cities</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Beaches</p>
-                                </a>
-                            </li>
-                            
-                            
+                            <form method="GET">
+                                <?php
+                                $cc = getcategories();
+                                foreach ($cc as $cat) {
+                                ?>
+                                    <li>
+                                        <input style="cursor: pointer; width: 100%;" name="FilterCategory" type="submit" class="d-flex" value="<?php echo $cat['categorie_title']; ?>">
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </form>
                             
                         </ul>
                     </aside>
@@ -245,32 +237,20 @@
                     
                     <aside class="single_sidebar_widget tag_cloud_widget">
                         <h4 class="widget_title">Sub categories</h4>
-                        <ul class="list">
-                            <li>
-                                <a href="#">project</a>
-                            </li>
-                            <li>
-                                <a href="#">love</a>
-                            </li>
-                            <li>
-                                <a href="#">technology</a>
-                            </li>
-                            <li>
-                                <a href="#">travel</a>
-                            </li>
-                            <li>
-                                <a href="#">restaurant</a>
-                            </li>
-                            <li>
-                                <a href="#">life style</a>
-                            </li>
-                            <li>
-                                <a href="#">design</a>
-                            </li>
-                            <li>
-                                <a href="#">illustration</a>
-                            </li>
-                        </ul>
+                        <form method="GET">
+                            <ul class="list">
+                                <?php
+                                $subcc = getSubcategories();
+                                foreach ($subcc as $subCat) {
+                                ?>
+                                <li>
+                                    <input type="submit" style="cursor: pointer; margin: 3px; " name="FilterSubCategory" value="<?php echo $subCat['subcategorie_title']; ?>">
+                                </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+                        </form>
                     </aside>
 
                     

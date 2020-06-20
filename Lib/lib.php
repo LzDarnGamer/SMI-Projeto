@@ -318,6 +318,22 @@ function getAllUsers () {
     return $rows;
 }
 
+function getUser ($id) {
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT `name` FROM `$dataBaseName`.`auth-basic` WHERE id=$id");
+
+    $row = mysqli_fetch_array($result);
+
+    mysqli_free_result($result);
+
+    return $row['name'];
+}
+
 
 function getAllIds () {
     dbConnect(ConfigFile);
