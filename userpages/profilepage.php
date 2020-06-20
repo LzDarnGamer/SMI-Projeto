@@ -107,11 +107,8 @@ switch ($role) {
             font-size: 16px;
             margin-top: 30px;
             cursor: pointer;
-        }   
-
+        }
     </style>
-
-
 </head>
 
 <body>

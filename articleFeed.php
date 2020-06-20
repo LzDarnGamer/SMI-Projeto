@@ -38,62 +38,9 @@
 ?>
 
 <body style="overflow: visible;">
-    <!-- Preloader Start -->
-    <div id="preloader-active" style="display: none;">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-       <div class="header-area header-transparent" style="background-color: #212529">
-            <div class="main-header">
-               <div class="header-bottom  header-sticky">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2 col-md-1">
-                                <div class="logo">
-                                  <a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-10 col-lg-10 col-md-8">
-                                <!-- Main-menu -->
-                                <div class="main-menu f-right d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">                                                                                                                                     
-                                            <li><a href="landingpage.php">Home</a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li class="add-list"><a href="listing_details.html"><i class="ti-plus"></i> add Listing</a></li>
-                                            <li class="login"><a href="Login_Registo/formLogin.php">
-                                                <i class="ti-user"></i> Sign </a>
-                                            </li>
-											<li class="login"><a href="Login_Registo/formRegister.php">
-                                                <i class="ti-user"></i> Register</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
-       </div>
-        <!-- Header End -->
-    </header>
+<?php include_once("Page_Elements/preloader.php") ?>
 <main>
-
+<?php include_once("Page_Elements/header.php") ?>
 <!-- Hero Start-->
 <div class="hero-area2  slider-height2 hero-overly2 d-flex align-items-center">
     <div class="container">
@@ -234,7 +181,7 @@
                         </ul>
                     </aside>
 
-                    
+                    <!-- Sub Categories -->
                     <aside class="single_sidebar_widget tag_cloud_widget">
                         <h4 class="widget_title">Sub categories</h4>
                         <form method="GET">
