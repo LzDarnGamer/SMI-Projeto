@@ -9,6 +9,9 @@ $language['language'] = "Língua";
 $language['about'] = "Sobre";
 $language['clear'] = "Limpar";
 $language['articles'] = "Artigos";
+$language['totalimages'] = "Total de artigos";
+$language['cart'] = "Carrinho";
+
 
 $language['log_title'] = "Iniciar Sessão";
 $language['log_name'] = "Seu nome";

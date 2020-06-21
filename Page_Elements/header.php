@@ -1,5 +1,10 @@
 <?php
 $path = substr($_SERVER['PHP_SELF'], 0, 9);
+
+if ( isset($_SESSION['id']) ) {
+	$cart = getCart($userId);
+	$size = count($cart);
+}
 ?>
 
 <style>
@@ -99,10 +104,18 @@ $path = substr($_SERVER['PHP_SELF'], 0, 9);
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		var items = document.getElementsByClassName("badge"), i, len;
+
+		for (i = 0, len = items.length; i < len; i++) {
+		    items[i].innerHTML = <?php echo $size ?>;
+		}
+
 		$("#cart").on("click", function() {
 			$(".shopping-cart").fadeToggle("fast");
 		});
 	})
+
+
 </script>
 <header>    
 	<!-- Header Start -->
@@ -149,26 +162,35 @@ $path = substr($_SERVER['PHP_SELF'], 0, 9);
 												<i class="ti-user"></i><?php echo $language['signout'] ?></a>
 											</li>
 											<li>
-												<a style="cursor: pointer;" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span></a>
+												<a style="cursor: pointer;" id="cart">
+													<i class="fa fa-shopping-cart"></i> 
+													<?php echo $language['cart'] ?>
+												 <span class="badge">3</span></a>
 											</li>
 											<div class="container">
 												<div class="shopping-cart" style="display: none;">
 													<div class="shopping-cart-header">
-														<i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+														<span><?php echo $language['totalimages'] ?></span>
+														<i class="fa fa-shopping-cart cart-icon"></i>
 														<div class="shopping-cart-total">
-															<span class="lighter-text">Total of images:</span>
-															<span class="main-color-text">$2,229.97</span>
+															<span class="main-color-text"><span class="badge">3</span></span>
 														</div>
-													</div> <!--end shopping-cart-header -->
-													<ul class="shopping-cart-items">
-														<li class="clearfix" style="width: 100%">
-															<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
-															<span class="item-name">Sony DSC-RX100M III</span>
-														</li>
-													</ul>
+													</div>
+													<?php 
+														foreach ($cart as $item) {
+																$it = getArticle($item); ?>
+															<ul class="shopping-cart-items">
+																<li class="clearfix" style="width: 100%">
+																	<img src="<?php echo $path?>Userpages/showFileImage.php?id=<?php echo $it['article_image']?>&size=thumb" alt="An Image" />
+																	<span class="item-name"><?php echo $it['article_title'] ?></span>
+																	<span class="item-name">ID = <?php echo $it['article_id'] ?></span>
+																</li>
+															</ul>
+													<?php } ?>
 
 
-													<a><button class="genric-btn danger">Download</button></a>  
+													<a href="<?php echo $path ?>Userpages/downloadZIP.php?userID=<?php echo $userId ?>"
+													><button class="genric-btn danger">Download</button></a>  
 												</div>
 											</div>
 										<?php } ?>

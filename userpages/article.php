@@ -99,7 +99,7 @@ $fileDetails = getFileDetails($article['article_image']);
     }
     document.addEventListener("DOMContentLoaded", function(event) {
       initAutocomplete();
-    });
+  });
     function changeLanguage(type){
         window.location.href = "article.php?type=view&id=15&lang=" + type;
     }
@@ -108,17 +108,14 @@ $fileDetails = getFileDetails($article['article_image']);
         $.ajax({
             url: 'addcart.php',
             type: 'POST',
-            data : {field:"name", value: e.value},
+            data : {userID:<?php echo $userId ?>, value: id},
             success: function(data) {
-                if(data === "true"){
-                    document.getElementById("nameCheck").innerHTML = "User available";
-                    document.getElementById("nameCheck").style.color = 'lime';
-                }else{
-                    document.getElementById("nameCheck").innerHTML = "User not available";
-                    document.getElementById("nameCheck").style.color = 'red';
+                var items = document.getElementsByClassName("badge"), i, len;
+                for (i = 0, len = items.length; i < len; i++) {
+                    items[i].innerHTML = data;
                 }
             }
-            })
+        })
     }
 </script>
 <body>
