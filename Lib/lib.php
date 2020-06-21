@@ -902,6 +902,28 @@ function getSubsciptions($userID){
     return $userSubscriptionsIDS;
 }
 
+
+function getCart($userID){
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+
+    $query = "SELECT list FROM `$dataBaseName`.`cart` " . "WHERE `id`='$userID'";
+
+    $result = mysqli_query($GLOBALS['ligacao'], $query);
+
+    while ($array = mysqli_fetch_array($result)) {
+        $list = $array["list"];
+    }
+    if($list==null){
+        return Array();
+    }
+    return explode(",", $list);
+}
+
 function getArticlesOrderLikes($amount){
     $articles = Array();
 

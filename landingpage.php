@@ -6,6 +6,8 @@ require_once("Lib/db.php");
 require_once("languageAddon.php");
 $categories = getcategories();
 $baseUrl = url();
+$userId = $_SESSION['id'];
+$username = $_SESSION['username'];
 if (!isset($_SESSION) ) {
     session_start();
 }

@@ -9,7 +9,7 @@ $language['language'] = "Língua";
 $language['about'] = "Sobre";
 $language['clear'] = "Limpar";
 $language['articles'] = "Artigos";
-$language['totalimages'] = "Total de imagens";
+$language['totalimages'] = "Total de artigos";
 $language['cart'] = "Carrinho";
 
 

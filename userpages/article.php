@@ -111,8 +111,6 @@ $fileDetails = getFileDetails($article['article_image']);
             data : {userID:<?php echo $userId ?>, value: id},
             success: function(data) {
                 var items = document.getElementsByClassName("badge"), i, len;
-
-                // loop through all elements having class name ".my-class"
                 for (i = 0, len = items.length; i < len; i++) {
                     items[i].innerHTML = data;
                 }
