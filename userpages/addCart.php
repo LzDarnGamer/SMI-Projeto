@@ -18,7 +18,7 @@
 	while ($array = mysqli_fetch_array($result)) {
         $list = $array["list"];
     }
-	if($list==null){
+	if(!isset($list) || $list==null){
 		$sql = "INSERT INTO `cart`(`id`,`list`) VALUES ('$userID', '$value')";
 		mysqli_query($GLOBALS['ligacao'], $sql);
 		echo 1;

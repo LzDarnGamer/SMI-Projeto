@@ -54,6 +54,11 @@ if($type == "eliminate") {
 }
 
 $article = getArticle($articleid);
+if($article == null){
+    $title = "Invalid Arguments";
+    $info = "Invalid Arguments Found";
+    header("Location: ../responsePage.php?title=$title&info=$info");
+}
 $fileDetails = getFileDetails($article['article_image']);
 
 ?>
@@ -114,6 +119,8 @@ $fileDetails = getFileDetails($article['article_image']);
                 for (i = 0, len = items.length; i < len; i++) {
                     items[i].innerHTML = data;
                 }
+
+                location.reload();
             }
         })
     }

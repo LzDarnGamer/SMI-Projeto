@@ -1,7 +1,7 @@
 <?php
 $path = substr($_SERVER['PHP_SELF'], 0, 9);
 
-if ( isset($_SESSION['id']) ) {
+if(isset($_SESSION['id'])){
 	$cart = getCart($userId);
 	$size = count($cart);
 }
@@ -13,7 +13,14 @@ if ( isset($_SESSION['id']) ) {
 	*, *::before, *::after {
 		box-sizing: border-box;
 	}
-
+	#noCSS {
+		padding: 4px 20px 4px 20px;
+		color: #fff;
+		font-size: 15px;
+		display: inherit;
+		float: right;
+		background-color: #f44a40;
+	}
 	.badge {
 		background-color: rgb(99, 148, 248);
 		border-radius: 15px;
@@ -104,18 +111,31 @@ if ( isset($_SESSION['id']) ) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		$('#download').click(function(event) {
+		    setTimeout( 'window.location.reload()', 250);
+		});
+		$("#noCSS").removeAttr("style");
 		var items = document.getElementsByClassName("badge"), i, len;
 
 		for (i = 0, len = items.length; i < len; i++) {
-		    items[i].innerHTML = <?php echo $size ?>;
+			items[i].innerHTML = <?php echo $size ?>;
 		}
 
 		$("#cart").on("click", function() {
 			$(".shopping-cart").fadeToggle("fast");
 		});
 	})
-
-
+	function delORZIP(id, type){
+		console.log(type);
+		$.ajax({
+			url: '<?php echo $path ?>Userpages/downloadZIP.php',
+			type: 'POST',
+			data : {userID: id, mode: type},
+			success: function(data) {
+				location.reload();
+			}
+		})
+	}
 </script>
 <header>    
 	<!-- Header Start -->
@@ -165,48 +185,52 @@ if ( isset($_SESSION['id']) ) {
 												<a style="cursor: pointer;" id="cart">
 													<i class="fa fa-shopping-cart"></i> 
 													<?php echo $language['cart'] ?>
-												 <span class="badge">3</span></a>
-											</li>
-											<div class="container">
-												<div class="shopping-cart" style="display: none;">
-													<div class="shopping-cart-header">
-														<span><?php echo $language['totalimages'] ?></span>
-														<i class="fa fa-shopping-cart cart-icon"></i>
-														<div class="shopping-cart-total">
-															<span class="main-color-text"><span class="badge">3</span></span>
+													<span class="badge">3</span></a>
+												</li>
+												<div class="container">
+													<div class="shopping-cart" style="display: none;">
+														<div class="shopping-cart-header">
+															<span><?php echo $language['totalimages'] ?></span>
+															<i class="fa fa-shopping-cart cart-icon"></i>
+															<div class="shopping-cart-total">
+																<span class="main-color-text"><span class="badge">3</span></span>
+															</div>
 														</div>
-													</div>
-													<?php 
+														<?php 
 														foreach ($cart as $item) {
-																$it = getArticle($item); ?>
+															$it = getArticle($item); ?>
 															<ul class="shopping-cart-items">
 																<li class="clearfix" style="width: 100%">
 																	<img src="<?php echo $path?>Userpages/showFileImage.php?id=<?php echo $it['article_image']?>&size=thumb" alt="An Image" />
 																	<span class="item-name"><?php echo $it['article_title'] ?></span>
-																	<span class="item-name">ID = <?php echo $it['article_id'] ?></span>
+																	<span class="item-price">ID = <?php echo $it['article_id'] ?></span>
+																	<span class="item-quantity">
+																		<a id="noCSS" href="<?php echo $path?>Userpages/article.php?type=view&id=<?php echo $it['article_id'] ?>">View</a>
+																	</span>
 																</li>
 															</ul>
-													<?php } ?>
+														<?php } ?>
 
 
-													<a href="<?php echo $path ?>Userpages/downloadZIP.php?userID=<?php echo $userId ?>"
-													><button class="genric-btn danger">Download</button></a>  
-												</div>
-											</div>
-										<?php } ?>
-									</ul>
-								</nav>
+														<a href="<?php echo $path ?>userpages/downloadZIP.php?userID=<?php echo $userId ?>&mode=1"
+														><button id="download" class="genric-btn danger">Download</button></a>  
+														<a style="float: right;"><button onclick="delORZIP(<?php echo $userId ?>, 2)" class="genric-btn danger">Delete All</button></a>  
+														</div>
+													</div>
+												<?php } ?>
+											</ul>
+										</nav>
 
+									</div>
+								</div>
+
+								<!-- Mobile Menu -->
+								<div class="col-12">
+									<div class="mobile_menu d-block d-lg-none"></div>
+								</div>
 							</div>
-						</div>
-
-						<!-- Mobile Menu -->
-						<div class="col-12">
-							<div class="mobile_menu d-block d-lg-none"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-</header>
+		</header>
