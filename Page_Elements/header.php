@@ -154,7 +154,8 @@ if(isset($_SESSION['id'])){
 							<!-- Main-menu -->
 							<div class="main-menu f-right d-none d-lg-block">
 								<nav>
-									<ul id="navigation">                                       
+									<ul id="navigation">
+										<a target="_blank" href="<?php echo $path . "RSS.php?readonly=1"; ?>"><img src="<?php echo $path . "rssBtn.png"; ?>" alt="subscribe via rss" /></a>                                   
 										<li><a href="#"><?php echo $language['language'] ?></a>
 											<ul class="submenu">
 												<li><a href="javascript:changeLanguage('pt')">Português</a></li>
