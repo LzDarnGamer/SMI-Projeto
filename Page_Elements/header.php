@@ -163,7 +163,7 @@ if(isset($_SESSION['id'])){
 											</ul>
 										</li>               
 										<li><a href="<?php echo $path.'landingpage.php' ?>"><?php echo $language['home'] ?></a></li>
-										<li><a href="<?php echo $path.'about.php' ?>"><?php echo $language['about'] ?></a></li>
+										<li><a href="<?php echo $path.'articleFeed.php' ?>"><?php echo $language['about'] ?></a></li>
 
 										<?php 
 
