@@ -26,6 +26,11 @@
     require_once("Lib/db.php");
     include( "ensureAuth.php" );
     require_once("languageAddon.php");
+
+    $loggedIn = false;
+    if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
+        $loggedIn = true;
+    }
     
     $users = getAllIds();
     for ($i = 0; $i < sizeof($users); $i ++) {
@@ -66,7 +71,7 @@
 
                     for ($i = 0; $i < sizeof($articlesArray); $i ++) {
 
-                        if($articlesArray[$i]['visible'] != 0) {
+                        if((!$loggedIn && $articlesArray[$i]['visible'] != 0) || ($loggedIn)) {
                             if (isset($FilterCategory)) {
                                 if (getcategoryName($articlesArray[$i]['article_categorie_id']) != $FilterCategory) {
                                     $counter ++;
