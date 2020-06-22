@@ -10,8 +10,11 @@
 	}
 
 	if($mode==1){
-		header('Content-disposition: attachment; filename="articles.xml"');
-		header('Content-type: "text/xml"; charset="utf8"');
+		$zip = new ZipArchive();
+		$filename = "articles.zip";
+		if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+			exit("cannot open <$filename>\n");
+		}
 		dbConnect(ConfigFile);
 
 		$dataBaseName = $GLOBALS['configDataBase']->db;
@@ -29,8 +32,7 @@
 			header("Location: javascript:history.go(-1) ");
 			return;
 		}
-		header('Content-type: "text/xml"; charset="utf8"');
-		header('Content-Disposition: attachment; filename="articles.xml"');
+
 		$arr = explode(",", $list);
 
 		mysqli_free_result($result);
@@ -42,9 +44,7 @@
 		foreach ($arr as $item) {
 			$subroot = $doc->createElement("article");
 			$it = getArticle($item);
-
-
-
+			$fileDetails = getFileDetails($it['article_image']);
 
 			$article_id = $doc->createElement("article_id");
 			$article_id->appendChild($doc->createTextNode($it['article_id']));
@@ -79,6 +79,20 @@
 			$visible = $doc->createElement("visible");
 			$visible->appendChild($doc->createTextNode($it['visible']));
 
+
+			//Image Details
+			$id = $doc->createElement("id");
+			$id->appendChild($doc->createTextNode($fileDetails['id']));
+			
+			$fileName = $doc->createElement("fileName");
+			$fileName->appendChild($doc->createTextNode($fileDetails['fileName']));
+			
+			$latitude = $doc->createElement("latitude");
+			$latitude->appendChild($doc->createTextNode($fileDetails['latitude']));
+			
+			$longitude = $doc->createElement("longitude");
+			$longitude->appendChild($doc->createTextNode($fileDetails['longitude']));
+			
 			
 			$subroot->appendChild($article_id);
 			$subroot->appendChild($article_categorie_id);
@@ -92,15 +106,31 @@
 			$subroot->appendChild($tags);
 			$subroot->appendChild($visible);
 
+			$subroot->appendChild($id);
+			$subroot->appendChild($fileName);
+			$subroot->appendChild($latitude);
+			$subroot->appendChild($longitude);
+
+
+
 			$root->appendChild( $subroot );
 		}
-		echo $doc->saveXML();
-		$doc->save('php://stdout');
+
+		$zip->addFromString("articles.xml", $doc->saveXML());
+		$zip->close();
+		header('Content-Type: application/zip');
+		header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+		header('Content-Length: ' . filesize($filename));
+		readfile($filename);
+
+		unlink($filename);
+
+		echo $filename;
 	}
-	dbConnect(ConfigFile);
-	$dataBaseName = $GLOBALS['configDataBase']->db;
-	$query = "DELETE FROM `$dataBaseName`.`cart` " . "WHERE `id`='$userID'";
-	mysqli_query($GLOBALS['ligacao'], $query);
-	dbDisconnect();
+	//dbConnect(ConfigFile);
+	//$dataBaseName = $GLOBALS['configDataBase']->db;
+	//$query = "DELETE FROM `$dataBaseName`.`cart` " . "WHERE `id`='$userID'";
+	//mysqli_query($GLOBALS['ligacao'], $query);
+	//dbDisconnect();
 	
 ?>
