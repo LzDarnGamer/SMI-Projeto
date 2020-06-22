@@ -24,10 +24,12 @@ $str .= "<rss version='2.0'>";
             $str .= "<item>";
                 $str .= "<title>" . $articlesArray[$i]['article_title'] . "</title>";
                 $str .= "<description>" . $articlesArray[$i]['article_context'] . "</description>";
-                $str .= "<link>" . $web_url . "/article.php?type=view&id={$articlesArray[$i]['article_id']}" . "</link>";
+                $str .= "<comments>";
+                    $str .= "Ainda sem nada aqui";
+                $str .= "</comments>";
+                $str .= "<link>" . $web_url . "/article.php?type=view&amp;id=" . $articlesArray[$i]['article_id'] . "</link>";
             $str .= "</item>";
         }
-
 
     $str .= "</channel>";
 $str .= "</rss>";
