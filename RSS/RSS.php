@@ -3,17 +3,14 @@
 if ( !isset($_SESSION) ) {
     session_start();
   }
-require_once("Lib/db.php");
-require_once("Lib/lib.php");
-require_once( "Lib/lib-coords.php" );
-require_once( "Lib/ImageResize-class.php" );
+require_once("../Lib/db.php");
+require_once("../Lib/lib.php");
+require_once( "../Lib/lib-coords.php" );
+require_once( "../Lib/ImageResize-class.php" );
 
-include_once( "Lib/config.php" );
-include( "ensureAuth.php" );
+include_once( "../Lib/config.php" );
+include( "../ensureAuth.php" );
 header('Content-Type: text/html; charset=utf-8');
-
-require_once("Lib/lib.php");
-require_once("Lib/db.php");
 
 $readonly = (isset($_GET['readonly'])) ? $_GET['readonly'] : 0;
 
