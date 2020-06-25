@@ -113,7 +113,10 @@
 
 
 
-			$root->appendChild( $subroot );
+			$root->appendChild($subroot);
+
+			$content = file_get_contents($fileDetails['fileName']);
+			$zip->addFromString(pathinfo ( $fileDetails['fileName'], PATHINFO_BASENAME), $content);
 		}
 
 		$zip->addFromString("articles.xml", $doc->saveXML());
