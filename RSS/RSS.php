@@ -38,12 +38,23 @@ $readonly = (isset($_GET['readonly'])) ? $_GET['readonly'] : 0;
                     $str .= "<title>" . $articlesArray[$i]['article_title'] . "</title>";
                     $str .= "<description>" . $articlesArray[$i]['article_context'] . "</description>";
                     $str .= "<comments>";
-                        $str .= "Ainda sem nada aqui";
+                        $comments = getComments($articlesArray[$i]['article_id']);
+                        if (isset($comments)) {
+                            for ($j = 0; $j < sizeof($comments); $j ++) {
+
+                                $str .= "<comment>";
+                                    $str .= "<content>" . $comments[$j]['text'] . "</content>";
+                                    $str .= "<timestamp>" . $comments[$j]['timestamp'] ."</timestamp>";
+                                    $str .= "<author>" .  getNameFromUser($comments[$j]['userId']) . "</author>";
+                                    $str .= "<article>" . getArticle($comments[$j]['articleId'])['article_title'] . "</article>";
+                                $str .= "</comment>";
+
+                            }
+                        }
                     $str .= "</comments>";
                     $str .= "<link>" . $web_url . "/article.php?type=view&amp;id=" . $articlesArray[$i]['article_id'] . "</link>";
                 $str .= "</item>";
             }
-
         $str .= "</channel>";
     $str .= "</rss>";
 

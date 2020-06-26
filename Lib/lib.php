@@ -274,6 +274,27 @@ function getArticle($idArticle) {
   return $articleArray;
 }
 
+function getComments($articleId){
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`comments` WHERE articleId='$articleId' ORDER BY timestamp");
+
+    $rows = [];
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+
+    }
+
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $rows;
+}
 
 function getArticles($idUser){
     dbConnect(ConfigFile);
@@ -813,6 +834,28 @@ function updateCat ($oldCategory, $cat) {
       	return "false";
     }
 
+
+    dbDisconnect();
+}
+
+function insertComment ($articleId, $posterId, $comment) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);
+
+    $timestamp = date("d/m/Y");
+    
+    $sql = "INSERT INTO `comments`(`userId`, `articleId`, `text`, `timestamp`) VALUES ('$posterId', '$articleId', '$comment', '$timestamp')";
+    mysqli_query($GLOBALS['ligacao'], $sql);
+    $recordsInserted = mysqli_affected_rows( $GLOBALS['ligacao'] );
+    
+    if($recordsInserted != -1){
+      return "true";
+    }else{
+      return "false";
+    }
 
     dbDisconnect();
 }

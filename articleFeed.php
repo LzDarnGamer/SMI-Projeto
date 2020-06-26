@@ -115,6 +115,40 @@
                                 </a>
                                 <!-- Descricao -->
                                 <p><?php echo $description; ?></p>
+                                <p>
+                                    <form method="POST" action="comments/AddComment.php" id="com<?php echo $i; ?>">
+                                        <textarea style="width: 100%;" maxlength="95" name="comment" form="com<?php echo $i; ?>" required></textarea>
+                                        <input type="hidden" value="<?php echo $userId; ?>" name="posterId">
+                                        <input type="hidden" value="<?php echo $articlesArray[$i]['article_id']; ?>" name="articleId">
+                                        <input style="margin-top: 10px; float: right; width: 100px; cursor: pointer;" type="submit" value="Post">
+                                    </form>
+                                </p>
+                                
+                                <br>
+
+                                <?php
+                                $comments = getComments($articlesArray[$i]['article_id']);
+                                //echo var_dump($articlesArray[$i]['article_id']);
+                                //echo var_dump($comments);
+                                if (isset($comments)) {
+                                    if (sizeof($comments) > 0) {
+
+                                        echo "<a class=\"d-inline-block\" style=\"margin-bottom: 10px;\"> Comments </a>";
+
+                                        for ($j = 0; $j < sizeof($comments); $j ++) {
+
+                                            echo "<p style=\"background-color: coral;\">";
+                                                echo $comments[$j]['text'];
+                                                echo "<a style=\"float: right;\">";
+                                                    echo "<small>" . getNameFromUser($comments[$j]['userId']) . "</small>";
+                                                echo "</a>";
+                                            echo "</p>";
+        
+                                        }
+                                    }
+                                }
+                                ?>
+
                                 <ul class="blog-info-link">
                                     <li><a><i class="fa fa-user"></i><?php
                                         echo getNameFromUser($articlesArray[$i]['poster_id']);
