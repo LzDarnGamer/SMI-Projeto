@@ -20,8 +20,9 @@ $readonly = (isset($_GET['readonly'])) ? $_GET['readonly'] : 0;
         $articlesArray = getArticles($users[$i]);
     }
 
+    $name = $_SERVER["REQUEST_URI"];
 
-    $web_url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    $web_url = "http://" . $_SERVER["SERVER_NAME"] . substr($name, 0, 8) . "/userpages";
 
     $str = "<?xml version='1.0' ?>";
     $str .= "<rss version='2.0'>";
