@@ -69,6 +69,7 @@ switch ($role) {
         }
         
     }
+
 </script>
 <html class="no-js" lang="zxx">
 
@@ -133,10 +134,15 @@ switch ($role) {
                                 <input class="btn" style="width: 350px;" type="button" value="Configure Database">      <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage Categories" onclick="manageCategories()">       <br />
-                                <input class="btn" style="width: 350px;" type="button" value="Manage Users"             onclick="manageUsers()"> <br />
+                                <input class="btn" style="width: 350px;" type="button" value="Manage Users" onclick="manageUsers()"> <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Create Articles" onclick="createArticles()"><br>
                                 <input class="btn" style="width: 350px;" type="button" value="Create Subcategories" onclick="createSubcategory()"><br>
-                                <input class="btn" style="width: 350px;" type="button" value="Check Your Feed" onclick="openFeed()">
+                                <form id="form" action="uploadZIP.php" method="post" enctype="multipart/form-data">
+                                    <label for="file" name="file" class="btn" style="width: 350px;">
+                                        Upload ZIP
+                                    </label>
+                                    <input id="file" name="file" style="visibility: hidden;" type="file"  accept=".zip,.rar,.7zip" >
+                                </form>
                             <?php } else if ($role == "user"){
                                 /*
                                 if(count($userSubscriptionsIDS)==0){
@@ -249,6 +255,11 @@ switch ($role) {
         <?php include_once("../Page_Elements/goup.php") ?>
         <?php include_once("../Page_Elements/footer.php") ?>
 
+        <script>
+            document.getElementById("file").onchange = function() {
+                document.getElementById("form").submit();
+            }
+        </script>
         <!-- JS here -->
         <!-- All JS Custom Plugins Link Here here -->
         <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>

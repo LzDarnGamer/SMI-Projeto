@@ -118,7 +118,7 @@ if(isset($_SESSION['id'])){
 		var items = document.getElementsByClassName("badge"), i, len;
 
 		for (i = 0, len = items.length; i < len; i++) {
-			items[i].innerHTML = <?php echo $size ?>;
+			items[i].innerHTML = <?php echo (isset($size) ? $size : 0) ?>;
 		}
 
 		$("#cart").on("click", function() {
