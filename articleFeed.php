@@ -27,6 +27,9 @@
     include( "ensureAuth.php" );
     require_once("languageAddon.php");
 
+    $userId = $_SESSION['id'];
+    $username = $_SESSION['username'];
+
     $loggedIn = false;
     if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
         $loggedIn = true;

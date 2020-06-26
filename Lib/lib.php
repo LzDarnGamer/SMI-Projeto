@@ -918,7 +918,7 @@ function getCart($userID){
     while ($array = mysqli_fetch_array($result)) {
         $list = $array["list"];
     }
-    if($list==null){
+    if(!isset($list)){
         return Array();
     }
     return explode(",", $list);
