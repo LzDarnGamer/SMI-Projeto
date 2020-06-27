@@ -38,7 +38,7 @@ if (!$isAdmin) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title><?php echo $username?>'s Profile</title>
+        <title>Manage Users</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
@@ -76,21 +76,19 @@ if (!$isAdmin) {
         </head>
 
    <body>
+
    <?php include_once("../Page_Elements/preloader.php") ?>
     
     <main>
-        
         <?php include_once("../Page_Elements/header.php") ?>
-
         <!-- Hero Area Start-->
         <div class="slider-area hero-overly">
             <div class="single-slider hero-overly  slider-height d-flex align-items-center">
                 <div class="container" style="width: 100%; height: 500px; text-align: center;">
-                    <div class="hero__caption">
-                        <span style="color: orangered">Welcome back, <?php if (!$isAdmin) { echo $username; } else { echo "Master"; } ?><span>
+                    <div class="section-tittle text-center mb-80">
+                            <span><?php if (!$isAdmin) { echo "No permissions to be in this page"; } else { echo "Manage Users"; } ?></span>
                     </div>
                     <div class="section-top-border">
-					<h3 class="mb-30">Table</h3>
 					<div class="progress-table-wrap">
 						<div class="progress-table">
                             <div class="table-head">
