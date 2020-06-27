@@ -174,6 +174,33 @@ $fileDetails = getFileDetails($article['article_image']);
                     <h3 class="mb-20"><?php echo $language['createArt_artCont'] ?></h3>
                     <p class="mb-30"><?php echo $article['article_context'] ?> </p>
                 </div>
+
+                <?php
+                $comments = getComments($articleid);
+
+                if (isset($comments)) {
+                    if (sizeof($comments) > 0) {
+                        ?>
+                        <div class="col-lg-8" style="text-align: center;"><br>
+                            <h3 class="mb-20">Comments</h3>
+                            <?php
+                            
+                            for ($i = 0; $i < sizeof($comments); $i ++) {
+                                echo "<p style=\"background-color: coral; text-align: left;\">";
+                                    echo $comments[$i]['text'];
+                                    echo "<a style=\"float: right;\">";
+                                        echo "<small>" . getNameFromUser($comments[$i]['userId']) . "</small>";
+                                    echo "</a>";
+                                echo "</p>";
+                            }
+
+                            ?>
+                        </div>
+
+                        <?php
+                    }
+                }
+                ?>
             </div>
             <!-- Map -->
             <div class="row justify-content-center">
