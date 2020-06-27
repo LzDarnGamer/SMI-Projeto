@@ -23,8 +23,7 @@
 
 		$doc = new DOMDocument();
 		$doc->load($zipDirectory.'/articles.xml');
-		$articles = $doc->getElementsByTagName( "articles" );
-		echo count($articles);
+		$articles = $doc->getElementsByTagName( "article" );
 		foreach($articles as $article) {
 			$article_id = $article->getElementsByTagName("article_id");
 			$article_id_ = $article_id->item(0)->nodeValue;
@@ -94,9 +93,6 @@
 			
 			$src = $zipDirectory . DIRECTORY_SEPARATOR . $fileName_;
 			$dst = $dstDir . DIRECTORY_SEPARATOR . $fileName_;
-			echo $src;
-			echo "<br>" . $dst;
-
 			$copyResult = copy($src, $dst);
 
 			if ( $copyResult === false ) {
@@ -213,12 +209,8 @@
 		        $linkIdentifier->commit();
 		    }else{
 		        $linkIdentifier->rollback();
-		    }
-
-
-		    
+		    }		    
 		}
-		exit();
 	}else{
 		$title = "Invalid File Type";
 		$info = "Make sure you are uploading a ZIP file";
