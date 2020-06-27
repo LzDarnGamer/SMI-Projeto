@@ -115,12 +115,13 @@
 
 			$root->appendChild($subroot);
 
-			$content = file_get_contents($fileDetails['fileName']);
-			$zip->addFromString(pathinfo ( $fileDetails['fileName'], PATHINFO_BASENAME), $content);
+			$content = file_get_contents($fileDetails['imageFileName']);
+			$zip->addFromString(pathinfo($fileDetails['imageFileName'], PATHINFO_BASENAME), $content);
 		}
 
 		$zip->addFromString("articles.xml", $doc->saveXML());
 		$zip->close();
+
 		header('Content-Type: application/zip');
 		header('Content-Disposition: attachment; filename="'.basename($filename).'"');
 		header('Content-Length: ' . filesize($filename));
@@ -128,12 +129,11 @@
 
 		unlink($filename);
 
-		echo $filename;
 	}
-	//dbConnect(ConfigFile);
-	//$dataBaseName = $GLOBALS['configDataBase']->db;
-	//$query = "DELETE FROM `$dataBaseName`.`cart` " . "WHERE `id`='$userID'";
-	//mysqli_query($GLOBALS['ligacao'], $query);
-	//dbDisconnect();
+	dbConnect(ConfigFile);
+	$dataBaseName = $GLOBALS['configDataBase']->db;
+	$query = "DELETE FROM `$dataBaseName`.`cart` " . "WHERE `id`='$userID'";
+	mysqli_query($GLOBALS['ligacao'], $query);
+	dbDisconnect();
 	
 ?>

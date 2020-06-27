@@ -104,6 +104,17 @@ function url(){
   return $currentUrl;
 }
 
+function webAppNameWithDepth($depth) {
+    $uri = explode("/", $_SERVER['REQUEST_URI']);
+    $n = count($uri);
+    $webApp = "";
+    for ($idx = 0; $idx < $n - $depth; $idx++) {
+        $webApp .= ($uri[$idx] . "/" );
+    }
+
+    return $webApp;
+}
+
 function webAppName() {
     $uri = explode("/", $_SERVER['REQUEST_URI']);
     $n = count($uri);

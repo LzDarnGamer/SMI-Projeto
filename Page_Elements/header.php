@@ -40,11 +40,14 @@ if(isset($_SESSION['id'])){
 		background: rgb(255, 255, 255) none repeat scroll 0 0;
 		border-radius: 3px;
 		float: right;
-		margin: 20px 0;
 		padding: 20px;
-		position: relative;
+		position: absolute;
 		width: 320px;
-		z-index: 1000;
+		z-index: 50;
+		right: 60px;
+   		top  : 85px;
+
+		
 	}
 	.shopping-cart .shopping-cart-header {
 		border-bottom: 1px solid rgb(232, 232, 232);
@@ -112,7 +115,7 @@ if(isset($_SESSION['id'])){
 <script>
 	$(document).ready(function(){
 		$('#download').click(function(event) {
-		    setTimeout( 'window.location.reload()', 250);
+			//setTimeout( 'window.location.reload()', 1000);
 		});
 		$("#noCSS").removeAttr("style");
 		var items = document.getElementsByClassName("badge"), i, len;
@@ -139,7 +142,7 @@ if(isset($_SESSION['id'])){
 </script>
 <header>    
 	<!-- Header Start -->
-	<div class="header-area header-transparent" style="background-color: #212529; z-index: 10">
+	<div class="header-area header-transparent" style="background-color: #212529;">
 		<div class="main-header">
 			<div class="header-bottom  header-sticky">
 				<div class="container-fluid">
@@ -188,50 +191,51 @@ if(isset($_SESSION['id'])){
 													<?php echo $language['cart'] ?>
 													<span class="badge">3</span></a>
 												</li>
-												<div class="container">
-													<div class="shopping-cart" style="display: none;">
-														<div class="shopping-cart-header">
-															<span><?php echo $language['totalimages'] ?></span>
-															<i class="fa fa-shopping-cart cart-icon"></i>
-															<div class="shopping-cart-total">
-																<span class="main-color-text"><span class="badge">3</span></span>
-															</div>
-														</div>
-														<?php 
-														foreach ($cart as $item) {
-															$it = getArticle($item); ?>
-															<ul class="shopping-cart-items">
-																<li class="clearfix" style="width: 100%">
-																	<img src="<?php echo $path?>Userpages/showFileImage.php?id=<?php echo $it['article_image']?>&size=thumb" alt="An Image" />
-																	<span class="item-name"><?php echo $it['article_title'] ?></span>
-																	<span class="item-price">ID = <?php echo $it['article_id'] ?></span>
-																	<span class="item-quantity">
-																		<a id="noCSS" href="<?php echo $path?>Userpages/article.php?type=view&id=<?php echo $it['article_id'] ?>">View</a>
-																	</span>
-																</li>
-															</ul>
-														<?php } ?>
+											<?php } ?>
+										</ul>
+									</nav>
 
-
-														<a href="<?php echo $path ?>userpages/downloadZIP.php?userID=<?php echo $userId ?>&mode=1"
-														><button id="download" class="genric-btn danger">Download</button></a>  
-														<a style="float: right;"><button onclick="delORZIP(<?php echo $userId ?>, 2)" class="genric-btn danger">Delete All</button></a>  
-														</div>
-													</div>
-												<?php } ?>
-											</ul>
-										</nav>
-
-									</div>
 								</div>
+							</div>
 
-								<!-- Mobile Menu -->
-								<div class="col-12">
-									<div class="mobile_menu d-block d-lg-none"></div>
-								</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="container">
+			<div class="shopping-cart" style="display: none;">
+				<div class="shopping-cart-header">
+					<span><?php echo $language['totalimages'] ?></span>
+					<i class="fa fa-shopping-cart cart-icon"></i>
+					<div class="shopping-cart-total">
+						<span class="main-color-text"><span class="badge">3</span></span>
+					</div>
+				</div>
+				<?php 
+				foreach ($cart as $item) {
+					$it = getArticle($item); ?>
+					<ul class="shopping-cart-items">
+						<li class="clearfix" style="width: 100%">
+							<img src="<?php echo $path?>Userpages/showFileImage.php?id=<?php echo $it['article_image']?>&size=thumb" alt="An Image" />
+							<span class="item-name"><?php echo $it['article_title'] ?></span>
+							<span class="item-price">ID = <?php echo $it['article_id'] ?></span>
+							<span class="item-quantity">
+								<a id="noCSS" href="<?php echo $path?>Userpages/article.php?type=view&id=<?php echo $it['article_id'] ?>">View</a>
+							</span>
+						</li>
+					</ul>
+				<?php } ?>
+
+
+				<a href="<?php echo $path ?>userpages/downloadZIP.php?userID=<?php echo $userId ?>&mode=1"
+					><button id="download" class="genric-btn danger">Download</button></a>  
+					<button style="float: right;" onclick="delORZIP(<?php echo $userId ?>, 2)" class="genric-btn danger">Delete All</button> 
+				</div>
+			</div>
 		</header>
+		
