@@ -9,6 +9,8 @@ require_once("../Lib/db.php");
 include( "../ensureAuth.php" );
 require_once("../languageAddon.php");
 
+include_once( "../Lib/config.php" );
+
 $isAdmin = false;
 
 $userId = $_SESSION['id'];
@@ -17,13 +19,18 @@ $role = getRoleFromUser($userId);
 
 $isAdmin = false;
 if ($role == "administrator") { $isAdmin = true; }
+if (!$isAdmin) {
+    if (isset($_SERVER["HTTP_REFERER"])) {
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    }
+}
 ?>
 
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Manage Categories</title>
+        <title>Configure Database</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
@@ -74,44 +81,77 @@ if ($role == "administrator") { $isAdmin = true; }
 					<h3 class="mb-30">Table</h3>
                     
                     <div class="section-tittle text-center mb-80">
-                            <span><?php if (!$isAdmin) { echo "No permissions to be in this page"; } else { echo "Manage Categories"; } ?></span>
+                            <span><?php if (!$isAdmin) { echo "No permissions to be in this page"; } else { echo "Configure Database"; } ?></span>
                     </div>
                     
-                    <?php if ($isAdmin) {?>
+                    <?php
+
+                        $dom = new DOMDocument();
+                        $dom->load($htdocsDirectory);
+                        
+                        $node = $dom->getElementsByTagName("DataBase");
+
+                        foreach ($node as $searchNode) {
+                            $dbHost = $searchNode->getElementsByTagName('host'); $dbHost = $dbHost[0]->nodeValue;
+                            $dbPort = $searchNode->getElementsByTagName('port'); $dbPort = $dbPort[0]->nodeValue;
+                            $db = $searchNode->getElementsByTagName('db'); $db = $db[0]->nodeValue;
+                            $dbUser = $searchNode->getElementsByTagName('username'); $dbUser = $dbUser[0]->nodeValue;
+                            $dbPass = $searchNode->getElementsByTagName('password'); $dbPass = $dbPass[0]->nodeValue;
+                        }
+
+                    ?>
+
+                    <?php if ($isAdmin) {
+                            if (isset($dbHost) && isset($dbPort) && isset($db) && isset($dbUser) && isset($dbPass)) {
+                        ?>
+                        <form method="GET" action="changeDb.php">
                         <table id="customers">
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Delete</th>
-                                <th>Submit</th>
+                                <th>Host</th>
+                                <th>Port</th>
+                                <th>Database Name</th>
+                                <th>Username</th>
+                                <th>Password</th>
                             </tr>
-                            <?php 
-                            $cat_ = getcategories();
-                            $counter = 0;
-                            foreach ($cat_ as $i) { ?>
-                                <form method="POST" action="updateCategory.php">
-                                    <tr>
-                                        <td><?php echo $counter; ?></td>
-                                        <td><input class="inpt" type="text" name="cate" value="<?php echo $i['categorie_title']; ?>" required></td>
-                                        <input type="hidden" name="oldcate" value="<?php echo $i['categorie_title'];?>">
-                                        <td><input type="checkbox" name="delete" value="yes"></td>
-                                        
-                                        <td><div class="visit"><input type="submit" class="btn" value="Update Category" ></div></td>
-                                        <?php $counter ++; ?>
-                                    </tr>
-                                </form>
-                            <?php } ?>
-                            <form method="POST" action="insertCategory.php">
+                            
                                 <tr>
-                                    <td><?php echo $counter; ?></td>
-                                    <td><input class="inpt" type="text" name="newCate" placeholder="Insert New Category Here" required></td>
-                                    <td><p style="text-align: center;">-</p></td>
-                                    <td><div class="visit"><input type="submit" class="btn" value="Insert Category" ></div></td>
+                                    <td>
+                                    <input type="text" name="host" value="<?php echo $dbHost; ?>" required="" class="single-input">
+                                    </td>
+                                    <td>
+                                    <input type="text" name="port" value="<?php echo $dbPort; ?>" required="" class="single-input">
+                                    </td>
+                                    <td>
+                                    <input type="text" name="db" value="<?php echo $db; ?>" required="" class="single-input">
+                                    </td>
+                                    <td>
+                                    <input type="text" name="username" value="<?php echo $dbUser; ?>" required="" class="single-input">
+                                    </td>
+                                    <td>
+                                    <p><input id="password-field" type="password" name="password" value="<?php echo $dbPass; ?>" required="" class="single-input">
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></p>    
+                                </td>
                                 </tr>
-                            </form>
+
+                            <script>
+                                $(".toggle-password").click(function() {
+
+                                $(this).toggleClass("fa-eye fa-eye-slash");
+                                var input = $($(this).attr("toggle"));
+                                if (input.attr("type") == "password") {
+                                input.attr("type", "text");
+                                } else {
+                                input.attr("type", "password");
+                                }
+                                });
+                            </script>
                             
                         </table>
-                    <?php } ?>
+                        <input type="submit" value="Update" style="margin-top: 10px;" >
+                        </form>
+                    <?php
+                            } 
+                    } ?>
 						
                 </div>
                 

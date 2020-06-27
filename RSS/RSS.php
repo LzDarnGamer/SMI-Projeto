@@ -60,9 +60,11 @@ $readonly = (isset($_GET['readonly'])) ? $_GET['readonly'] : 0;
 
     // Read configurations from data base
     $configurations = getConfiguration();
+    
     $dstDir = $configurations['destination'];
+    
     $dstDir = $dstDir . DIRECTORY_SEPARATOR . "RSS";
-
+    
     //Create Folder if not exists    
     if (!file_exists($dstDir)) {
         mkdir($dstDir, 0777, true);

@@ -7,6 +7,7 @@ if (!isset($_SESSION) ) {
 require_once("../Lib/lib.php");
 require_once("../Lib/db.php");
 include( "../ensureAuth.php" );
+require_once("../languageAddon.php");
 
 $isAdmin = false;
 
@@ -24,6 +25,13 @@ switch ($role) {
         break;
 
 }
+
+if (!$isAdmin) { 
+    if (isset($_SERVER["HTTP_REFERER"])) {
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    }
+ }
+
 ?>
 
 <html class="no-js" lang="zxx">
@@ -68,60 +76,11 @@ switch ($role) {
         </head>
 
    <body>
-    <!-- Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-       <div class="header-area header-transparent" style="background-color: #212529">
-            <div class="main-header">
-               <div class="header-bottom  header-sticky">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2 col-md-1">
-                                <div class="logo">
-                                  <a href="../landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-10 col-lg-10 col-md-8">
-                                <!-- Main-menu -->
-                                <div class="main-menu f-right d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">                                                                                                                                     
-                                            <li><a href="../landingpage.php">Home</a></li>
-                                            <li><a href="../about.php">About</a></li>
-                                            <li class="login"><a href="../userpages/profilepage.php">
-                                                <i class="ti-user"></i> Me</a>
-                                            </li>
-                                            <li class="login"><a href="../logout.php">
-                                                <i class="ti-user"></i> Sign out</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
-       </div>
-        <!-- Header End -->
-    </header>
+   <?php include_once("../Page_Elements/preloader.php") ?>
+    
     <main>
+        
+        <?php include_once("../Page_Elements/header.php") ?>
 
         <!-- Hero Area Start-->
         <div class="slider-area hero-overly">
