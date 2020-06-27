@@ -283,7 +283,7 @@
 
 
 
-	$fileName = addslashes($dst);
+	$fileName = addslashes($srcName);
 	$imageFileName = addslashes($imageFileNameAux);
 	$thumbFileName = addslashes($thumbFileNameAux);
 
