@@ -1,7 +1,7 @@
 <?php
 if ( !isset($_SESSION) ) {
     session_start();
-  }
+}
 require_once("../Lib/db.php");
 require_once("../Lib/lib.php");
 require_once( "../Lib/lib-coords.php" );
@@ -34,6 +34,5 @@ file_put_contents($htdocsDirectory, $str);
 if (isset($_SERVER["HTTP_REFERER"])) {
     header("Location: " . $_SERVER["HTTP_REFERER"]);
 }
-
 
 ?>

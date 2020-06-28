@@ -34,6 +34,8 @@ function dbConnect($configFile, $setCharSet = true) {
     $password = strval( $configDataBase->password );
 
     $hostFQN = "$host:$port";
+    
+    //echo "USERNAME: " . $username . " PASSWORD: ". $password;
 
     $ligacao = mysqli_connect($hostFQN, $username, $password)
             or die("Could not connect to data base server ($hostFQN)");

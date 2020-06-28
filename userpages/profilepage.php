@@ -38,7 +38,8 @@ switch ($role) {
     function manageUsers () { window.location = "../admin/manageusers.php"; }
     function manageCategories () { window.location = "../admin/manageCategories.php"; }
     function openFeed () { window.location = "../articleFeed.php"; }
-    function manageDatabase () {window.location = "../admin/manageDatabase.php"; }
+    function manageDatabase () { window.location = "../admin/manageDatabase.php"; }
+    function manageEmailServices () { window.location = "../admin/manageEmailServices.php"; }
 
     function confirmBox(){
         return confirm("Are you sure you want to delete");
@@ -133,7 +134,7 @@ switch ($role) {
                                 <input class="btn" type="button" value="<?php echo $language['profilepg_createSub'] ?>" onclick="createSubcategory()">
                             <?php } else if ($role == "administrator") { ?>
                                 <input class="btn" style="width: 350px;" type="button" value="Configure Database" onclick="manageDatabase()">      <br />
-                                <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services">  <br />
+                                <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services" onclick="manageEmailServices()">  <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage Categories" onclick="manageCategories()">       <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage Users" onclick="manageUsers()"> <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Create Articles" onclick="createArticles()"><br>
