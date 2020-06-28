@@ -187,10 +187,10 @@ $fileDetails = getFileDetails($article['article_image']);
                             
                             for ($i = 0; $i < sizeof($comments); $i ++) {
                                 echo "<p style=\"background-color: coral; text-align: left;\">";
-                                    echo $comments[$i]['text'];
-                                    echo "<a style=\"float: right;\">";
-                                        echo "<small>" . getNameFromUser($comments[$i]['userId']) . "</small>";
-                                    echo "</a>";
+                                echo $comments[$i]['text'];
+                                echo "<a style=\"float: right;\">";
+                                echo "<small>" . getNameFromUser($comments[$i]['userId']) . "</small>";
+                                echo "</a>";
                                 echo "</p>";
                             }
 
@@ -216,6 +216,8 @@ $fileDetails = getFileDetails($article['article_image']);
                 <a><button onclick="addToCart(<?php echo $articleid?>)" class="genric-btn danger"><?php echo $language['Art_addtocart'] ?></button></a>            
             </div>
         </div>
+        <br>
+        <div class="sharethis-inline-share-buttons"></div>
     </div>
 
 </main>
@@ -224,6 +226,7 @@ $fileDetails = getFileDetails($article['article_image']);
 
 <!-- JS here -->
 <!-- All JS Custom Plugins Link Here here -->
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5ef898658538d000128cee27&product=inline-share-buttons" async="async"></script>
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
