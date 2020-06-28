@@ -22,7 +22,7 @@
 
 <?php
 
-if ($delete == "Yes") {
+if ($delete == "Yes" || $delete == "yes") {
     deleteUser($id);
     echo "Delete user";
 } else {

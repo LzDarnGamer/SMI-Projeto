@@ -102,8 +102,9 @@ if (!$isAdmin) {
                                 $users = getAllUsers();
                                 $ids = getAllIds();
                                 for ($i = 0; $i < count($users); $i ++) {
-                                    if ($ids[$i] != $userId) {
-                                    $_role = getRoleFromUser($ids[$i]);?>
+                                    $_role = getRoleFromUser($ids[$i]);
+                                    if ($ids[$i] != $userId && $_role != "administrator") {
+                                    ?>
                             
                             <form method="POST" action="loadUpdate.php" onsubmit="clicked<?php echo $i; ?>()">
                                 <div class="table-row">
@@ -125,6 +126,10 @@ if (!$isAdmin) {
                                             for ($j = 0; $j < count($roles); $j ++) {
                                                 if ($roles[$j] != $_role) { ?>
                                                     <option value="<?php echo $roles[$j]; ?>"><?php echo $roles[$j]; ?></option>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <option value="<?php echo $roles[$j]; ?>" selected><?php echo $roles[$j]; ?></option>
                                                     <?php
                                                 }
                                             }
