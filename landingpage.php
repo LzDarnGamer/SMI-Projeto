@@ -53,6 +53,8 @@ for ($i=0; $i < count($countsPerCat); $i++) {
                 <?php
                 foreach($categories as $array){
                     echo 'case "' . $array['categorie_title'] . '" : window.location.replace("' . $baseUrl . "articleFeed.php?FilterCategory=" .$array['categorie_title'] . '"); break;';
+                foreach($categories as $array) {
+                    echo 'case "' . $array['categorie_title'] . '" : window.location.replace("' . $baseUrl . "categories.php?cat=" .$array['categorie_title'] . '"); break;';
                 }
                 ?>
                 default : alert("No category has been chosen")
