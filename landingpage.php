@@ -51,7 +51,7 @@ for ($i=0; $i < count($countsPerCat); $i++) {
 
             switch (strUser) {
                 <?php
-                foreach($categories as $array) {
+                foreach($categories as $array){
                     echo 'case "' . $array['categorie_title'] . '" : window.location.replace("' . $baseUrl . "categories.php?cat=" .$array['categorie_title'] . '"); break;';
                 }
                 ?>
