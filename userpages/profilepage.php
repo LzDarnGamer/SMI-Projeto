@@ -133,6 +133,11 @@ switch ($role) {
                                 <input class="btn" type="button" value="<?php echo $language['profilepg_createArt'] ?>" onclick="createArticles()"><br>
                                 <input class="btn" type="button" value="<?php echo $language['profilepg_createSub'] ?>" onclick="createSubcategory()">
                             <?php } else if ($role == "administrator") { ?>
+                                <script>
+                                    document.getElementById("file").onchange = function() {
+                                        document.getElementById("form").submit();
+                                    }
+                                </script>
                                 <input class="btn" style="width: 350px;" type="button" value="Configure Database" onclick="manageDatabase()">      <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage E-mail services" onclick="manageEmailServices()">  <br />
                                 <input class="btn" style="width: 350px;" type="button" value="Manage Categories" onclick="manageCategories()">       <br />
@@ -257,11 +262,7 @@ switch ($role) {
         <?php include_once("../Page_Elements/goup.php") ?>
         <?php include_once("../Page_Elements/footer.php") ?>
 
-        <script>
-            document.getElementById("file").onchange = function() {
-                document.getElementById("form").submit();
-            }
-        </script>
+
         <!-- JS here -->
         <!-- All JS Custom Plugins Link Here here -->
         <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>

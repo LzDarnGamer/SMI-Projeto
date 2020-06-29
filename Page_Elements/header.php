@@ -150,7 +150,7 @@ if(isset($_SESSION['id'])){
 						<!-- Logo -->
 						<div class="col-xl-2 col-lg-2 col-md-1">
 							<div class="logo">
-								<a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
+								<a href="<?php echo $path ?>landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
 							</div>
 						</div>
 						<div class="col-xl-10 col-lg-10 col-md-8">
@@ -158,7 +158,7 @@ if(isset($_SESSION['id'])){
 							<div class="main-menu f-right d-none d-lg-block">
 								<nav>
 									<ul id="navigation">
-										<a target="_blank" href="<?php echo $path . "RSS/RSS.php?readonly=1"; ?>"><img src="<?php echo $path . "rssBtn.png"; ?>" alt="subscribe via rss" /></a>                                   
+										<a target="_blank" href="<?php echo $path . "RSS/RSS.php?readonly=1"; ?>"><img style="width: 30px" src="<?php echo $path . "images/rssBtn.png"; ?>" alt="subscribe via rss" /></a>                                   
 										<li><a href="#"><?php echo $language['language'] ?></a>
 											<ul class="submenu">
 												<li><a href="javascript:changeLanguage('pt')">Português</a></li>

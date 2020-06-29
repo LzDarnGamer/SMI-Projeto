@@ -197,7 +197,8 @@ function generateMoreSelector(){
   }
 };
 
-$(function(){
+$(document).ready(function(){
+  $.noConflict();
   $(".chosen-select").chosen();
   $(".chosen-choices").attr('id', 'chosen-choices');;
 });
