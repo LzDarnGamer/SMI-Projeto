@@ -53,11 +53,13 @@ for ($i=0; $i < count($countsPerCat); $i++) {
                 <?php
                 foreach($categories as $array){
                     echo 'case "' . $array['categorie_title'] . '" : window.location.replace("' . $baseUrl . "articleFeed.php?FilterCategory=" .$array['categorie_title'] . '"); break;';
-                foreach($categories as $array) {
-                    echo 'case "' . $array['categorie_title'] . '" : window.location.replace("' . $baseUrl . "categories.php?cat=" .$array['categorie_title'] . '"); break;';
+                    foreach($categories as $array) {
+                        echo 'case "' . $array['categorie_title'] . '" : window.location.replace("' . $baseUrl . "categories.php?cat=" .$array['categorie_title'] . '"); break;';
+                    }
                 }
                 ?>
-                default : alert("No category has been chosen")
+                
+                default : alert("No category has been chosen");
             }
         }
 
@@ -136,21 +138,21 @@ for ($i=0; $i < count($countsPerCat); $i++) {
             </div>
             <div class="row">
                 <?php
-                    $c = 0;
-                    foreach($categories as $array){
-                        (in_array($array['categorie_title'], $countsCatNames)) ? 
-                        ($value = $countsPerCat[$c]['amount'] AND $c++) : $value = 0;
+                $c = 0;
+                foreach($categories as $array){
+                    (in_array($array['categorie_title'], $countsCatNames)) ? 
+                    ($value = $countsPerCat[$c]['amount'] AND $c++) : $value = 0;
                         //echo "<option value=".$array['categorie_title'].">".$array['categorie_title']."</option>";
-                        echo '<div class="col-lg-4 col-md-6 col-sm-6">';
-                        echo '<div class="single-location mb-30">';
-                        echo '<div class="location-img">';
-                        echo '<img src="assets/img/gallery/'. $array['categorie_title'] .'.png" alt="'. $array['categorie_title'] .' Image">';
-                        echo '</div>';
-                        echo '<div class="location-details">';
-                        echo "<p>" . $array['categorie_title'] . "</p>";
-                        echo '<a href="#" class="location-btn">'. $value .' <i class="ti-plus"></i> Locations</a>';
-                        echo '</div></div></div>';
-                    }
+                    echo '<div class="col-lg-4 col-md-6 col-sm-6">';
+                    echo '<div class="single-location mb-30">';
+                    echo '<div class="location-img">';
+                    echo '<img src="assets/img/gallery/'. $array['categorie_title'] .'.png" alt="'. $array['categorie_title'] .' Image">';
+                    echo '</div>';
+                    echo '<div class="location-details">';
+                    echo "<p>" . $array['categorie_title'] . "</p>";
+                    echo '<a href="#" class="location-btn">'. $value .' <i class="ti-plus"></i> Locations</a>';
+                    echo '</div></div></div>';
+                }
                 ?>
             </div>
         </div>
