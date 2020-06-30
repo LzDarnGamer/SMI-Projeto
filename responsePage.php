@@ -1,4 +1,5 @@
 <?php 
+require_once("languageAddon.php");
 if ( !isset($_SESSION) ) {
   session_start();
 }
@@ -35,148 +36,65 @@ if(isset($_GET["title"]) && isset($_GET["info"])) {
   <link rel="stylesheet" href="assets/css/nice-select.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+<script>  
+  function changeLanguage(type){
+    window.location.href = "responsePage.php?lang=" + type;
+  }
+</script>
 <body style="overflow: visible;">
-  <!-- Preloader Start -->
-  <div id="preloader-active" style="display: none;">
-    <div class="preloader d-flex align-items-center justify-content-center">
-      <div class="preloader-inner position-relative">
-        <div class="preloader-circle"></div>
-        <div class="preloader-img pere-text">
-          <img src="assets/img/logo/loder.jpg" alt="">
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Preloader Start -->
-  <header>
-    <!-- Header Start -->
-    <div class="header-area header-transparent">
-      <div class="main-header">
-       <div class="header-bottom  header-sticky sticky-bar">
-        <div class="container-fluid">
-          <div class="row align-items-center">
-            <!-- Logo -->
-            <div class="col-xl-2 col-lg-2 col-md-1">
-              <div class="logo">
-                <a href="landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
-              </div>
-            </div>
-            <div class="col-xl-10 col-lg-10 col-md-8">
-              <!-- Main-menu -->
-              <div class="main-menu f-right d-none d-lg-block">
-                <nav>
-                  <ul id="navigation">                                                                                                                                     
-                    <li><a href="landingpage.php">Home</a></li>
-                    <li><a href="about.php">About</a></li>
+  <?php include_once("Page_Elements/preloader.php") ?>
+  <main>
+    <?php include_once("Page_Elements/header.php") ?>
+    <!-- Hero Start-->
+    <div class="hero-area3 hero-overly2 d-flex align-items-center ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-9">
+            <div class="hero-cap text-center pt-50 pb-20">
+              <h2><?php echo $info ?></h2>
 
-                    <?php 
-                    if(!isset($_SESSION['id'])){ ?>
-                      <li id="signin" class="login"><a href="Login_Registo/formLogin.php">
-                        <i class="ti-user"></i> Sign in</a>
-                      </li>
-                      <li class="login"><a href="Login_Registo/formRegister.php">
-                        <i class="ti-user"></i> Register</a>
-                      </li>
-                    <?php  }else{ ?>
-                      <li class="login"><a href="userpages/profilepage.php">
-                        <i class="ti-user"></i> Me</a>
-                      </li>
-                      <li class="login"><a href="logout.php">
-                        <i class="ti-user"></i> Log Out</a>
-                      </li>
-                    <?php } ?>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- Mobile Menu -->
-            <div class="col-12">
-              <div class="mobile_menu d-block d-lg-none"><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
-                <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
-                <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
-                <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
-                <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
-                <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"><a href="#" tabindex="-1">Page</a>
-                  <span class="slicknav_arrow">+</span></a><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
-                    <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
-                    <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
-                    <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
-                    <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
-                  </ul>
-                </li>
-                <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
-                <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
-                <li class="login"><a href="#" role="menuitem" tabindex="-1">
-                  <i class="ti-user"></i> Sign in or Register</a>
-                </li>
-              </ul></div><div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">                                                                                                                                     
-                <li><a href="index.html" role="menuitem" tabindex="-1">Home</a></li>
-                <li><a href="about.html" role="menuitem" tabindex="-1">About</a></li>
-                <li><a href="catagori.html" role="menuitem" tabindex="-1">Catagories</a></li>
-                <li><a href="listing.html" role="menuitem" tabindex="-1">Listing</a></li>
-                <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"></a><a href="#" tabindex="-1">Page</a>
-                  <span class="slicknav_arrow">+</span><ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
-                    <li><a href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
-                    <li><a href="blog_details.html" role="menuitem" tabindex="-1">Blog Details</a></li>
-                    <li><a href="elements.html" role="menuitem" tabindex="-1">Element</a></li>
-                    <li><a href="listing_details.html" role="menuitem" tabindex="-1">Listing details</a></li>
-                  </ul>
-                </li>
-                <li><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
-                <li class="add-list"><a href="listing_details.html" role="menuitem" tabindex="-1"><i class="ti-plus"></i> add Listing</a></li>
-                <li class="login"><a href="#" role="menuitem" tabindex="-1">
-                  <i class="ti-user"></i> Sign in or Register</a>
-                </li>
-              </ul></div></div>
+              <script>
+                function goback () { window.location = "landingpage.php"; }
+              </script>
+              <input class="btn" type="button" value="Go to main page" onclick="goback()"><br>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Header End -->
-</header>
-<main>
-
-  <!-- Hero Start-->
-  <div class="hero-area3 hero-overly2 d-flex align-items-center ">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-xl-8 col-lg-9">
-          <div class="hero-cap text-center pt-50 pb-20">
-            <h2><?php echo $info ?></h2>
-
-            <script>
-              function goback () { window.location = "landingpage.php"; }
-            </script>
-            <input class="btn" type="button" value="Go to main page" onclick="goback()"><br>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-<footer>
-  <!-- Footer Start-->
-  <div class="footer-area">
-    <div class="container">
-      <div class="footer-bottom">
-        <div class="row d-flex justify-content-between align-items-center">
-          <div class="col-xl-9 col-lg-8">
-            <div class="footer-copy-right">
-              <p ><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Footer End-->
-  </footer>
-
-
+  </main>
+  <?php include_once("Page_Elements/footer.php") ?>
 </body>
+<!-- JS here -->
+<!-- All JS Custom Plugins Link Here here -->
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="./assets/js/jquery.slicknav.min.js"></script>
 
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/animated.headline.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Nice-select, sticky -->
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->  
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
 </html>
