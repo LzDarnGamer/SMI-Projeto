@@ -84,7 +84,7 @@ require_once("../languageAddon.php");
 
 									<input class="inpt" type="email" 
                                                         name="email" 
-                                                        placeholder="<?php echo $language['res_pass'] ?>"
+                                                        placeholder="<?php echo $language['res_email'] ?>"
                                                         required="true" 
                                                         onblur="emailCheck(this)">  <div id="emailCheck"></div> 
 									<input class="inpt" type="password" 
@@ -145,7 +145,8 @@ require_once("../languageAddon.php");
 
 
     function emailCheck(e){
-    	var pattern = /[^@\s]+@[^@\s]+\.[^@\s]+$/
+    	var pattern = /[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
     	if(pattern.test(e.value)){
 			$.ajax({
 	        url: 'checkfunctions.php',
@@ -162,7 +163,8 @@ require_once("../languageAddon.php");
 	        }
 	    	})
 		}else{
-			document.getElementById("emailCheck").innerHTML = "";
+            console.log("HERE");
+			e.value = "";
 		}
     };
 

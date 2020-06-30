@@ -19,7 +19,7 @@
     $username = filter_input( $_INPUT_METHOD, 'username', FILTER_SANITIZE_STRING, $flags);
     $password = filter_input( $_INPUT_METHOD, 'password', FILTER_SANITIZE_STRING, $flags);
 
-
+    $password = sha1($password);
     $IsUserVerified = checkIfVerified($username, $password);
 
     $userId = isValid($username, $password, "basic");

@@ -65,7 +65,7 @@
 
     mysqli_select_db($linkIdentifier, $dataBaseName );
 
-
+    $pass = sha1($pass);
     $query = 
             "INSERT INTO `$dataBaseName`.`auth-basic` " .
             "(`name`, `password`, `email`) values " .
@@ -77,8 +77,10 @@
     $recordsInserted = mysqli_affected_rows( $linkIdentifier );
   
     if ( $recordsInserted==-1 ) {
-        echo "User already exists";
-        echo "<br><hr><a href=\"../index.php\">Back</a>";
+        $title = "User already exists";
+        $info = "User already exists, please check your email to activate your account";
+        header("Location: ../responsePage.php?title=$title&info=$info");
+        exit();
     }
     else {
 		$res = $linkIdentifier->insert_id;
@@ -90,8 +92,11 @@
 		mysqli_query( $linkIdentifier, $queryCha ); 
 
 		sendMail($email, $name, $pass, $randomHash);
-        echo "User created with success, please check your email to activate your account";
-        echo "<br><hr><a href=\"../index.php\">Back</a>";
+
+        $title = "User created with success";
+        $info = "User created with success, please check your email to activate your account";
+        header("Location: ../responsePage.php?title=$title&info=$info");
+        exit();
     }
 
     dbDisconnect();
