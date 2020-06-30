@@ -37,9 +37,11 @@
     }
     
     $users = getAllIds();
-    for ($i = 0; $i < sizeof($users); $i ++) {
+    $articlesArray = getAllArticles();
+    
+    /*for ($i = 0; $i < sizeof($users); $i ++) {
         $articlesArray = getArticles($users[$i]);
-    }
+    }*/
 
     $FilterCategory = isset($_GET['FilterCategory']) ? $_GET['FilterCategory'] : null;
     $FilterSubCategory = isset($_GET['FilterSubCategory']) ? $_GET['FilterSubCategory'] : null;

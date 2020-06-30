@@ -285,6 +285,24 @@ function getArticle($idArticle) {
   return $articleArray;
 }
 
+function getNewestArticle() {
+    dbConnect(ConfigFile);
+      
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+  
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+      
+    $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`articles` ORDER BY article_id DESC LIMIT 0, 1 ");
+    
+    $articleArray = mysqli_fetch_array($result);
+    
+    mysqli_free_result($result);
+    
+    dbDisconnect();
+  
+    return $articleArray;
+  }
+
 function getComments($articleId){
     dbConnect(ConfigFile);
     
@@ -315,6 +333,28 @@ function getArticles($idUser){
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
 
     $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`articles` WHERE poster_id='$idUser' ORDER BY article_timestamp");
+
+    $rows = [];
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+
+    }
+
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $rows;
+}
+
+function getAllArticles(){
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT * FROM `$dataBaseName`.`articles` ORDER BY article_timestamp");
 
     $rows = [];
     while($row = mysqli_fetch_array($result)) {
@@ -918,6 +958,8 @@ function insertComment ($articleId, $posterId, $comment) {
 function insertCat ($cat) {
     dbConnect(ConfigFile);
 
+    // Send mail
+
     $dataBaseName = $GLOBALS['configDataBase']->db;
 
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);    
@@ -1217,6 +1259,33 @@ function getXdebugArgAsArray() {
   }
   
   return null;
+}
+
+function sendNewsletterEmail ($Toemail, $nextUrl) {
+
+    require_once( "../Lib/lib.php" );
+
+    $serverName = $_SERVER['SERVER_NAME'];
+    #$serverName = "localhost";
+
+    $serverPortSSL = 443;
+    $serverPort = 80;
+
+
+    $urlName = rawurlencode($username);
+    $urlmail = rawurlencode($Toemail);
+    $to      = $Toemail; // Send email to our user
+    $subject = 'SMI G37 - Newsletter'; // Give the email a subject 
+    $message = '
+     
+    We thought you might want to check this new article:
+    '.$nextUrl.'
+    
+    Best regards
+    '; // Our message above including the link
+                         
+    $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
+    mail($to, $subject, $message, $headers); // Send our email
 }
 
 ?>
