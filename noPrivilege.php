@@ -34,6 +34,7 @@ include_once("languageAddon.php");
   <?php include_once("Page_Elements/preloader.php") ?>
   
   <main>
+    <?php include_once("Page_Elements/header.php") ?>
     <!-- Hero Start-->
     <div class="hero-area3 hero-overly2 d-flex align-items-center ">
       <div class="container">
