@@ -329,6 +329,28 @@ function getArticles($idUser){
     return $rows;
 }
 
+function getAllSubscriptions () {
+    dbConnect(ConfigFile);
+    
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName );
+
+    $result = $GLOBALS['ligacao']->query("SELECT `email` FROM `$dataBaseName`.`subscription` ORDER BY id");
+
+    $rows = [];
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+
+    }
+
+    mysqli_free_result($result);
+
+    dbDisconnect();
+
+    return $rows;
+}
+
 function getAllUsers () {
     dbConnect(ConfigFile);
     
@@ -845,6 +867,28 @@ function updateCat ($oldCategory, $cat) {
       	return "false";
     }
 
+
+    dbDisconnect();
+}
+
+function subscribeNewsletter ($email) {
+    dbConnect(ConfigFile);
+
+    $dataBaseName = $GLOBALS['configDataBase']->db;
+
+    mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);
+
+    $timestamp = date("d/m/Y");
+    
+    $sql = "INSERT INTO `subscription`(`email`) VALUES ('$email')";
+    mysqli_query($GLOBALS['ligacao'], $sql);
+    $recordsInserted = mysqli_affected_rows( $GLOBALS['ligacao'] );
+    
+    if($recordsInserted != -1){
+      return "true";
+    }else{
+      return "false";
+    }
 
     dbDisconnect();
 }

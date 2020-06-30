@@ -66,6 +66,17 @@ for ($i=0; $i < count($countsPerCat); $i++) {
         function changeLanguage(type){
             window.location.href = "landingPage.php?lang=" + type;
         }
+
+        <?php
+        if (isset($_GET['newsletter'])) {
+            if ($_GET['newsletter'] == 0) {
+                echo "window.onload = function() { alert('Newsletter subscription failed'); }";
+            } else {
+                echo "window.onload = function() { alert('Newsletter subscription complete'); }";
+            }
+        }
+        ?>
+
     </script>
 
 </head>
@@ -323,12 +334,12 @@ for ($i=0; $i < count($countsPerCat); $i++) {
                         <h2><?php echo $language['m_subscribe1'] ?></h2>
                     </div> 
                     <!--Hero form -->
-                    <form action="#" class="search-box">
+                    <form method="POST" action="subscribe.php" class="search-box">
                         <div class="input-form">
-                            <input type="text" placeholder="<?php echo $language['m_subscribe2'] ?>">
+                            <input type="email" name="email" placeholder="<?php echo $language['m_subscribe2'] ?>" required>
                         </div>
                         <div class="search-form">
-                            <a href="#"><?php echo $language['m_subscribe3'] ?></a>
+                            <a style="cursor: pointer;"><input type="submit" style="background-color: transparent; border-style: none;" value="<?php echo $language['m_subscribe3'] ?>"></a>
                         </div>	
                     </form>	
                 </div>
