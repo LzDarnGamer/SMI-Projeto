@@ -1257,9 +1257,12 @@ function getXdebugArgAsArray() {
   return null;
 }
 
-function sendNewsletterEmail ($Toemail, $nextUrl, $articleName, $articleDescription) {
+function sendNewsletterEmail ($Toemail, $nextUrl, $articleName, $articleDescription, $imageUrl) {
     $serverName = $_SERVER['SERVER_NAME'];
     #$serverName = "localhost";
+
+    $imagedata = file_get_contents($imageUrl);
+    $base64 = base64_encode($imagedata);
 
     $serverPortSSL = 443;
     $serverPort = 80;
@@ -1271,17 +1274,22 @@ function sendNewsletterEmail ($Toemail, $nextUrl, $articleName, $articleDescript
     $to      = $Toemail; // Send email to our user
     $subject = 'SMI G37 - Newsletter'; // Give the email a subject 
     $message = '
-     
+    <html><body>
     We thought you might want to check this new article:
-    Titled ' . $articleName . '
-    With the following description ' . $articleDescription . '
+    <h1>' . $articleName . '</h1>
+    <img src="data:image/png;base64, ' . $base64 . '">
+    <p> ' . $articleDescription . ' </p>
 
-    '.$nextUrl.'
-    
-    Best regards
+    <a href="'.$nextUrl.'">Click here to be redirected</a>
+    <p>Easier to read in your smartphone </p>
+    <p>Best regards</p>
+    </body></html>
     '; // Our message above including the link
                          
     $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
     mail($to, $subject, $message, $headers); // Send our email
 }
 
