@@ -90,23 +90,26 @@
         window.location.href = "articleFeed.php?lang=" + type;
     }
     function addLike(div, id){
-        if(div.getElementsByTagName("i")[0].className === "fa fa-eye-slash"){
-
+        if(div.getElementsByTagName("i")[0].className === "fa fa-heart-o"){
+            div.childNodes[2].innerHTML = Number(div.childNodes[2].innerHTML) + 1;
             $.ajax({
-                url: 'changeVisibility.php',
+                url: 'addLikes.php',
                 type: 'POST',
                 data : {postID: id, value: 1},
                 success: function(data) {
-                    div.getElementsByTagName("i")[0].className = "fa fa-eye";
+                    console.log(data);
+                    div.getElementsByTagName("i")[0].className = "fa fa-heart";
                 }
             })
         }else{
+            div.childNodes[2].innerHTML = Number(div.childNodes[2].innerHTML) - 1;
             $.ajax({
-                url: 'changeVisibility.php',
+                url: 'addLikes.php',
                 type: 'POST',
-                data : {postID: id, value: 0},
+                data : {postID: id, value: -1},
                 success: function(data) {
-                    div.getElementsByTagName("i")[0].className = "fa fa-eye-slash";
+                    console.log(data);
+                    div.getElementsByTagName("i")[0].className = "fa fa-heart-o";
                 }
             })
         }
@@ -221,7 +224,11 @@
                                         echo getNameFromUser($articlesArray[$i]['poster_id']);
                                     ?></a></li>
                                     <li><a><i class="fa fa-comments"></i><?php echo sizeof($comments). " " . $language['feed_comments']?> </a></li>
-                                    <li><a  style="cursor: pointer;" onclick="addLike(this, <?php echo $articlesArray[$i]['article_id'] ?>)"><i class="fa fa-heart-o"></i><?php echo $articlesArray[$i]['likes']. " Likes"?> </a></li>
+                                    <li>
+                                        <a style="cursor: pointer;" onclick="addLike(this, <?php echo $articlesArray[$i]['article_id'] ?>)">
+                                            <i class="fa fa-heart-o"></i><span><?php echo $articlesArray[$i]['likes']?></span>
+                                        </a>
+                                    Likes</li>
                                 </ul>
                             </div>
                         </article>
