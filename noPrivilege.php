@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php 
+require_once("Lib/lib.php");
+require_once("Lib/db.php");
 include_once("languageAddon.php");
 ?>
 <html class="no-js" lang="zxx">

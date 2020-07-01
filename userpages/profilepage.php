@@ -14,7 +14,6 @@ $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $role = getRoleFromUser($userId);
 
-
 switch ($role) {
     case 'manager':
     $numarticlesUser = getnumArticles($userId);
@@ -27,7 +26,7 @@ switch ($role) {
     $userSubscriptionsIDS = getSubsciptions($userId);
     break;
     default:
-    header("Location: ../noPrivelege.php");
+    header("Location: ../noPrivilege.php");
     break;
 }
 ?>

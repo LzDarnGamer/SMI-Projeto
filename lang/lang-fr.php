@@ -80,4 +80,21 @@ $language['noperm_Title'] = "Permissions insuffisantes";
 $language['noperm_text'] = "Vous ne disposez pas des autorisations suffisantes pour accéder à cette page";
 
 $language['copyright'] = "Tous les droits sont réservés";
+
+
+$language['feed_searchuser'] = "Search by User";
+$language['feed_yourfeed'] = "Your Feed";
+$language['feed_comment'] = "Comment";
+$language['feed_comments'] = "Comments";
+$language['feed_search'] = "Search";
+$language['feed_category'] = "Category";
+
+
+$language['feed_searchuser'] = "Recherche par utilisateur";
+$language['feed_yourfeed'] = "Votre flux";
+$language['feed_comment'] = "Commentaire";
+$language['feed_comments'] = "commentaires";
+$language['feed_search'] = "Rechercher";
+$language['feed_category'] = "Catégorie";
+$language['feed_subcategory'] = "Sub Catégorie";
 ?>

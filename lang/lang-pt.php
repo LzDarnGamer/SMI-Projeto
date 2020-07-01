@@ -80,4 +80,13 @@ $language['noperm_Title'] = "Permissões Insuficientes";
 $language['noperm_text'] = "Não têm permissões suficientes para entrar nesta página";
 
 $language['copyright'] = "Todos os direitos reservados";
+
+
+$language['feed_searchuser'] = "Procurar por Utilizador";
+$language['feed_yourfeed'] = "Teu Feed";
+$language['feed_comment'] = "Comentar";
+$language['feed_comments'] = "Comentários";
+$language['feed_search'] = "Procurar";
+$language['feed_category'] = "Categoria";
+$language['feed_subcategory'] = "Sub Categoria";
 ?>

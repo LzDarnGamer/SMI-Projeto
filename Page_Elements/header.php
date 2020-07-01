@@ -150,7 +150,7 @@ if(isset($_SESSION['id'])){
 						<!-- Logo -->
 						<div class="col-xl-2 col-lg-2 col-md-1">
 							<div class="logo">
-								<a href="<?php echo $path ?>landingpage.php"><img src="assets/img/logo/logo.png" alt=""></a>
+								<a href="<?php echo $path ?>landingpage.php"><img src="<?php echo $path ?>assets/img/logo/logo.png" alt=""></a>
 							</div>
 						</div>
 						<div class="col-xl-10 col-lg-10 col-md-8">
@@ -167,7 +167,7 @@ if(isset($_SESSION['id'])){
 											</ul>
 										</li>               
 										<li><a href="<?php echo $path.'landingpage.php' ?>"><?php echo $language['home'] ?></a></li>
-										<li><a href="<?php echo $path.'articleFeed.php' ?>"><?php echo $language['about'] ?></a></li>
+										<li><a href="<?php echo $path.'Feed/articleFeed.php' ?>"><?php echo $language['about'] ?></a></li>
 
 										<?php 
 

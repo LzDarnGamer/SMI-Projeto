@@ -918,8 +918,6 @@ function subscribeNewsletter ($email) {
 
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);
 
-    $timestamp = date("d/m/Y");
-    
     $sql = "INSERT INTO `subscription`(`email`) VALUES ('$email')";
     mysqli_query($GLOBALS['ligacao'], $sql);
     $recordsInserted = mysqli_affected_rows( $GLOBALS['ligacao'] );

@@ -219,71 +219,7 @@ for ($i=0; $i < count($countsPerCat); $i++) {
         </div>
     </div>
     <!-- Services Area End -->
-    <!-- Categories Area Start -->
-    <div class="categories-area section-padding30">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Section Tittle -->
-                    <div class="section-tittle text-center mb-80">
-                        <span>We are offering for you</span>
-                        <h2>Featured Categories</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="cat-icon">
-                            <span class="flaticon-bed"></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="catagori.html">Leving Hotel</a></h5>
-                            <p>Must explain your how this keind denoun pleasure</p>
-                            <a href="catagori.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="cat-icon">
-                            <span class="flaticon-drink"></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="catagori.html">Night Life</a></h5>
-                            <p>Must explain your how this keind denoun pleasure</p>
-                            <a href="catagori.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="cat-icon">
-                            <span class="flaticon-home"></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="catagori.html">Culture Place</a></h5>
-                            <p>Must explain your how this keind denoun pleasure</p>
-                            <a href="catagori.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="cat-icon">
-                            <span class="flaticon-food"></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="catagori.html">Resturent</a></h5>
-                            <p>Must explain your how this keind denoun pleasure</p>
-                            <a href="catagori.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Categories Area End -->
+
     <!-- peoples-visit Start -->
     <div class="peoples-visit dining-padding-top">
         <!-- Single Left img -->
@@ -334,12 +270,12 @@ for ($i=0; $i < count($countsPerCat); $i++) {
                         <h2><?php echo $language['m_subscribe1'] ?></h2>
                     </div> 
                     <!--Hero form -->
-                    <form method="POST" action="subscribe.php" class="search-box">
+                    <form method="POST" action="Feed/subscribe.php" class="search-box">
                         <div class="input-form">
                             <input type="email" name="email" placeholder="<?php echo $language['m_subscribe2'] ?>" required>
                         </div>
-                        <div class="search-form">
-                            <a style="cursor: pointer;"><input type="submit" style="background-color: transparent; border-style: none;" value="<?php echo $language['m_subscribe3'] ?>"></a>
+                        <div class="search-form" style="cursor: pointer;">
+                            <a><input type="submit" style="background-color: transparent; border-style: none; cursor: pointer;" value="<?php echo $language['m_subscribe3'] ?>"></a>
                         </div>	
                     </form>	
                 </div>

@@ -89,4 +89,15 @@ $language['noperm_text'] = "Not enough permissions to enter this page";
 
 
 $language['copyright'] = "All rights reserved";
+
+
+
+
+$language['feed_searchuser'] = "Search by User";
+$language['feed_yourfeed'] = "Your Feed";
+$language['feed_comment'] = "Comment";
+$language['feed_comments'] = "Comments";
+$language['feed_search'] = "Search";
+$language['feed_category'] = "Category";
+$language['feed_subcategory'] = "Sub Category";
 ?>
