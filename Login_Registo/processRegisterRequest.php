@@ -23,6 +23,11 @@
         FILTER_SANITIZE_STRING, 
         $flags);
 
+    $repass = filter_input( 
+        $_INPUT_METHOD, 
+        'repassword', 
+        FILTER_SANITIZE_STRING, 
+        $flags);
 
     $email = filter_input( 
             $_INPUT_METHOD, 
@@ -39,22 +44,26 @@
 
     $trueCaptcha = $_SESSION['captcha'];
 
+
+
     if($trueCaptcha != $captcha){
-      echo "Captcha Failed. Please Verify again";
-      echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
-      exit();
+        header("Location: formRegister.php?return=Captcha%20Failed!");
+        exit();
     }
 
-    if ( $name===null || $name=="" || $email===null) {
-      echo "Invalid arguments.";
-      echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
-      exit();
+    if($pass != $repass){
+        header("Location: formRegister.php?return=Passwords%20don't%20match");
+        exit();      
+    }
+
+    if ( $name===null || $name=="") {
+        header("Location: formRegister.php?return=Name%20is%20incorrect%20format");
+        exit();
     }
     
     if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-      echo "Invalid e-mail format.";
-      echo "<br><hr><a href=\"javascript: history.go(-1)\">Back</a>";
-      exit();
+        header("Location: formRegister.php?return=Email%20is%20incorrect%20format");
+        exit();
     }
 
     dbConnect(ConfigFile);

@@ -3,6 +3,7 @@
 require_once("../Lib/lib.php");
 require_once("../Lib/db.php");
 require_once("../languageAddon.php");
+
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <html class="no-js" lang="zxx">
@@ -100,6 +101,9 @@ require_once("../languageAddon.php");
 									<img class="captcha-image" style="border: 1px solid black" src="captcha.php" alt="catcha image"
                                     width="200" height="50"> <br />
 									<input class="inpt" id="captcha" type="captcha" name="captcha" placeholder="captcha" required="true"> <br />
+                                    <div style="font-weight: bold; color: red; font-size: 15px; width: fit-content; background-color: rgba(255,255,255,50); padding: 2px; display: inline-block; border: 1px solid black">
+                                        <?php echo (isset($_GET['return'])) ? $_GET['return'] : ""; ?>
+                                    </div><br>
 									<input class="btn" alt=""type="submit" value="<?php echo $language['res_reg'] ?>">
 									<input class="btn" alt=""type="reset" value="Reset">
 									<input class="btn refresh-captcha" type="button" value="<?php echo $language['res_refresh'] ?>">

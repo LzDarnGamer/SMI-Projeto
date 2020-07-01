@@ -161,7 +161,7 @@ for ($i=0; $i < count($countsPerCat); $i++) {
                     echo '</div>';
                     echo '<div class="location-details">';
                     echo "<p>" . $array['categorie_title'] . "</p>";
-                    echo '<a href="#" class="location-btn">'. $value .' <i class="ti-plus"></i> Locations</a>';
+                    echo '<a href="Feed/articleFeed.php?FilterCategory='.$array['categorie_title'].'" class="location-btn">'. $value .' <i class="ti-plus"></i> Locations</a>';
                     echo '</div></div></div>';
                 }
                 ?>

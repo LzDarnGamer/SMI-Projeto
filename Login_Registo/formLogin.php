@@ -3,8 +3,8 @@
 <?php
 require_once( "../Lib/lib.php" );
 require_once("../languageAddon.php");
+
 $serverName = $_SERVER['SERVER_NAME'];
-    #$serverName = "localhost";
 
 $serverPortSSL = 443;
 $serverPort = 80;
@@ -12,8 +12,6 @@ $serverPort = 80;
 $name = webAppName();
 
 $nextUrl = "https://" . $serverName . ":" . $serverPortSSL . $name . "processFormLogin.php";
-    #$nextUrl = "http://" . $serverName . ":" . $serverPort . $name . "processFormLogin.php";
-
 
 
 ?>
