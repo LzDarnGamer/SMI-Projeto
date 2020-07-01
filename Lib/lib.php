@@ -937,10 +937,8 @@ function insertComment ($articleId, $posterId, $comment) {
     $dataBaseName = $GLOBALS['configDataBase']->db;
 
     mysqli_select_db($GLOBALS['ligacao'], $dataBaseName);
-
-    $timestamp = date("d/m/Y");
     
-    $sql = "INSERT INTO `comments`(`userId`, `articleId`, `text`, `timestamp`) VALUES ('$posterId', '$articleId', '$comment', '$timestamp')";
+    $sql = "INSERT INTO `comments`(`userId`, `articleId`, `text`, `timestamp`) VALUES ('$posterId', '$articleId', '$comment', CURDATE())";
     mysqli_query($GLOBALS['ligacao'], $sql);
     $recordsInserted = mysqli_affected_rows( $GLOBALS['ligacao'] );
     
