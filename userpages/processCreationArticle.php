@@ -331,6 +331,18 @@
 	if($recordsInserted!=-1){
 		dbDisconnect();
       	header("Location: profilepage.php");
+
+      	#########################Newsletter############################
+
+		$allEmails = getAllSubscriptions();
+		$nextUrl = "https://" . $serverName . ":" . $serverPortSSL . "userpages/article.php?type=view&id=" . getNewestArticle()[0]['article_id'];
+		
+		for ($i = 0; $i < sizeof($allEmails); $i ++) {
+			sendNewsletterEmail ($allEmails[$i]['email'], $nextUrl);
+		}
+		##########################Newsletter############################
+
+
     }else{
     	deleteImage($article_imgID);
 		dbDisconnect();
@@ -342,16 +354,7 @@
 
 	###########################Transaction##########################
 
-	##########################Newsletter############################
 
-	$allEmails = getAllSubscriptions();
-	$nextUrl = "https://" . $serverName . ":" . $serverPortSSL . "userpages/article.php?type=view&id=" . getNewestArticle()[0]['article_id'];
-	
-	for ($i = 0; $i < sizeof($allEmails); $i ++) {
-		sendNewsletterEmail ($allEmails[$i]['email'], $nextUrl);
-	}
-
-	##########################Newsletter############################
 
   
 

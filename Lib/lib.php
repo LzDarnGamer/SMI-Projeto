@@ -1260,9 +1260,6 @@ function getXdebugArgAsArray() {
 }
 
 function sendNewsletterEmail ($Toemail, $nextUrl) {
-
-    require_once( "../Lib/lib.php" );
-
     $serverName = $_SERVER['SERVER_NAME'];
     #$serverName = "localhost";
 
