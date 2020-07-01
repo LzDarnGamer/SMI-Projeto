@@ -33,7 +33,7 @@ if (isset($ini_email)) {
     $ini_email['pop3_server']   = $pop3Server;
     $ini_email['pop3_username'] = $pop3Username;
     $ini_email['pop3_password'] = $pop3Password;
-
+    
     write_php_ini($ini_email, $emailServicesDirectory);
 }
 
@@ -49,6 +49,7 @@ function write_php_ini($array, $file)
         }
         else $res[] = "$key = ".(is_numeric($val) ? $val : '"'.$val.'"');
     }
+    echo var_dump($res);
     safefilerewrite($file, implode("\r\n", $res));
 }
 
@@ -57,14 +58,17 @@ function safefilerewrite($fileName, $dataToSave)
     {
         $startTime = microtime(TRUE);
         do
-        {            $canWrite = flock($fp, LOCK_EX);
+        {
+            $canWrite = flock($fp, LOCK_EX);
            // If lock not obtained sleep for 0 - 100 milliseconds, to avoid collision and CPU load
            if(!$canWrite) usleep(round(rand(0, 100)*1000));
         } while ((!$canWrite)and((microtime(TRUE)-$startTime) < 5));
 
         //file was locked so now we can store information
         if ($canWrite)
-        {            fwrite($fp, $dataToSave);
+        {   
+            fwrite($fp, "[sendmail]\n");
+            fwrite($fp, $dataToSave);
             flock($fp, LOCK_UN);
         }
         fclose($fp);
