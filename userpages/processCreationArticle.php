@@ -335,7 +335,7 @@
       	#########################Newsletter############################
 
 		$allEmails = getAllSubscriptions();
-		$nextUrl = "https://" . $serverName . ":" . $serverPortSSL . "userpages/article.php?type=view&id=" . getNewestArticle()[0]['article_id'];
+		$nextUrl = "userpages/article.php?type=view&id=" . getNewestArticle()[0]['article_id'];
 		
 		for ($i = 0; $i < sizeof($allEmails); $i ++) {
 			sendNewsletterEmail ($allEmails[$i]['email'], $nextUrl);

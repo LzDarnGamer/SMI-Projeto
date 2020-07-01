@@ -1266,6 +1266,7 @@ function sendNewsletterEmail ($Toemail, $nextUrl) {
     $serverPortSSL = 443;
     $serverPort = 80;
 
+    $nextUrl = "https://" . $serverName . ":" . $serverPortSSL . $nextUrl;
 
     $urlName = rawurlencode($username);
     $urlmail = rawurlencode($Toemail);
