@@ -1257,14 +1257,14 @@ function getXdebugArgAsArray() {
   return null;
 }
 
-function sendNewsletterEmail ($Toemail, $nextUrl) {
+function sendNewsletterEmail ($Toemail, $nextUrl, $articleName, $articleDescription) {
     $serverName = $_SERVER['SERVER_NAME'];
     #$serverName = "localhost";
 
     $serverPortSSL = 443;
     $serverPort = 80;
 
-    $nextUrl = "https://" . $serverName . ":" . $serverPortSSL . $nextUrl;
+    $nextUrl = "https://" . $serverName . ":" . $serverPortSSL . "/" . $nextUrl;
 
     $urlName = rawurlencode($username);
     $urlmail = rawurlencode($Toemail);
@@ -1273,6 +1273,9 @@ function sendNewsletterEmail ($Toemail, $nextUrl) {
     $message = '
      
     We thought you might want to check this new article:
+    Titled ' . $articleName . '
+    With the following description ' . $articleDescription . '
+
     '.$nextUrl.'
     
     Best regards

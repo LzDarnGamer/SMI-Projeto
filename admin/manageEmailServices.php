@@ -133,14 +133,13 @@ if (!$isAdmin) {
 
                             <script>
                                 $(".toggle-password").click(function() {
-
-                                $(this).toggleClass("fa-eye fa-eye-slash");
-                                var input = $($(this).attr("toggle"));
-                                if (input.attr("type") == "password") {
-                                input.attr("type", "text");
-                                } else {
-                                input.attr("type", "password");
-                                }
+                                    $(this).toggleClass("fa-eye fa-eye-slash");
+                                    var input = $($(this).attr("toggle"));
+                                    if (input.attr("type") == "password") {
+                                        input.attr("type", "text");
+                                    } else {
+                                        input.attr("type", "password");
+                                    }
                                 });
                             </script>
                         </table>
@@ -163,21 +162,20 @@ if (!$isAdmin) {
                                     <input type="text" name="pop3Username" value="<?php echo $pop3_username; ?>" class="single-input">
                                     </td>
                                     <td>
-                                    <p><input id="password-field" type="password" name="pop3Password" value="<?php echo $pop3_password; ?>" class="single-input">
-                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></p>    
+                                    <p><input id="password-field1" type="password" name="pop3Password" value="<?php echo $pop3_password; ?>" class="single-input">
+                                    <span toggle="#password-field" id="toggle-password" class="fa fa-fw fa-eye field-icon"></span></p>    
                                     </td>
                                 </tr>
 
                             <script>
-                                $(".toggle-password").click(function() {
-
-                                $(this).toggleClass("fa-eye fa-eye-slash");
-                                var input = $($(this).attr("toggle"));
-                                if (input.attr("type") == "password") {
-                                input.attr("type", "text");
-                                } else {
-                                input.attr("type", "password");
-                                }
+                                $("#toggle-password").click(function() {
+                                    $(this).toggleClass("fa-eye fa-eye-slash");
+                                    let x = document.getElementById("password-field1");
+                                    if (x.type === "password") {
+                                        x.type = "text";
+                                    } else {
+                                        x.type = "password";
+                                    }
                                 });
                             </script>
                         </table>

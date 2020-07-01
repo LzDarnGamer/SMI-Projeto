@@ -207,7 +207,7 @@
                                             echo "<p style=\"background-color: coral;\">";
                                                 echo $comments[$j]['text'];
                                                 echo "<a style=\"float: right; margin: 0px 10px 0px 0px\">";
-                                                    echo "<small>" . "by " . getNameFromUser($comments[$j]['userId']) . "</small>";
+                                                    echo "<small>" . "by " . getNameFromUser($comments[$j]['userId']) . " on " . $comments[$j]['timestamp'] . "</small>";
                                                 echo "</a>";
                                             echo "</p>";
         
