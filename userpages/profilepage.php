@@ -20,6 +20,8 @@ switch ($role) {
     $articlesArray = getArticles($userId);
     break;
     case 'administrator':
+    $numarticlesUser = getnumArticles($userId);
+    $articlesArray = getArticles($userId);
     $isAdmin = true;
     break;
     case 'user':
