@@ -34,6 +34,7 @@
         if (isset($img)) {
             $mail->AddEmbeddedImage($img,'testImage',$img);
         }
+
         //Send HTML or Plain Text email
         $mail->isHTML(true);
 
@@ -44,7 +45,7 @@
             <h1>' . $title .'</h1>
             <img src="cid:testImage">
             <p>'. $context .'</p>
-            <a href="'.$nextUrl.'">Click here to be redirected</a>
+            <a href="smi/g37/'.$nextUrl.'">Click here to be redirected</a>
             <p>Best regards</p>
             </html></body>
             ';
