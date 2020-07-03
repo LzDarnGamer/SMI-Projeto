@@ -330,16 +330,24 @@
 
 	if($recordsInserted!=-1){
 		dbDisconnect();
-      	header("Location: profilepage.php");
-
+      	//header("Location: profilepage.php");
+		
       	#########################Newsletter############################
-
+		/*
 		$allEmails = getAllSubscriptions();
-		$nextUrl = "userpages/article.php?type=view&id=" . getNewestArticle()[0]['article_id'];
+		
 		
 		for ($i = 0; $i < sizeof($allEmails); $i ++) {
 			sendNewsletterEmail ($allEmails[$i]['email'], $nextUrl, $article_title, $article_context, $thumbFileName);
-		}
+		}*/
+		/*
+		$nextUrl = "userpages/article.php?type=view&id=" . getNewestArticle()[0]['article_id'];
+		$_SESSION['nextUrl'] = $nextUrl;
+		$_SESSION['title'] = $article_title;
+		$_SESSION['context'] = $article_context;
+		$_SESSION['img'] = $imageFileName;
+		*/
+		header ("Location: ../testmailer.php?nextUrl=" . $nextUrl ."&title=" . $article_title . "&context=" . $article_context . "&img=" . $imageFileName, true, 301);
 		##########################Newsletter############################
 
 
