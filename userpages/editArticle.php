@@ -79,21 +79,21 @@ $_SESSION['article'] = $article;
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
   <!-- CSS here -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="assets/css/slicknav.css">
-  <link rel="stylesheet" href="assets/css/flaticon.css">
-  <link rel="stylesheet" href="assets/css/price_rangs.css">
-  <link rel="stylesheet" href="assets/css/animate.min.css">
-  <link rel="stylesheet" href="assets/css/magnific-popup.css">
-  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-  <link rel="stylesheet" href="assets/css/themify-icons.css">
-  <link rel="stylesheet" href="assets/css/slick.css">
-  <link rel="stylesheet" href="assets/css/nice-select.css">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="../assets/css/slicknav.css">
+  <link rel="stylesheet" href="../assets/css/flaticon.css">
+  <link rel="stylesheet" href="../assets/css/price_rangs.css">
+  <link rel="stylesheet" href="../assets/css/animate.min.css">
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="../assets/css/themify-icons.css">
+  <link rel="stylesheet" href="../assets/css/slick.css">
+  <link rel="stylesheet" href="../assets/css/nice-select.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -317,16 +317,16 @@ function changeLanguage(type){
 
   <!-- JS here -->
   <!-- Jquery Mobile Menu -->
-  <script src="./assets/js/jquery.slicknav.min.js"></script>
+  <script src="../assets/js/jquery.slicknav.min.js"></script>
 
 
   <!-- Nice-select, sticky -->
-  <script src="./assets/js/jquery.nice-select.min.js"></script>
-  <script src="./assets/js/jquery.sticky.js"></script>
+  <script src="../assets/js/jquery.nice-select.min.js"></script>
+  <script src="../assets/js/jquery.sticky.js"></script>
 
   <!-- Jquery Plugins, main Jquery -->  
-  <script src="./assets/js/plugins.js"></script>
-  <script src="./assets/js/main.js"></script>
+  <script src="../assets/js/plugins.js"></script>
+  <script src="../assets/js/main.js"></script>
 
 
 </body>
