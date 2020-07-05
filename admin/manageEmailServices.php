@@ -37,17 +37,17 @@ if (!$isAdmin) {
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slicknav.css">
-    <link rel="stylesheet" href="assets/css/flaticon.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.css">
+    <link rel="stylesheet" href="../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/slick.css">
+    <link rel="stylesheet" href="../assets/css/nice-select.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
     <style>
         .btn {
@@ -128,106 +128,106 @@ if (!$isAdmin) {
                                     </td>
                                     <td>
                                         <input id="password-field" type="password" name="smtpPassword" value="<?php echo $auth_password; ?>" required="" class="single-input">    
-                                        </td>
-                                        <td>
-                                            <span toggle="#password-field" id="toggle-password" class="fa fa-fw fa-eye field-icon"></span>
-                                        </td>
-                                    </tr>
+                                    </td>
+                                    <td>
+                                        <span toggle="#password-field" id="toggle-password" class="fa fa-fw fa-eye field-icon"></span>
+                                    </td>
+                                </tr>
 
-                                    <script>
-                                        $("#toggle-password").click(function() {
-                                            $(this).toggleClass("fa-eye fa-eye-slash");
-                                            var input = $( "#password-field" );
-                                            if (input.attr("type") == "password") {
-                                                input.attr("type", "text");
-                                            } else {
-                                                input.attr("type", "password");
-                                            }
-                                        });
-                                    </script>
-                                </table>
+                                <script>
+                                    $("#toggle-password").click(function() {
+                                        $(this).toggleClass("fa-eye fa-eye-slash");
+                                        var input = $( "#password-field" );
+                                        if (input.attr("type") == "password") {
+                                            input.attr("type", "text");
+                                        } else {
+                                            input.attr("type", "password");
+                                        }
+                                    });
+                                </script>
+                            </table>
 
 
 
-                                <h3 style="margin-top: 10px;">POP3</h3>
-                                <table id="customers">
-                                    <tr>
-                                        <th>Server</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Visibility</th>
-                                    </tr>
+                            <h3 style="margin-top: 10px;">POP3</h3>
+                            <table id="customers">
+                                <tr>
+                                    <th>Server</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Visibility</th>
+                                </tr>
 
-                                    <tr>
-                                        <td>
-                                            <input type="text" name="pop3Server" value="<?php echo $pop3_server; ?>" class="single-input">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="pop3Username" value="<?php echo $pop3_username; ?>" class="single-input">
-                                        </td>
-                                        <td>
-                                            <input id="password-field1" type="password" name="pop3Password" value="<?php echo $pop3_password; ?>" class="single-input">  
-                                        </td>
-                                        <td>
-                                            <span toggle="#password-field" id="toggle-password1" class="fa fa-fw fa-eye field-icon"></span>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="pop3Server" value="<?php echo $pop3_server; ?>" class="single-input">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="pop3Username" value="<?php echo $pop3_username; ?>" class="single-input">
+                                    </td>
+                                    <td>
+                                        <input id="password-field1" type="password" name="pop3Password" value="<?php echo $pop3_password; ?>" class="single-input">  
+                                    </td>
+                                    <td>
+                                        <span toggle="#password-field" id="toggle-password1" class="fa fa-fw fa-eye field-icon"></span>
+                                    </td>
+                                </tr>
 
-                                    <script>
-                                        $("#toggle-password1").click(function() {
-                                            $(this).toggleClass("fa-eye fa-eye-slash");
-                                            let x = document.getElementById("password-field1");
-                                            if (x.type === "password") {
-                                                x.type = "text";
-                                            } else {
-                                                x.type = "password";
-                                            }
-                                        });
-                                    </script>
-                                </table>
+                                <script>
+                                    $("#toggle-password1").click(function() {
+                                        $(this).toggleClass("fa-eye fa-eye-slash");
+                                        let x = document.getElementById("password-field1");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    });
+                                </script>
+                            </table>
 
-                                <input type="submit" value="Update" style="margin-top: 10px;" >
-                            </form>
-                            <?php
-                        } 
-                    } else {
-                        echo "Error with ini email file";
-                    }?>
+                            <input type="submit" value="Update" style="margin-top: 10px;" >
+                        </form>
+                        <?php
+                    } 
+                } else {
+                    echo "Error with ini email file";
+                }?>
 
-                </div>
-                
             </div>
-
+            
         </div>
+
     </div>
+</div>
 
-    <style>
-        #customers {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
+<style>
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-        #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
 
-        #customers tr:nth-child(even){background-color: #f2f2f2;}
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
 
-        #customers tr:hover {background-color: #ddd;}
+    #customers tr:hover {background-color: #ddd;}
 
-        #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #fbd083;
-            color: white;
-        }
-    </style>
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #fbd083;
+        color: white;
+    }
+</style>
 
-    <!--Hero Area End-->
-    <!-- Popular Locations Start -->
+<!--Hero Area End-->
+<!-- Popular Locations Start -->
 
 
 </main>
@@ -241,36 +241,35 @@ if (!$isAdmin) {
 
 <!-- JS here -->
 <!-- All JS Custom Plugins Link Here here -->
-<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
-<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="./assets/js/popper.min.js"></script>
-<script src="./assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
 <!-- Jquery Mobile Menu -->
-<script src="./assets/js/jquery.slicknav.min.js"></script>
+<script src="../assets/js/jquery.slicknav.min.js"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
-<script src="./assets/js/owl.carousel.min.js"></script>
-<script src="./assets/js/slick.min.js"></script>
+<script src="../assets/js/owl.carousel.min.js"></script>
+<script src="../assets/js/slick.min.js"></script>
 <!-- One Page, Animated-HeadLin -->
-<script src="./assets/js/wow.min.js"></script>
-<script src="./assets/js/animated.headline.js"></script>
-<script src="./assets/js/jquery.magnific-popup.js"></script>
+<script src="../assets/js/wow.min.js"></script>
+<script src="../assets/js/animated.headline.js"></script>
+<script src="../assets/js/jquery.magnific-popup.js"></script>
 
 <!-- Nice-select, sticky -->
-<script src="./assets/js/jquery.nice-select.min.js"></script>
-<script src="./assets/js/jquery.sticky.js"></script>
+<script src="../assets/js/jquery.nice-select.min.js"></script>
+<script src="../assets/js/jquery.sticky.js"></script>
 
 <!-- contact js -->
-<script src="./assets/js/contact.js"></script>
-<script src="./assets/js/jquery.form.js"></script>
-<script src="./assets/js/jquery.validate.min.js"></script>
-<script src="./assets/js/mail-script.js"></script>
-<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+<script src="../assets/js/contact.js"></script>
+<script src="../assets/js/jquery.form.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script src="../assets/js/mail-script.js"></script>
+<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
 
-<!-- Jquery Plugins, main Jquery -->	
-<script src="./assets/js/plugins.js"></script>
-<script src="./assets/js/main.js"></script>
-
+<!-- Jquery Plugins, main Jquery -->    
+<script src="../assets/js/plugins.js"></script>
+<script src="../assets/js/main.js"></script>
 </body>
 </html>

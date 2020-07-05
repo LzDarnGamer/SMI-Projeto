@@ -17,12 +17,12 @@ $role = getRoleFromUser($userId);
 
 switch ($role) {
     case 'manager':
-        $numarticlesUser = getnumArticles($userId);
-        $articlesArray = getArticles($userId);
-        break;
+    $numarticlesUser = getnumArticles($userId);
+    $articlesArray = getArticles($userId);
+    break;
     case 'administrator':
-        $isAdmin = true;
-        break;
+    $isAdmin = true;
+    break;
 
 }
 
@@ -30,81 +30,81 @@ if (!$isAdmin) {
     if (isset($_SERVER["HTTP_REFERER"])) {
         header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
- }
+}
 
 ?>
 
 <html class="no-js" lang="zxx">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Manage Users</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Manage Users</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-		<!-- CSS here -->
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-            <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-            <link rel="stylesheet" href="assets/css/slicknav.css">
-            <link rel="stylesheet" href="assets/css/flaticon.css">
-            <link rel="stylesheet" href="assets/css/animate.min.css">
-            <link rel="stylesheet" href="assets/css/magnific-popup.css">
-            <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-            <link rel="stylesheet" href="assets/css/themify-icons.css">
-            <link rel="stylesheet" href="assets/css/slick.css">
-            <link rel="stylesheet" href="assets/css/nice-select.css">
-            <link rel="stylesheet" href="assets/css/style.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.css">
+    <link rel="stylesheet" href="../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/slick.css">
+    <link rel="stylesheet" href="../assets/css/nice-select.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
-        <style>
-            .btn {
-                background-color: #f7a784;
-                border: none;
-                color: white;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                cursor: pointer;
-                margin-right: 15px;
-            }   
+    <style>
+        .btn {
+            background-color: #f7a784;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 15px;
+        }   
 
-        </style>
+    </style>
 
-   
-        </head>
+    
+</head>
 
-   <body>
+<body>
 
    <?php include_once("../Page_Elements/preloader.php") ?>
-    
-    <main>
-        <?php include_once("../Page_Elements/header.php") ?>
-        <!-- Hero Area Start-->
-        <div class="slider-area hero-overly">
-            <div class="single-slider hero-overly  slider-height d-flex align-items-center">
-                <div class="container" style="width: 100%; height: 500px; text-align: center;">
-                    <div class="section-tittle text-center mb-80">
-                            <span><?php if (!$isAdmin) { echo "No permissions to be in this page"; } else { echo "Manage Users"; } ?></span>
+   
+   <main>
+    <?php include_once("../Page_Elements/header.php") ?>
+    <!-- Hero Area Start-->
+    <div class="slider-area hero-overly">
+        <div class="single-slider hero-overly  slider-height d-flex align-items-center">
+            <div class="container" style="width: 100%; height: 500px; text-align: center;">
+                <div class="section-tittle text-center mb-80">
+                    <span><?php if (!$isAdmin) { echo "No permissions to be in this page"; } else { echo "Manage Users"; } ?></span>
+                </div>
+                <div class="section-top-border">
+                 <div class="progress-table-wrap">
+                  <div class="progress-table">
+                    <div class="table-head">
+                        <div class="serial">#</div>
+                        <div class="country">Name</div>
+                        <div class="visit">Delete</div>
+                        <div class="percentage">Roles</div>
+                        <div class="percentage">Roles</div>
                     </div>
-                    <div class="section-top-border">
-					<div class="progress-table-wrap">
-						<div class="progress-table">
-                            <div class="table-head">
-								<div class="serial">#</div>
-								<div class="country">Name</div>
-								<div class="visit">Delete</div>
-                                <div class="percentage">Roles</div>
-                                <div class="percentage">Roles</div>
-                            </div>
-                            <?php
-                                $users = getAllUsers();
-                                $ids = getAllIds();
-                                for ($i = 0; $i < count($users); $i ++) {
-                                    $_role = getRoleFromUser($ids[$i]);
-                                    if ($ids[$i] != $userId && $_role != "administrator") {
-                                    ?>
+                    <?php
+                    $users = getAllUsers();
+                    $ids = getAllIds();
+                    for ($i = 0; $i < count($users); $i ++) {
+                        $_role = getRoleFromUser($ids[$i]);
+                        if ($ids[$i] != $userId && $_role != "administrator") {
+                            ?>
                             
                             <form method="POST" action="loadUpdate.php" onsubmit="clicked<?php echo $i; ?>()">
                                 <div class="table-row">
@@ -159,37 +159,37 @@ if (!$isAdmin) {
                                 </div>
                             </form>
 
-                            <?php }
-                            }
-                            ?>
-						</div>
-					</div>
-				</div>
+                        <?php }
+                    }
+                    ?>
                 </div>
-
             </div>
         </div>
-        <!--Hero Area End-->
-        <!-- Popular Locations Start -->
-        <?php
-        $a = false;
-        if($a) {
-            if($numarticlesUser <=0) {
-                ?>
-                <div class="popular-location section-padding30">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Section Tittle -->
-                                <div class="section-tittle text-center mb-80">
-                                    <span>No articles to show, it's time to write some</span>
-                                </div>
-                            </div>
+    </div>
+
+</div>
+</div>
+<!--Hero Area End-->
+<!-- Popular Locations Start -->
+<?php
+$a = false;
+if($a) {
+    if($numarticlesUser <=0) {
+        ?>
+        <div class="popular-location section-padding30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle text-center mb-80">
+                            <span>No articles to show, it's time to write some</span>
                         </div>
                     </div>
                 </div>
-                <?php
-        }else {
+            </div>
+        </div>
+        <?php
+    }else {
         
         ?>
 
@@ -208,56 +208,59 @@ if (!$isAdmin) {
                 </div>
             </div>
         </div>
-        <?php }
-        }?>
-       
-
-    </main>
-    <footer>
-
-        <?php 
-        if(isset($articlesArray))
-            echo var_dump($articlesArray); 
-        ?>
-    </footer>
-    <!-- Scroll Up -->
-    <div id="back-top" >
-        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-    </div>
+    <?php }
+}?>
 
 
-    <!-- JS here -->
-		<!-- All JS Custom Plugins Link Here here -->
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
+</main>
+<footer>
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-		<!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-		<script src="./assets/js/animated.headline.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
+    <?php 
+    if(isset($articlesArray))
+        echo var_dump($articlesArray); 
+    ?>
+</footer>
+<!-- Scroll Up -->
+<div id="back-top" >
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
 
-		<!-- Nice-select, sticky -->
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-		<script src="./assets/js/jquery.sticky.js"></script>
-        
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-        
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-        
-    </body>
+
+
+
+<!-- JS here -->
+<!-- All JS Custom Plugins Link Here here -->
+<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="../assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="../assets/js/owl.carousel.min.js"></script>
+<script src="../assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="../assets/js/wow.min.js"></script>
+<script src="../assets/js/animated.headline.js"></script>
+<script src="../assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Nice-select, sticky -->
+<script src="../assets/js/jquery.nice-select.min.js"></script>
+<script src="../assets/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="../assets/js/contact.js"></script>
+<script src="../assets/js/jquery.form.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script src="../assets/js/mail-script.js"></script>
+<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->    
+<script src="../assets/js/plugins.js"></script>
+<script src="../assets/js/main.js"></script>
+
+
+</body>
 </html>
