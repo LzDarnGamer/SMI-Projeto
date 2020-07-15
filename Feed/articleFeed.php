@@ -146,7 +146,7 @@
 
                     for ($i = 0; $i < sizeof($articlesArray); $i ++) {
 
-                        if((!$loggedIn && $articlesArray[$i]['visible'] != 0) || ($loggedIn)) {
+                        if(($loggedIn && $articlesArray[$i]['visible'] != 0)) {
                             if (isset($FilterCategory)) {
                                 if (getcategoryName($articlesArray[$i]['article_categorie_id']) != $FilterCategory) {
                                     $counter ++;
