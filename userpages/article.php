@@ -58,6 +58,14 @@ if($article == null){
     $title = "Invalid Arguments";
     $info = "Invalid Arguments Found";
     header("Location: ../responsePage.php?title=$title&info=$info");
+    exit();
+}
+
+if(getPosterID($articleid) != $userId && $article['visible']!=1){
+    $title = "Hidden Content";
+    $info = "This content is hidden by owner";
+    header("Location: ../responsePage.php?title=$title&info=$info");
+    exit();
 }
 $fileDetails = getFileDetails($article['article_image']);
 
@@ -70,7 +78,7 @@ $fileDetails = getFileDetails($article['article_image']);
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
