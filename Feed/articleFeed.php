@@ -14,6 +14,11 @@
     
     $users = getAllIds();
     $articlesArray = getAllArticles();
+
+    $role = getRoleFromUser($userId);
+
+    $isAdmin = false;
+    if ($role == "administrator") { $isAdmin = true; }
     
     /*for ($i = 0; $i < sizeof($users); $i ++) {
         $articlesArray = getArticles($users[$i]);
@@ -146,7 +151,7 @@
 
                     for ($i = 0; $i < sizeof($articlesArray); $i ++) {
 
-                        if((!$loggedIn && $articlesArray[$i]['visible'] != 0) || ($loggedIn)) {
+                        if(($loggedIn && $articlesArray[$i]['visible'] != 0) || ($loggedIn && $isAdmin)) {
                             if (isset($FilterCategory)) {
                                 if (getcategoryName($articlesArray[$i]['article_categorie_id']) != $FilterCategory) {
                                     $counter ++;
@@ -295,9 +300,7 @@
                                 ?>
                             </ul>
                         </form>
-                    </aside>
-
-                    
+                    </aside>                    
 
 
                     <aside class="single_sidebar_widget newsletter_widget">
