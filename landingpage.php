@@ -9,13 +9,10 @@ $baseUrl = url();
 if (!isset($_SESSION) ) {
     session_start();
 }
-if(isset($_SESSION['id']) && isset($_SESSION['username'])){
-    $userId = $_SESSION['id'];
-    $username = $_SESSION['username'];
-    $countsPerCat = countArticlesPerCategory();
-}else{
-    $countsPerCat = countArticlesPerCategory(1);
-}
+
+$userId = $_SESSION['id'];
+$username = $_SESSION['username'];
+$countsPerCat = countArticlesPerCategory();
 for ($i=0; $i < count($countsPerCat); $i++) { 
     $countsCatNames[] = getcategoryName($countsPerCat[$i][0]);
 }
